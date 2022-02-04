@@ -3,5 +3,10 @@
   }
 
 .readingMapBar {
+    position: absolute;
+    left: 0;
+    right: 0;
     background-color: green;
+    height: 100%;
+    width: 5%;
 }

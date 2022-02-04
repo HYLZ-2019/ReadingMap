@@ -8,7 +8,10 @@ chrome.storage.sync.get("color", ({ color }) => {
 // When the button is clicked, inject the code files into current page.
 changeColor.addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
+  chrome.scripting.insertCSS({
+    target: { tabId: tab.id },
+    files: ['mapbar.css']
+  });
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     files: ['backend.js', 'mapbar.js']

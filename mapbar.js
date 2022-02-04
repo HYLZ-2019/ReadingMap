@@ -8,15 +8,7 @@ function showBar() {
         // Create a new bar.
         sideBar = document.createElement("div");
         sideBar.setAttribute("id", "ReadingMapBar");
-        sideBar.setAttribute("class", "readingMapBar");
-        
-        // Insert the stylesheet.
-        let style = document.createElement("link");
-        style.setAttribute("rel", "stylesheet");
-        style.setAttribute("href", "mapbar.css");
-        document.body.appendChild(style);
-        
-        // Insert the bar.
+        sideBar.setAttribute("class", "readingMapBar");        
         document.body.appendChild(sideBar);
     }
     let data = loadData();
