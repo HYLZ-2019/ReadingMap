@@ -2,11 +2,22 @@
     background-color: yellow;
   }
 
-.readingMapBar {
-    position: absolute;
-    left: 0;
-    right: 0;
+
+#readingMapBar {
     background-color: green;
     height: 100%;
-    width: 5%;
+    width: 3%;
+}
+
+#readingMapBigBox {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+#readingMapIframe {
+  height: 100%;
+  width: 97%;
 }
