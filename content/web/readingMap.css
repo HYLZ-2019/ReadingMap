@@ -1,0 +1,28 @@
+#readingMapBigBox {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+  
+#originalViewer {
+    height: 100%;
+    width: 97%;
+}
+
+#readingMapBar {
+    height: 100%;
+    width: 3%;
+    background-color: white;
+}
+
+#readingMapBarSVG {
+    height: 100%;
+    width: 100%;
+
+}
+
+.readingMapBarBlock {
+    stroke: none;
+}
