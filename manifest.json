@@ -23,7 +23,7 @@
    },
    "incognito": "split",
    "manifest_version": 2,
-   "name": "ReadingMap (PDF Reader Modified)",
+   "name": "ReadingMap (PDF Viewer Modified)",
    "options_page": "options/options.html",
    "options_ui": {
       "chrome_style": true,
@@ -34,7 +34,6 @@
          "19": "icon19.png",
          "38": "icon38.png"
       },
-      "default_popup": "pageActionPopup.html",
       "default_title": "Show PDF URL"
    },
    "permissions": [ "fileBrowserHandler", "webRequest", "webRequestBlocking", "\u003Call_urls>", "tabs", "webNavigation", "storage" ],

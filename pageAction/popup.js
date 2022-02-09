@@ -22,4 +22,6 @@ if (url) {
   // Set cursor to end of the content-editable section.
   window.getSelection().selectAllChildren(document.body);
   window.getSelection().collapseToEnd();
+
+  // TODO: 在这里（popup.html+popup.js）里加一个按钮，用来“手动开始记录这个pdf的阅读进度”。
 }
