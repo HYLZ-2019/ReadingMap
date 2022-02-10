@@ -1,9 +1,29 @@
 console.log("Hello Map!");
 var SVG_NS = 'http://www.w3.org/2000/svg';
 
-// The user can "read" the page by staying on it for minReadMilliseconds.
-// TODO: Change it to a parameter in settings.
-var minReadMilliseconds = 2 * 1000;
+
+
+// The class storing user preferences. Preferences can be modified in options.html.
+class ReadingMapPreferences {
+    constructor(){
+        // The default settings.
+
+        // The user can "read" the page by staying on it for minReadMilliseconds.
+        this.minReadMilliseconds = 2 * 1000;
+
+        // Pages read for >= maxReadTimes times are all the same color.
+        this.maxReadTimes = 5;
+
+        // Colors to represent different reading times.
+        this.barColors = [];
+        for (let i=0; i<=this.maxReadTimes; i++){
+            let opacity =  i/this.maxReadTimes;
+            let color = "rgba(0, 255, 0, " + opacity + ")";
+            this.barColors.push(color);
+        }
+
+    }
+}
 
 class ReadingMapMetadata {
     constructor(pages){
@@ -29,6 +49,9 @@ class ReadingMapRecord {
         }
     }
 }
+
+// The ReadingMapPreferences object storing the user's preferences.
+var rmUserPrefs;
 
 // The ReadingMapMetadata object for this tab.
 var pdfMetadata;
@@ -63,9 +86,14 @@ function completeLoad(before){
     
     rmPreviousPage = rmGetCurrentPage();
     rmStartTime = new Date();
+
+    rmUserPrefs = localStorage.getItem("rmUserPrefs");
+    if (!rmUserPrefs){
+        rmUserPrefs = new ReadingMapPreferences();
+    }
     
     // TODO: Initialize pdfMetadata with real data acquired from the viewer.
-    pdfMetadata = new ReadingMapMetadata(5);
+    pdfMetadata = new ReadingMapMetadata(510);
     // TODO: Check if we have records for this pdf and read it from the disc.
     pdfRecord = new ReadingMapRecord(pdfMetadata);
     
@@ -75,7 +103,6 @@ function completeLoad(before){
     window.addEventListener("wheel", rmUpdate);
     window.addEventListener("click", rmUpdate);
     window.addEventListener("keydown", rmUpdate);
-
 }
 
 function rmGetCurrentPage(){
@@ -92,7 +119,7 @@ function rmUpdate(e){
     
     // The page number has changed.
     let timenow = new Date();
-    if (timenow.getTime() - rmStartTime.getTime() > minReadMilliseconds) {
+    if (timenow.getTime() - rmStartTime.getTime() > rmUserPrefs.minReadMilliseconds) {
         pdfRecord.readTimes[rmPreviousPage-1] += 1;
     }
     rmSetPageColor(rmPreviousPage-1, pdfRecord.readTimes[rmPreviousPage-1]);
@@ -120,15 +147,10 @@ function rmInitializeBar(){
 // Set the color of the rectangle for page pagenum according to the times it has been read.
 function rmSetPageColor(pagenum, times){
     let rect = document.getElementById("readingMapBarSVG").childNodes[pagenum];
-    let color = rmGetColor(times);
+    let color = rmUserPrefs.barColors[times];
     rect.setAttribute("fill", color);
 }
 
-function rmGetColor(times){
-    let opacity = times > 5 ? 1 : times/5;
-    let color = "rgba(0, 255, 0, " + opacity + ")";
-    return (color);
-}
 
 function rmRenderBar(){
     for (let i=0; i<pdfMetadata.pages; i++){
