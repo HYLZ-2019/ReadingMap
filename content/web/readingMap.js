@@ -26,11 +26,18 @@ class ReadingMapPreferences {
 }
 
 class ReadingMapMetadata {
-    constructor(pages){
-        // TODO: add other metadata.
+    constructor(){
+        // The pdf's title.
+        this.title = document.getElementsByTagName("title")[0].innerText;
+
+        // The file path.
+        this.path = window.location.pathname;
 
         // How many pages are in this pdf.
-        this.pages = pages;
+        this.pages = window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo.numPages;
+
+        // The fingerprint identifier provided by pdf.js.
+        this.fingerprint = window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo.fingerprint;
     }
 }
 
@@ -73,7 +80,8 @@ function viewerOnLoad(){
     let before = new Date();
     //while (!window.PDFViewerApplication.pdfViewer){}
     let checkExist = setInterval(function() {
-        if (window.PDFViewerApplication.pdfViewer !== null) {
+        // Wait until the whole family is neither null nor undefined.
+        if (window.PDFViewerApplication.pdfViewer && window.PDFViewerApplication.pdfViewer.pdfDocument && window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo && window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo.numPages) {
            clearInterval(checkExist);
            completeLoad(before);
         }
@@ -92,8 +100,8 @@ function completeLoad(before){
         rmUserPrefs = new ReadingMapPreferences();
     }
     
-    // TODO: Initialize pdfMetadata with real data acquired from the viewer.
-    pdfMetadata = new ReadingMapMetadata(510);
+    // Initialize pdfMetadata with real data acquired from the viewer.
+    pdfMetadata = new ReadingMapMetadata();
     // TODO: Check if we have records for this pdf and read it from the disc.
     pdfRecord = new ReadingMapRecord(pdfMetadata);
     
