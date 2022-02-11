@@ -39,26 +39,49 @@ class ReadingMapMetadata {
         // The fingerprint identifier provided by pdf.js.
         this.fingerprint = window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo.fingerprint;
     }
+
+    toString(){
+        // TODO: Use a unique & more compact representation!
+        return JSON.stringify(this);
+    }
 }
 
 // The class for [ All recorded data for a single PDF ].
 class ReadingMapRecord {
-    constructor(metadata) {
-        // Metadata about "which pdf this is for".
-        this.metadata = metadata;
+    constructor(initstring) {
+        if (initstring == undefined) {
+            // Grab information from the current page.
+            // Metadata about "which pdf this is for".
+            this.metadata = pdfMetadata;
 
-        let pages = metadata.pages;
+            let pages = this.metadata.pages;
 
-        // An array in which readTimes[i-1] is how many times the ith page has been read. 
-        this.readTimes = [];
-        for (let i=0; i<pages; i++){
-            this.readTimes.push(0);
+            // An array in which readTimes[i-1] is how many times the ith page has been read. 
+            this.readTimes = [];
+            for (let i=0; i<pages; i++){
+                this.readTimes.push(0);
+            }
         }
+        else {
+            console.log(initstring);
+            // TODO: make this more elegant.
+            let obj = JSON.parse(initstring);
+            this.metadata = obj.metadata;
+            this.pages = obj.pages;
+            this.readTimes = obj.readTimes;
+        }
+    }
+    toString(){
+        // TODO: Use a more compact representation.
+        return JSON.stringify(this);
     }
 }
 
 // The ReadingMapPreferences object storing the user's preferences.
 var rmUserPrefs;
+
+// The Set of metadatas for pdfs that we keep track of. Currently it is stored as JSON.stringify(Array).
+var rmMetadataSet;
 
 // The ReadingMapMetadata object for this tab.
 var pdfMetadata;
@@ -76,9 +99,19 @@ window.addEventListener("load", viewerOnLoad);
 
 
 function viewerOnLoad(){
+    // Load rmMetadataSet. (It doesn't need to wait for pdfViewer.)
+    rmMetadataSetString = localStorage.getItem("rmMetadataSet");
+    console.log(rmMetadataSetString);
+    if (rmMetadataSetString == null){
+        rmMetadataSet = new Set();
+        localStorage.setItem("rmMetadataSet", JSON.stringify(Array.from(rmMetadataSet)));
+    }
+    else{
+        rmMetadataSet = new Set(JSON.parse(rmMetadataSetString));
+    }
+
     // Wait for pdfViewer to load.
     let before = new Date();
-    //while (!window.PDFViewerApplication.pdfViewer){}
     let checkExist = setInterval(function() {
         // Wait until the whole family is neither null nor undefined.
         if (window.PDFViewerApplication.pdfViewer && window.PDFViewerApplication.pdfViewer.pdfDocument && window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo && window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo.numPages) {
@@ -102,8 +135,19 @@ function completeLoad(before){
     
     // Initialize pdfMetadata with real data acquired from the viewer.
     pdfMetadata = new ReadingMapMetadata();
-    // TODO: Check if we have records for this pdf and read it from the disc.
-    pdfRecord = new ReadingMapRecord(pdfMetadata);
+    
+    // Check if we have records for this pdf.
+    // TODO: Extend the memory to chrome.Storage(Which has unlimited storage.)
+    if (rmMetadataSet.has(pdfMetadata.toString())){
+        // TODO: This direct method may cause problems.
+        pdfRecord = new ReadingMapRecord(localStorage.getItem(pdfMetadata.toString()));
+    }
+    else{
+        pdfRecord = new ReadingMapRecord();
+        localStorage.setItem(pdfMetadata.toString(), pdfRecord.toString());
+        rmMetadataSet.add(pdfMetadata.toString());
+        localStorage.setItem("rmMetadataSet", JSON.stringify(Array.from(rmMetadataSet)));
+    }
     
     rmInitializeBar();
     rmRenderBar();
@@ -134,6 +178,9 @@ function rmUpdate(e){
     
     rmPreviousPage = currentpage;
     rmStartTime = timenow;
+
+    // Save the changes.
+    localStorage.setItem(pdfMetadata.toString(), pdfRecord.toString());
 }
 
 function rmInitializeBar(){
