@@ -23,6 +23,10 @@ class ReadingMapPreferences {
         }
 
     }
+    getBarColor(times){
+        times = times > this.maxReadTimes? this.maxReadTimes : times;
+        return this.barColors[times];
+    }
 }
 
 class ReadingMapMetadata {
@@ -202,7 +206,7 @@ function rmInitializeBar(){
 // Set the color of the rectangle for page pagenum according to the times it has been read.
 function rmSetPageColor(pagenum, times){
     let rect = document.getElementById("readingMapBarSVG").childNodes[pagenum];
-    let color = rmUserPrefs.barColors[times];
+    let color = rmUserPrefs.getBarColor(times);
     rect.setAttribute("fill", color);
 }
 
