@@ -15,6 +15,8 @@
 
 'use strict';
 
+console.log("popup");
+/*
 var url = location.search.match(/[&?]file=([^&]+)/i);
 if (url) {
   url = decodeURIComponent(url[1]);
@@ -24,4 +26,13 @@ if (url) {
   window.getSelection().collapseToEnd();
 
   // TODO: 在这里（popup.html+popup.js）里加一个按钮，用来“手动开始记录这个pdf的阅读进度”。
+}*/
+
+window.addEventListener("load", popupOnLoad);
+
+function popupOnLoad(){
+  document.getElementById("optionsButton").addEventListener("click", turnToOptions);
+}
+function turnToOptions(){
+  chrome.tabs.create({url: "chrome://extensions/?options=gnpijndnjicgjlnfkkcfjdphbfaocgjm"});
 }

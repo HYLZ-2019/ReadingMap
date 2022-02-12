@@ -16,29 +16,12 @@ limitations under the License.
 -->
 <html>
 <head>
-<meta charset="utf-8">
-<title></title>
-<style>
-html {
-    /* maximum width of popup as defined in Chromium's source code as kMaxWidth
-       //src/chrome/browser/ui/views/extensions/extension_popup.cc
-       //src/chrome/browser/ui/gtk/extensions/extension_popup_gtk.cc
-     */
-    width: 800px;
-    /* in case Chromium decides to lower the value of kMaxWidth */
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-}
-body {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 5px;
-    width: 100%;
-}
-</style>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="popup.css">
+    <script src="popup.js"></script>
 </head>
 <body contentEditable="plaintext-only" spellcheck="false">
-<script src="popup.js"></script>
+    <a id="optionsButton"> Options </a>
 </body>
 </html>
