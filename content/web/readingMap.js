@@ -186,11 +186,15 @@ function rmUpdate(e){
     }
     
     // The page number has changed.
+    // Reload the data to sync modifications by other tabs.
+    pdfRecord = new ReadingMapRecord(localStorage.getItem(pdfMetadata.toString()));
+
     let timenow = new Date();
     if (timenow.getTime() - rmStartTime.getTime() > rmUserPrefs.minReadMilliseconds) {
         pdfRecord.readTimes[rmPreviousPage-1] += 1;
     }
-    rmSetPageColor(rmPreviousPage-1, pdfRecord.readTimes[rmPreviousPage-1]);
+    //rmSetPageColor(rmPreviousPage-1, pdfRecord.readTimes[rmPreviousPage-1]);
+    rmRenderBar();
     
     rmPreviousPage = currentpage;
     rmStartTime = timenow;
