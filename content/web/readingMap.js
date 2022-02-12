@@ -5,21 +5,29 @@ var SVG_NS = 'http://www.w3.org/2000/svg';
 
 // The class storing user preferences. Preferences can be modified in options.html.
 class ReadingMapPreferences {
-    constructor(){
-        // The default settings.
+    constructor(initstring){
+        if (initstring == undefined) {
+            // The default settings.
 
-        // The user can "read" the page by staying on it for minReadMilliseconds.
-        this.minReadMilliseconds = 2 * 1000;
+            // The user can "read" the page by staying on it for minReadMilliseconds.
+            this.minReadMilliseconds = 2 * 1000;
 
-        // Pages read for >= maxReadTimes times are all the same color.
-        this.maxReadTimes = 5;
+            // Pages read for >= maxReadTimes times are all the same color.
+            this.maxReadTimes = 5;
 
-        // Colors to represent different reading times.
-        this.barColors = [];
-        for (let i=0; i<=this.maxReadTimes; i++){
-            let opacity =  i/this.maxReadTimes;
-            let color = "rgba(0, 255, 0, " + opacity + ")";
-            this.barColors.push(color);
+            // Colors to represent different reading times.
+            this.barColors = [];
+            for (let i=0; i<=this.maxReadTimes; i++){
+                let opacity =  i/this.maxReadTimes;
+                let color = "rgba(0, 255, 0, " + opacity + ")";
+                this.barColors.push(color);
+            }
+        }
+        else {
+            let obj = JSON.parse(initstring);
+            this.minReadMilliseconds = obj.minReadMilliseconds;
+            this.maxReadTimes = obj.maxReadTimes;
+            this.barColors = obj.barColors;
         }
 
     }
@@ -132,9 +140,13 @@ function completeLoad(before){
     rmPreviousPage = rmGetCurrentPage();
     rmStartTime = new Date();
 
-    rmUserPrefs = localStorage.getItem("rmUserPrefs");
-    if (!rmUserPrefs){
+    let rmUserPrefsString = localStorage.getItem("rmUserPrefs");
+    if (!rmUserPrefsString){
         rmUserPrefs = new ReadingMapPreferences();
+        localStorage.setItem("rmUserPrefs", JSON.stringify(rmUserPrefs));
+    }
+    else{
+        rmUserPrefs = new ReadingMapPreferences(rmUserPrefsString);
     }
     
     // Initialize pdfMetadata with real data acquired from the viewer.
