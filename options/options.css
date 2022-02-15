@@ -4,3 +4,21 @@
     margin: 0.5em;
     border-radius: 1em;
 }
+
+#setColors-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#setColorsSVG {
+    height: 3em;
+    width: 80%;
+    margin: 1em;
+    background-color: white;
+}
+
+.colorSettingBarBlock {
+
+}

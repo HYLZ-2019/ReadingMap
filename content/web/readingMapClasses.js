@@ -1,5 +1,8 @@
 // Definitions of readingMap classes.
 
+// This is needed for all SVG drawing.
+var SVG_NS = 'http://www.w3.org/2000/svg';
+
 // The class storing user preferences. Preferences can be modified in options.html.
 class ReadingMapPreferences {
     constructor(initstring){
