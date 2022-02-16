@@ -70,22 +70,8 @@ function rmInitColorBar(colorNum, leftcolor, rightcolor){
     document.getElementById("maxColorNumber").innerText = colorNum;
 }
 
-calcMiddleColor
-function calcMiddleColor(left, right, total, seq){
-    // First parse the rgba() strings.
-    // TODO: Assert that left & right are strings in format "rgba(0,255,0,0.5)".
-    rgbaStr = /^rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([+-]?\d+(\.\d+)?)\s*\)$/i;
-    leftnum = left.match(rgbaStr);
-    rightnum = right.match(rgbaStr);
-    calced = [];
-    for (let i=1; i<=4; i++){
-        // leftnum[1], leftnum[2], leftnum[3] and leftnum[4] are RGBA respectively (in string).
-        // Linear interpolation.
-        let ans = parseFloat(leftnum[i]) + (parseFloat(rightnum[i]) - parseFloat(leftnum[i])) * seq / total;
-        calced.push(ans);
-    }
-    return ("rgba(" + calced[0] + ", " + calced[1] + ", " + calced[2] + ", " + calced[3] + ")");
-}
+
+
 
 function rmColorNumOnChange(){
     let newnum = parseInt(document.getElementById("numOfColors").value);
