@@ -25,7 +25,7 @@ function rmShowPreferences(prefs){
     // prefs is a ReadingMapPreferences object.
     document.getElementById("minReadSeconds").value = prefs.minReadMilliseconds / 1000;
     document.getElementById("numOfColors").value = prefs.maxReadTimes;
-    rmInitColorBar(prefs.maxReadTimes, prefs.barColors[0], prefs.barColors[prefs.maxReadTimes]);
+    rmInitColorBar(prefs.maxReadTimes, prefs.barColors);
 }
 
 function rmSaveAllOptions(){
@@ -39,7 +39,9 @@ function rmSaveAllOptions(){
     rmUserPrefs.maxReadTimes = parseInt(document.getElementById("numOfColors").value);
     rmUserPrefs.barColors = [];
     for (let i=0; i<=rmUserPrefs.maxReadTimes; i++){
-        let color = document.getElementById("setColorsSVG").childNodes[i].getAttribute("fill");
+        // The selector is in a wrapper.
+        let color = document.getElementById("setColorsSelectorBox").childNodes[i].firstChild.value;
+        color = hexToRgb(color);
         console.log(color);
         rmUserPrefs.barColors.push(color);
     }
@@ -48,25 +50,39 @@ function rmSaveAllOptions(){
     localStorage.setItem("rmUserPrefs", JSON.stringify(rmUserPrefs));
 }
 
-function rmInitColorBar(colorNum, leftcolor, rightcolor){
-    let svg = document.getElementById("setColorsSVG");
+
+/**
+ * @param {int} colorNum: Draw a bar with colorNum + 1 color selectors.
+ * @param {Array<string>} colorArray: Array of colorNum + 1 "rgb(0,255,0)" strings.
+ * @returns
+ */
+function rmInitColorBar(colorNum, colorArray){
+    let box = document.getElementById("setColorsSelectorBox");
     // Clean all previous children.
-    while (svg.firstChild){
-        svg.removeChild(svg.firstChild);
+    while (box.firstChild){
+        box.removeChild(box.firstChild);
     }
-    // Draw a rectangle for each color.
+    // Add a color selector for each color.
     for (let i=0; i<=colorNum; i++){
-        let rect = document.createElementNS(SVG_NS, "rect");
-        rect.setAttribute("class", "colorSettingBarBlock");
-        rect.setAttribute("x", 100*i);
-        rect.setAttribute("y", 0);
-        rect.setAttribute("width", 100);
-        rect.setAttribute("height", 100);
-        rect.setAttribute("fill", calcMiddleColor(leftcolor, rightcolor, colorNum, i));
-        svg.appendChild(rect);
+        let sel = document.createElement("input");
+        sel.setAttribute("type", "color");
+        sel.setAttribute("class", "colorSettingBarBlock");
+        sel.value = rgbToHex(colorArray[i]);
+
+        // Hide the annoying "background" area by using a workaround: put each selector in a wrapper, set the selector as invisible, and color the wrapper.
+        let wrap = document.createElement("div");
+        wrap.setAttribute("class", "colorSettingBarBlockWrapper");
+        wrap.style.backgroundColor = sel.value;
+        wrap.style.width = String(100/(colorNum+1)) + "%";
+
+        box.appendChild(wrap);
+        wrap.appendChild(sel);
+
+        sel.addEventListener("change", function(){
+            this.parentNode.style.backgroundColor = this.value;
+        })
+
     }
-    svg.setAttribute("viewBox", "0 0 " + (colorNum + 1)*100 + " 100");
-    svg.setAttribute("preserveAspectRatio", "none");
     document.getElementById("maxColorNumber").innerText = colorNum;
 }
 
@@ -75,7 +91,10 @@ function rmInitColorBar(colorNum, leftcolor, rightcolor){
 
 function rmColorNumOnChange(){
     let newnum = parseInt(document.getElementById("numOfColors").value);
-    console.log(newnum);
-    // Use the colors in the saved preference.
-    rmInitColorBar(newnum, rmUserPrefs.barColors[0], rmUserPrefs.barColors[rmUserPrefs.maxReadTimes]);
+    // Interpolate between first color and last color.
+    let box = document.getElementById("setColorsSelectorBox");
+    let leftcolor = hexToRgb(box.firstChild.firstChild.value);
+    let rightcolor = hexToRgb(box.lastChild.firstChild.value);
+    let colors = calcMiddleColors(leftcolor, rightcolor, newnum);
+    rmInitColorBar(newnum, colors);
 }

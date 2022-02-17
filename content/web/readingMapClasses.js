@@ -5,27 +5,67 @@ var SVG_NS = 'http://www.w3.org/2000/svg';
 // TODO: They don't belong to this file name. Refactor as soon as possible.
 
 /**
- * Parse "rgb(0,255,0)" strings and linear interpolate a value between them.
- * @param {one color} left 
- * @param {another color} right 
- * @param {how many intermediate colors} total 
- * @param {the wanted color's sequence} seq 
- * @returns The color string representing left + (right-left)*total/seq.
+ * Parse "rgb(0,255,0)" strings and linear interpolate values between them.
+ * @param {string} left: one color
+ * @param {string} right: another color 
+ * @param {int} total: how many intermediate colors 
+ * @returns {Array<string>} total + 1 "rgb(0,255,0)" strings.
  */
-function calcMiddleColor(left, right, total, seq){
+function calcMiddleColors(left, right, total){
     // First parse the rgb() strings.
     // TODO: Assert that left & right are strings in format "rgb(0,255,0)".
-    rgbaStr = /^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i;
-    leftnum = left.match(rgbaStr);
-    rightnum = right.match(rgbaStr);
-    calced = [];
-    for (let i=1; i<=3; i++){
-        // leftnum[1], leftnum[2] and leftnum[3] are RGB respectively (in string).
-        // Linear interpolation.
-        let ans = parseFloat(leftnum[i]) + (parseFloat(rightnum[i]) - parseFloat(leftnum[i])) * seq / total;
-        calced.push(ans);
+    let rgbStr = /^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i;
+    let leftnum = left.match(rgbStr);
+    let rightnum = right.match(rgbStr);
+    let res = [];
+    for (let seq = 0; seq <= total; seq++){
+        let calced = [];
+        for (let i=1; i<=3; i++){
+            // leftnum[1], leftnum[2] and leftnum[3] are RGB respectively (in string).
+            // Linear interpolation.
+            let ans = parseFloat(leftnum[i]) + (parseFloat(rightnum[i]) - parseFloat(leftnum[i])) * seq / total;
+            ans = Math.round(ans);
+            calced.push(ans);
+        }
+        res.push("rgb(" + calced[0] + ", " + calced[1] + ", " + calced[2] + ")");
     }
-    return ("rgb(" + calced[0] + ", " + calced[1] + ", " + calced[2] + ")");
+    return res;
+}
+
+/**
+ * @param {string} hexstr: The hex string, such as "#00ff00".
+ * @returns {string} The rgb string, such as "rgb(0, 255, 0)".
+ */
+function hexToRgb(hexstr) {
+    let hexReg = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
+    let hex = hexstr.match(hexReg);
+    let rgb = [];
+    for (let i=1; i<=3; i++){
+        rgb.push(parseInt(hex[i], 16));
+    }
+    return ("rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")");
+}
+
+/**
+ * @param {string} rgbstr: The rgb string, such as "rgb(0, 255, 0)".
+ * @returns {string} The hex string, such as "#00ff00".
+ */
+ function rgbToHex(rgbstr) {
+    let rgbReg = /^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i;
+    let rgb = rgbstr.match(rgbReg);
+    console.log(rgbstr);
+    console.log(rgb);
+    // TODO: data sancheck, such as rgb are all ints.
+    hexstr = "#";
+    for (let i=1; i<=3; i++){
+        // rgb[1], rgb[2] and rgb[3] are RGB respectively (in string).
+        let hex = parseInt(rgb[i]).toString(16);
+        if (hex.length == 1) {
+            hex = "0" + hex;
+        }
+        hexstr += hex;
+    }
+    return hexstr;
 }
 
 
@@ -48,10 +88,7 @@ class ReadingMapPreferences {
             this.barColors = [];
             let zeroColor = "rgb(255,255,255)"; // White
             let maxColor = "rgb(0,255,0)"; // Green
-            for (let i=0; i<=this.maxReadTimes; i++){
-                let color = calcMiddleColor(zeroColor, maxColor, this.maxReadTimes, i);
-                this.barColors.push(color);
-            }
+            this.barColors = calcMiddleColors(zeroColor, maxColor, this.maxReadTimes);
         }
         else {
             let obj = JSON.parse(initstring);
