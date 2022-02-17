@@ -140,6 +140,14 @@ class ReadingMapRecord {
             for (let i=0; i<pages; i++){
                 this.readTimes.push(0);
             }
+
+            this.lastTime = [];
+
+            let cur = new Date();
+
+            for (let i=0; i<pages; i++){
+                this.lastTime.push(cur);
+            }
         }
         else {
             console.log(initstring);
@@ -148,6 +156,7 @@ class ReadingMapRecord {
             this.metadata = obj.metadata;
             this.pages = obj.pages;
             this.readTimes = obj.readTimes;
+            this.lastTime = obj.lastTime;
         }
     }
     toString(){
