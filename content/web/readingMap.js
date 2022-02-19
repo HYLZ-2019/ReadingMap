@@ -137,26 +137,21 @@ function rmUpdate(e){
 }
 
 function rmInitializeBar(){
-    let svg = document.getElementById("readingMapBarSVG");
+    let bar = document.getElementById("readingMapBarDiv");
     // Draw a rectangle for each page.
     for (let i=0; i<pdfMetadata.pages; i++){
-        let rect = document.createElementNS(SVG_NS, "rect");
+        let rect = document.createElement("div");
         rect.setAttribute("class", "readingMapBarBlock");
-        rect.setAttribute("x", 0);
-        rect.setAttribute("y", 100*i);
-        rect.setAttribute("width", 100);
-        rect.setAttribute("height", 100);
-        svg.appendChild(rect);
+        bar.appendChild(rect);
     }
-    svg.setAttribute("viewBox", "0 0 100 " + pdfMetadata.pages*100);
-    svg.setAttribute("preserveAspectRatio", "none");
 }
 
 // Set the color of the rectangle for page pagenum according to the times it has been read.
 function rmSetPageColor(pagenum, times){
-    let rect = document.getElementById("readingMapBarSVG").childNodes[pagenum];
+    let rect = document.getElementById("readingMapBarDiv").childNodes[pagenum];
     let color = rmUserPrefs.getBarColor(times);
-    rect.setAttribute("fill", color);
+    console.log(color);
+    rect.style.backgroundColor = color;
 }
 
 
