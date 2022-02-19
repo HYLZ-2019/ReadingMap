@@ -26,7 +26,6 @@ window.addEventListener("load", viewerOnLoad);
 function viewerOnLoad(){
     // Load rmMetadataSet. (It doesn't need to wait for pdfViewer.)
     rmMetadataSetString = localStorage.getItem("rmMetadataSet");
-    console.log(rmMetadataSetString);
     if (rmMetadataSetString == null){
         rmMetadataSet = new Set();
         localStorage.setItem("rmMetadataSet", JSON.stringify(Array.from(rmMetadataSet)));
@@ -142,6 +141,11 @@ function rmInitializeBar(){
     for (let i=0; i<pdfMetadata.pages; i++){
         let rect = document.createElement("div");
         rect.setAttribute("class", "readingMapBarBlock");
+        rect.addEventListener("click", function(){
+            // Scroll to the corresponding page.
+            let page = document.getElementsByClassName("page")[i];
+            page.scrollIntoView();
+        })
         bar.appendChild(rect);
     }
 }
@@ -150,7 +154,6 @@ function rmInitializeBar(){
 function rmSetPageColor(pagenum, times){
     let rect = document.getElementById("readingMapBarDiv").childNodes[pagenum];
     let color = rmUserPrefs.getBarColor(times);
-    console.log(color);
     rect.style.backgroundColor = color;
 }
 
