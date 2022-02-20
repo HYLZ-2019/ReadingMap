@@ -145,7 +145,18 @@ function rmInitializeBar(){
             // Scroll to the corresponding page.
             let page = document.getElementsByClassName("page")[i];
             page.scrollIntoView();
-        })
+            setTimeout(function(){
+                // If we update immediately, the current page number will be wrong because it takes time for the page number to change.
+                rmUpdate();
+            }, 50);
+        });
+        
+        // Marker that shows which page we are on.
+        let tri = document.createElement("img");
+        tri.setAttribute("class", "rmProgressMark");
+        tri.setAttribute("src", "../../../rmImages/progressMark.png");
+        tri.style.display = "none";
+        rect.appendChild(tri); 
         bar.appendChild(rect);
     }
 }
@@ -159,7 +170,16 @@ function rmSetPageColor(pagenum, times){
 
 
 function rmRenderBar(){
+    let marks = document.getElementsByClassName("rmProgressMark");
+    let curpage = rmGetCurrentPage();
+    console.log(curpage);
     for (let i=0; i<pdfMetadata.pages; i++){
         rmSetPageColor(i, pdfRecord.readTimes[i]);
+        if (i == curpage-1){
+            marks[i].style.display = "block";
+        }
+        else{
+            marks[i].style.display = "none";
+        }
     }
 }
