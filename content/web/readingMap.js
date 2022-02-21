@@ -83,6 +83,7 @@ function completeLoad(before){
     window.addEventListener("wheel", rmUpdate);
     window.addEventListener("click", rmUpdate);
     window.addEventListener("keydown", rmUpdate);
+    document.addEventListener("keypress", rmKeypressCallback);
 }
 
 function rmGetCurrentPage(){
@@ -135,6 +136,13 @@ function rmUpdate(e){
     localStorage.setItem(pdfMetadata.toString(), pdfRecord.toString());
 }
 
+function rmKeypressCallback(event){
+    if (event.key == "m"){
+        // The shortcut to add a marker is "m".
+        rmAddMarker();
+    }
+}
+
 function rmInitializeBar(){
     let bar = document.getElementById("readingMapBarDiv");
     // Draw a rectangle for each page.
@@ -157,6 +165,13 @@ function rmInitializeBar(){
     mark.setAttribute("src", "../../rmImages/progressMark.png");
     mark.setAttribute("class", "rmProgressMark");
     bar.appendChild(mark);
+
+    // Draw all markers added by user.
+    let i; // ReadingMapMarker
+    for (i in pdfRecord.markers){
+        let marker = pdfRecord.markers[i];
+        rmDrawMarker(marker);
+    }
 }
 
 // Set the color of the rectangle for page pagenum according to the times it has been read.
@@ -172,8 +187,32 @@ function rmRenderBar(){
     let curpage = rmGetCurrentPage();
     mark.style.top = String(Math.min((curpage-1)*100/pdfMetadata.pages, 99)) + "%";
 
-    console.log(curpage);
     for (let i=0; i<pdfMetadata.pages; i++){
         rmSetPageColor(i, pdfRecord.readTimes[i]);
     }
+}
+
+function rmAddMarker(){
+    let mark = new ReadingMapMarker();
+    mark.pagenum = rmGetCurrentPage();
+    
+    // Reload the data to sync modifications by other tabs.
+    pdfRecord = new ReadingMapRecord(localStorage.getItem(pdfMetadata.toString()));
+
+    pdfRecord.markers.push(mark);
+
+    // Save the changes.
+    localStorage.setItem(pdfMetadata.toString(), pdfRecord.toString());
+
+    rmDrawMarker(mark);
+}
+
+function rmDrawMarker(marker) {
+    let mark = document.createElement("img");
+    mark.setAttribute("class", "rmMarker");
+    mark.setAttribute("src", marker.imagesrc);
+    // TODO: This position isn't very accurate.
+    mark.style.top = String(Math.min((marker.pagenum-1)*100/pdfMetadata.pages, 98)) + "%";
+    let bar = document.getElementById("readingMapBarDiv");
+    bar.appendChild(mark);
 }
