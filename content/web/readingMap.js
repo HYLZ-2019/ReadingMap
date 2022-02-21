@@ -155,7 +155,7 @@ function rmInitializeBar(){
         let tri = document.createElement("img");
         tri.setAttribute("class", "rmProgressMark");
         tri.setAttribute("src", "../../../rmImages/progressMark.png");
-        tri.style.display = "none";
+        tri.style.opacity = 0;
         rect.appendChild(tri); 
         bar.appendChild(rect);
     }
@@ -176,10 +176,10 @@ function rmRenderBar(){
     for (let i=0; i<pdfMetadata.pages; i++){
         rmSetPageColor(i, pdfRecord.readTimes[i]);
         if (i == curpage-1){
-            marks[i].style.display = "block";
+            marks[i].style.opacity = 0.5;
         }
         else{
-            marks[i].style.display = "none";
+            marks[i].style.opacity = 0;
         }
     }
 }

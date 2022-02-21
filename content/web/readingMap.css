@@ -33,6 +33,7 @@
 
 .rmProgressMark {
     width: 50%;
-    opacity: 0.5;
+    height: 50%;
     position: relative;
+    display: block;
 }
