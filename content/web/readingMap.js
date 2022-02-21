@@ -25,14 +25,8 @@ window.addEventListener("load", viewerOnLoad);
 
 function viewerOnLoad(){
     // Load rmMetadataSet. (It doesn't need to wait for pdfViewer.)
-    rmMetadataSetString = localStorage.getItem("rmMetadataSet");
-    if (rmMetadataSetString == null){
-        rmMetadataSet = new Set();
-        localStorage.setItem("rmMetadataSet", JSON.stringify(Array.from(rmMetadataSet)));
-    }
-    else{
-        rmMetadataSet = new Set(JSON.parse(rmMetadataSetString));
-    }
+
+    rmMetadataSet = load("rmMetadataSet");
 
     // Wait for pdfViewer to load.
     let before = new Date();
@@ -52,14 +46,7 @@ function completeLoad(before){
     rmPreviousPage = rmGetCurrentPage();
     rmStartTime = new Date();
 
-    let rmUserPrefsString = localStorage.getItem("rmUserPrefs");
-    if (!rmUserPrefsString){
-        rmUserPrefs = new ReadingMapPreferences();
-        localStorage.setItem("rmUserPrefs", JSON.stringify(rmUserPrefs));
-    }
-    else{
-        rmUserPrefs = new ReadingMapPreferences(rmUserPrefsString);
-    }
+    rmUserPrefs = load("rmUserPrefs")
     
     // Initialize pdfMetadata with real data acquired from the viewer.
     pdfMetadata = new ReadingMapMetadata();
@@ -68,13 +55,13 @@ function completeLoad(before){
     // TODO: Extend the memory to chrome.Storage(Which has unlimited storage.)
     if (rmMetadataSet.has(pdfMetadata.toString())){
         // TODO: This direct method may cause problems.
-        pdfRecord = new ReadingMapRecord(localStorage.getItem(pdfMetadata.toString()));
+        pdfRecord = load(pdfMetadata.toString());
     }
     else{
         pdfRecord = new ReadingMapRecord();
-        localStorage.setItem(pdfMetadata.toString(), pdfRecord.toString());
+        save(pdfMetadata.toString(), pdfRecord);
         rmMetadataSet.add(pdfMetadata.toString());
-        localStorage.setItem("rmMetadataSet", JSON.stringify(Array.from(rmMetadataSet)));
+        save("rmMetadataSet", rmMetadataSet);
     }
     
     rmInitializeBar();
@@ -118,7 +105,7 @@ function rmUpdate(e){
     
     // The page number has changed.
     // Reload the data to sync modifications by other tabs.
-    pdfRecord = new ReadingMapRecord(localStorage.getItem(pdfMetadata.toString()));
+    pdfRecord = load(pdfMetadata.toString());
 
     let timenow = new Date();
     if (timenow.getTime() - rmStartTime.getTime() > rmUserPrefs.minReadMilliseconds) {
@@ -132,7 +119,7 @@ function rmUpdate(e){
     rmStartTime = timenow;
 
     // Save the changes.
-    localStorage.setItem(pdfMetadata.toString(), pdfRecord.toString());
+    save(pdfMetadata.toString(), pdfRecord);
 }
 
 function rmInitializeBar(){
