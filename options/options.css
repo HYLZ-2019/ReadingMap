@@ -1,0 +1,37 @@
+.optionCardBox {
+    background-color: rgba(203, 232, 241, 0.5);
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 1em;
+}
+
+#setColors-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#setColorsSelectorBox {
+    height: 3em;
+    width: 80%;
+    margin: 1em;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.colorSettingBarBlock {
+    border: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+}
+
+.colorSettingBarBlockWrapper {
+    height: 100%;
+}
