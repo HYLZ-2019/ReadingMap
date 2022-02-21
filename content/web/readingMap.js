@@ -25,14 +25,8 @@ window.addEventListener("load", viewerOnLoad);
 
 function viewerOnLoad(){
     // Load rmMetadataSet. (It doesn't need to wait for pdfViewer.)
-    rmMetadataSetString = localStorage.getItem("rmMetadataSet");
-    if (rmMetadataSetString == null){
-        rmMetadataSet = new Set();
-        localStorage.setItem("rmMetadataSet", JSON.stringify(Array.from(rmMetadataSet)));
-    }
-    else{
-        rmMetadataSet = new Set(JSON.parse(rmMetadataSetString));
-    }
+
+    rmMetadataSet = load("rmMetadataSet");
 
     // Wait for pdfViewer to load.
     let before = new Date();
@@ -52,14 +46,7 @@ function completeLoad(before){
     rmPreviousPage = rmGetCurrentPage();
     rmStartTime = new Date();
 
-    let rmUserPrefsString = localStorage.getItem("rmUserPrefs");
-    if (!rmUserPrefsString){
-        rmUserPrefs = new ReadingMapPreferences();
-        localStorage.setItem("rmUserPrefs", JSON.stringify(rmUserPrefs));
-    }
-    else{
-        rmUserPrefs = new ReadingMapPreferences(rmUserPrefsString);
-    }
+    rmUserPrefs = load("rmUserPrefs")
     
     // Initialize pdfMetadata with real data acquired from the viewer.
     pdfMetadata = new ReadingMapMetadata();
@@ -68,13 +55,13 @@ function completeLoad(before){
     // TODO: Extend the memory to chrome.Storage(Which has unlimited storage.)
     if (rmMetadataSet.has(pdfMetadata.toString())){
         // TODO: This direct method may cause problems.
-        pdfRecord = new ReadingMapRecord(localStorage.getItem(pdfMetadata.toString()));
+        pdfRecord = load(pdfMetadata.toString());
     }
     else{
         pdfRecord = new ReadingMapRecord();
-        localStorage.setItem(pdfMetadata.toString(), pdfRecord.toString());
+        save(pdfMetadata.toString(), pdfRecord);
         rmMetadataSet.add(pdfMetadata.toString());
-        localStorage.setItem("rmMetadataSet", JSON.stringify(Array.from(rmMetadataSet)));
+        save("rmMetadataSet", rmMetadataSet);
     }
     
     rmInitializeBar();
@@ -83,6 +70,7 @@ function completeLoad(before){
     window.addEventListener("wheel", rmUpdate);
     window.addEventListener("click", rmUpdate);
     window.addEventListener("keydown", rmUpdate);
+    document.addEventListener("keypress", rmKeypressCallback);
 }
 
 function rmGetCurrentPage(){
@@ -118,7 +106,7 @@ function rmUpdate(e){
     
     // The page number has changed.
     // Reload the data to sync modifications by other tabs.
-    pdfRecord = new ReadingMapRecord(localStorage.getItem(pdfMetadata.toString()));
+    pdfRecord = load(pdfMetadata.toString());
 
     let timenow = new Date();
     if (timenow.getTime() - rmStartTime.getTime() > rmUserPrefs.minReadMilliseconds) {
@@ -132,7 +120,14 @@ function rmUpdate(e){
     rmStartTime = timenow;
 
     // Save the changes.
-    localStorage.setItem(pdfMetadata.toString(), pdfRecord.toString());
+    save(pdfMetadata.toString(), pdfRecord);
+}
+
+function rmKeypressCallback(event){
+    if (event.key == "m"){
+        // The shortcut to add a marker is "m".
+        rmAddMarker();
+    }
 }
 
 function rmInitializeBar(){
@@ -157,6 +152,13 @@ function rmInitializeBar(){
     mark.setAttribute("src", "../../rmImages/progressMark.png");
     mark.setAttribute("class", "rmProgressMark");
     bar.appendChild(mark);
+
+    // Draw all markers added by user.
+    let i; // ReadingMapMarker
+    for (i in pdfRecord.markers){
+        let marker = pdfRecord.markers[i];
+        rmDrawMarker(marker);
+    }
 }
 
 // Set the color of the rectangle for page pagenum according to the times it has been read.
@@ -172,8 +174,32 @@ function rmRenderBar(){
     let curpage = rmGetCurrentPage();
     mark.style.top = String(Math.min((curpage-1)*100/pdfMetadata.pages, 99)) + "%";
 
-    console.log(curpage);
     for (let i=0; i<pdfMetadata.pages; i++){
         rmSetPageColor(i, pdfRecord.readTimes[i]);
     }
+}
+
+function rmAddMarker(){
+    let mark = new ReadingMapMarker();
+    mark.pagenum = rmGetCurrentPage();
+    
+    // Reload the data to sync modifications by other tabs.
+    pdfRecord = new ReadingMapRecord(localStorage.getItem(pdfMetadata.toString()));
+
+    pdfRecord.markers.push(mark);
+
+    // Save the changes.
+    localStorage.setItem(pdfMetadata.toString(), pdfRecord.toString());
+
+    rmDrawMarker(mark);
+}
+
+function rmDrawMarker(marker) {
+    let mark = document.createElement("img");
+    mark.setAttribute("class", "rmMarker");
+    mark.setAttribute("src", marker.imagesrc);
+    // TODO: This position isn't very accurate.
+    mark.style.top = String(Math.min((marker.pagenum-1)*100/pdfMetadata.pages, 98)) + "%";
+    let bar = document.getElementById("readingMapBarDiv");
+    bar.appendChild(mark);
 }
