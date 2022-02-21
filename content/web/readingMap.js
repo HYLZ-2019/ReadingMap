@@ -170,7 +170,7 @@ function rmSetPageColor(pagenum, times){
 function rmRenderBar(){
     let mark = document.getElementsByClassName("rmProgressMark")[0];
     let curpage = rmGetCurrentPage();
-    mark.style.top = String((curpage-1)*100/pdfMetadata.pages) + "%";
+    mark.style.top = String(Math.min((curpage-1)*100/pdfMetadata.pages, 99)) + "%";
 
     console.log(curpage);
     for (let i=0; i<pdfMetadata.pages; i++){
