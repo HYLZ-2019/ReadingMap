@@ -53,8 +53,6 @@ function hexToRgb(hexstr) {
  function rgbToHex(rgbstr) {
     let rgbReg = /^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i;
     let rgb = rgbstr.match(rgbReg);
-    console.log(rgbstr);
-    console.log(rgb);
     // TODO: data sancheck, such as rgb are all ints.
     hexstr = "#";
     for (let i=1; i<=3; i++){
@@ -125,6 +123,34 @@ class ReadingMapMetadata {
     }
 }
 
+// The class for user markers.
+class ReadingMapMarker {
+    constructor(initstring) {
+        if (initstring == undefined) {
+            // Which page the marker is attached to.
+            this.pagenum = 0;
+            
+            // The source image to use.
+            // TODO: This string takes up much space. Replace it with more compact representations.
+            this.imagesrc = "../../rmImages/markers/defaultMarker.png";
+
+            // Description.
+            this.description = "";
+
+            this.createTime = new Date();
+
+        }
+        else {
+            // TODO: json.stringify...
+            console.log("warning: TODO");
+        }
+    }
+    toString(){
+        // TODO: Use a more compact representation.
+        return JSON.stringify(this);
+    }
+}
+
 // The class for [ All recorded data for a single PDF ].
 class ReadingMapRecord {
     constructor(initstring) {
@@ -148,15 +174,18 @@ class ReadingMapRecord {
             for (let i=0; i<pages; i++){
                 this.lastTime.push(cur);
             }
+
+            // The list of all ReadingMapMarker impls the user created.
+            this.markers = [];
         }
         else {
-            console.log(initstring);
             // TODO: make this more elegant.
             let obj = JSON.parse(initstring);
             this.metadata = obj.metadata;
             this.pages = obj.pages;
             this.readTimes = obj.readTimes;
             this.lastTime = obj.lastTime;
+            this.markers = obj.markers;
         }
     }
     toString(){
