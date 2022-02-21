@@ -150,15 +150,13 @@ function rmInitializeBar(){
                 rmUpdate();
             }, 50);
         });
-        
-        // Marker that shows which page we are on.
-        let tri = document.createElement("img");
-        tri.setAttribute("class", "rmProgressMark");
-        tri.setAttribute("src", "../../../rmImages/progressMark.png");
-        tri.style.opacity = 0;
-        rect.appendChild(tri); 
         bar.appendChild(rect);
     }
+    // Marker showing the current position.
+    let mark = document.createElement("img");
+    mark.setAttribute("src", "../../rmImages/progressMark.png");
+    mark.setAttribute("class", "rmProgressMark");
+    bar.appendChild(mark);
 }
 
 // Set the color of the rectangle for page pagenum according to the times it has been read.
@@ -170,16 +168,12 @@ function rmSetPageColor(pagenum, times){
 
 
 function rmRenderBar(){
-    let marks = document.getElementsByClassName("rmProgressMark");
+    let mark = document.getElementsByClassName("rmProgressMark")[0];
     let curpage = rmGetCurrentPage();
+    mark.style.top = String((curpage-1)*100/pdfMetadata.pages) + "%";
+
     console.log(curpage);
     for (let i=0; i<pdfMetadata.pages; i++){
         rmSetPageColor(i, pdfRecord.readTimes[i]);
-        if (i == curpage-1){
-            marks[i].style.opacity = 0.5;
-        }
-        else{
-            marks[i].style.opacity = 0;
-        }
     }
 }
