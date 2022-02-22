@@ -188,12 +188,12 @@ function rmAddMarker(){
     mark.pagenum = rmGetCurrentPage();
     
     // Reload the data to sync modifications by other tabs.
-    pdfRecord = new ReadingMapRecord(localStorage.getItem(pdfMetadata.toString()));
+    pdfRecord = load(pdfMetadata.toString());
 
     pdfRecord.markers.push(mark);
 
     // Save the changes.
-    localStorage.setItem(pdfMetadata.toString(), pdfRecord.toString());
+    localStorage.save(pdfMetadata.toString(), pdfRecord);
 
     rmDrawMarker(mark);
 }
