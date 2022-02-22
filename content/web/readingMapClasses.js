@@ -208,7 +208,7 @@ class ReadingMapDayHistory {
     constructor(obj){
         if (obj == undefined) {
             // Date.
-            this.date = new Date();
+            this.date = new Date().toJSON();
             // Array<ReadingMapSimpleHistory>
             this.history = [];
         } else {

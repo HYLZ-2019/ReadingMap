@@ -6,6 +6,8 @@ function save(key, value) {
         localStorage.setItem(key, JSON.stringify(value));
     } else if (key == "rmBooksToday"){
         localStorage.setItem(key, JSON.stringify(value));
+    } else if (key == "rmHistorySet") {
+        localStorage.setItem(key, JSON.stringify(Array.from(value)));
     } else {
         localStorage.setItem(key, value.toString());
     }
@@ -26,6 +28,10 @@ function load(key) {
             return value;
         } else if (key == "rmBooksToday"){
             return new ReadingMapDayHistory();
+        } else if (key == "rmHistorySet") {
+            value = new Set();
+            localStorage.setItem(key, JSON.stringify(Array.from(value)));
+            return value;
         } else {
             return "";
         }
@@ -36,6 +42,8 @@ function load(key) {
             return new ReadingMapPreferences(JSON.parse(value));
         } else if (key == "rmBooksToday"){
             return new ReadingMapDayHistory(JSON.parse(value));
+        } else if (key == "rmHistorySet") {
+            return new Set(JSON.parse(value));
         } else {
             return new ReadingMapRecord(JSON.parse(value));
         }

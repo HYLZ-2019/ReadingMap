@@ -20,6 +20,9 @@ var rmPreviousPage = 1;
 // The time we first arrived at rmPreviousPage.
 var rmStartTime = new Date();
 
+// The History set
+var rmHistorySet;
+
 window.addEventListener("load", viewerOnLoad);
 
 
@@ -212,6 +215,17 @@ function rmNewPageToday(){
     let today = load("rmBooksToday");
     let found = 0;
     console.log(today);
+    let cur = new Date();
+    let lastTime = new Date(today.date);
+    console.log(lastTime);
+    console.log(cur);
+    if (lastTime.toDateString() != cur.toDateString()) {
+        rmHistorySet = load("rmHistorySet");
+        rmHistorySet.add(today);
+        save("rmHistorySet", rmHistorySet);
+        // console.log(rmHistorySet);
+        today = new ReadingMapDayHistory();
+    }
     for (let i in today.history){
         let book = today.history[i];
         if (book.title == pdfMetadata.title){
