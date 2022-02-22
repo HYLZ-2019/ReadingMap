@@ -13,6 +13,7 @@ function save(key, value) {
 function load(key) {
     let value = localStorage.getItem(key);
     if (value == null || value == "") {
+        // Initialize objects.
         if (key == "rmMetadataSet") {
             value = new Set();
             localStorage.setItem(key, JSON.stringify(Array.from(value)));
@@ -21,6 +22,8 @@ function load(key) {
             value = new ReadingMapPreferences();
             localStorage.setItem(key, JSON.stringify(value));
             return value;
+        } else if (key == "rmBooksToday"){
+            return [];
         } else {
             return "";
         }
@@ -28,9 +31,11 @@ function load(key) {
         if (key == "rmMetadataSet") {
             return new Set(JSON.parse(value));
         } else if (key == "rmUserPrefs") {
-            return new ReadingMapPreferences(value);
+            return new ReadingMapPreferences(JSON.parse(value));
+        } else if (key == "rmBooksToday"){
+            return new ReadingMapDayHistory(JSON.parse(value));
         } else {
-            return new ReadingMapRecord(value);
+            return new ReadingMapRecord(JSON.parse(value));
         }
     }
 }

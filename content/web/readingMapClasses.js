@@ -72,8 +72,8 @@ function hexToRgb(hexstr) {
 
 // The class storing user preferences. Preferences can be modified in options.html.
 class ReadingMapPreferences {
-    constructor(initstring){
-        if (initstring == undefined) {
+    constructor(obj){
+        if (obj == undefined) {
             // The default settings.
 
             // The user can "read" the page by staying on it for minReadMilliseconds.
@@ -89,7 +89,6 @@ class ReadingMapPreferences {
             this.barColors = calcMiddleColors(zeroColor, maxColor, this.maxReadTimes);
         }
         else {
-            let obj = JSON.parse(initstring);
             this.minReadMilliseconds = obj.minReadMilliseconds;
             this.maxReadTimes = obj.maxReadTimes;
             this.barColors = obj.barColors;
@@ -153,8 +152,8 @@ class ReadingMapMarker {
 
 // The class for [ All recorded data for a single PDF ].
 class ReadingMapRecord {
-    constructor(initstring) {
-        if (initstring == undefined) {
+    constructor(obj) {
+        if (obj == undefined) {
             // Grab information from the current page.
             // Metadata about "which pdf this is for".
             this.metadata = pdfMetadata;
@@ -180,7 +179,6 @@ class ReadingMapRecord {
         }
         else {
             // TODO: make this more elegant.
-            let obj = JSON.parse(initstring);
             this.metadata = obj.metadata;
             this.pages = obj.pages;
             this.readTimes = obj.readTimes;
@@ -207,10 +205,15 @@ class ReadingMapSimpleHistory {
 
 // The class storing all ReadingMapSimpleHistory for a single day.
 class ReadingMapDayHistory {
-    constructor(){
-        // Date.
-        this.date = new Date();
-        // Array<ReadingMapSimpleHistory>
-        this.history = [];
+    constructor(obj){
+        if (obj == undefined) {
+            // Date.
+            this.date = new Date();
+            // Array<ReadingMapSimpleHistory>
+            this.history = [];
+        } else {
+            this.date = obj.date;
+            this.history = obj.history;
+        }
     }
 }

@@ -1,4 +1,4 @@
-var rmUserPrefs = rmLoadUserPrefs();
+var rmUserPrefs = load("rmUserPrefs");
 rmBindOptionEvents();
 rmShowPreferences(rmUserPrefs);
 
@@ -7,18 +7,6 @@ function rmBindOptionEvents(){
     document.getElementById("numOfColors").addEventListener("change",rmColorNumOnChange);
 }
 
-function rmLoadUserPrefs(){
-    let prefString = localStorage.getItem("rmUserPrefs");
-    let prefs = null;
-    if (!prefString){
-        prefs = new ReadingMapPreferences();
-        localStorage.setItem("rmUserPrefs", JSON.stringify(prefs));
-    }
-    else{
-        prefs = new ReadingMapPreferences(prefString);
-    }
-    return prefs;
-}
 
 
 function rmShowPreferences(prefs){

@@ -209,5 +209,5 @@ function rmDrawMarker(marker) {
 }
 
 function rmNewPageToday(){
-    
+    let today = load("rmBooksToday");
 }
