@@ -124,6 +124,10 @@ function rmUpdate(e){
     let timenow = new Date();
     if (timenow.getTime() - rmStartTime.getTime() > rmUserPrefs.minReadMilliseconds) {
         pdfRecord.readTimes[rmPreviousPage-1] += 1;
+        if (pdfRecord.readTimes[rmPreviousPage-1] == 1){
+            // A newly read page
+            rmNewPageToday();
+        }
     }
     pdfRecord.lastTime[rmPreviousPage - 1] = timenow;
     //rmSetPageColor(rmPreviousPage-1, pdfRecord.readTimes[rmPreviousPage-1]);
@@ -215,4 +219,8 @@ function rmDrawMarker(marker) {
     mark.style.top = String(Math.min((marker.pagenum-1)*100/pdfMetadata.pages, 98)) + "%";
     let bar = document.getElementById("readingMapBarDiv");
     bar.appendChild(mark);
+}
+
+function rmNewPageToday(){
+    
 }

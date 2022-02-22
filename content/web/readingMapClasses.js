@@ -193,3 +193,24 @@ class ReadingMapRecord {
         return JSON.stringify(this);
     }
 }
+
+
+// The class storing <title, how many pages read today>.
+class ReadingMapSimpleHistory {
+    constructor(){
+        // The title of the pdf.
+        this.title = "";
+        // How many pages newly read today.
+        this.pages = 0;
+    }
+}
+
+// The class storing all ReadingMapSimpleHistory for a single day.
+class ReadingMapDayHistory {
+    constructor(){
+        // Date.
+        this.date = new Date();
+        // Array<ReadingMapSimpleHistory>
+        this.history = [];
+    }
+}
