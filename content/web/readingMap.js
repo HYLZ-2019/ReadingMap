@@ -210,4 +210,22 @@ function rmDrawMarker(marker) {
 
 function rmNewPageToday(){
     let today = load("rmBooksToday");
+    let found = 0;
+    console.log(today);
+    for (let i in today.history){
+        let book = today.history[i];
+        if (book.title == pdfMetadata.title){
+            book.pages += 1;
+            found = 1;
+            break;
+        }
+    }
+    if (found == 0){
+        let book = new ReadingMapSimpleHistory();
+        book.title = pdfMetadata.title;
+        book.pages = 1;
+        today.history.push(book);
+    }
+    save("rmBooksToday", today);
+    console.log(today);
 }

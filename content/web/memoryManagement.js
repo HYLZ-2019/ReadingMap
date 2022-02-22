@@ -4,6 +4,8 @@ function save(key, value) {
         localStorage.setItem(key, JSON.stringify(Array.from(value)));
     } else if (key == "rmUserPrefs") {
         localStorage.setItem(key, JSON.stringify(value));
+    } else if (key == "rmBooksToday"){
+        localStorage.setItem(key, JSON.stringify(value));
     } else {
         localStorage.setItem(key, value.toString());
     }
@@ -23,7 +25,7 @@ function load(key) {
             localStorage.setItem(key, JSON.stringify(value));
             return value;
         } else if (key == "rmBooksToday"){
-            return [];
+            return new ReadingMapDayHistory();
         } else {
             return "";
         }

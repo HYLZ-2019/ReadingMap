@@ -32,7 +32,21 @@ window.addEventListener("load", popupOnLoad);
 
 function popupOnLoad(){
   document.getElementById("optionsButton").addEventListener("click", turnToOptions);
+  showTodayReport();
 }
+
 function turnToOptions(){
   chrome.tabs.create({url: "chrome://extensions/?options=gnpijndnjicgjlnfkkcfjdphbfaocgjm"});
+}
+
+function showTodayReport() {
+  let box = document.getElementById("todayReport");
+  let today = load("rmBooksToday");
+  for (let i in today.history){
+    let book = today.history[i];
+    let div = document.createElement("div");
+    div.setAttribute("class", "bookToday");
+    div.innerText = book.title + " : " + book.pages + "p";
+    box.appendChild(div);
+  }
 }

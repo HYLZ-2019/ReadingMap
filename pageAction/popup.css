@@ -20,3 +20,12 @@ body {
     margin: 0.5em;
     background-color: lightgreen;
 }
+
+#todayReport {
+    background: lightyellow;
+}
+
+.bookToday {
+    background-color: lightblue;
+    margin: 0.5em;
+}
