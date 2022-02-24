@@ -40,13 +40,17 @@ function turnToOptions(){
 }
 
 function showTodayReport() {
-  let box = document.getElementById("todayReport");
+  let box = document.getElementById("todayBookList");
   let today = load("rmBooksToday");
+  let total = 0;
   for (let i in today.history){
     let book = today.history[i];
     let div = document.createElement("div");
     div.setAttribute("class", "bookToday");
     div.innerText = book.title + " : " + book.pages + "p";
     box.appendChild(div);
+    total += book.pages;
   }
+  let totalbox = document.getElementById("todayReportTotal");
+  totalbox.innerText = "Total : " + total + "p";
 }

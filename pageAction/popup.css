@@ -17,15 +17,32 @@ body {
 }
 
 #optionsButton {
+    font-size: 100%;
     margin: 0.5em;
     background-color: lightgreen;
 }
 
 #todayReport {
-    background: lightyellow;
+    background: rgb(255, 255, 197);
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1em;
+}
+
+#booksReadTodayStr {
+    font-size: 100%;
+    padding: 0.5em 0.5em 0.5em 0;
 }
 
 .bookToday {
-    background-color: lightblue;
-    margin: 0.5em;
+    background-color: lightyellow;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    border: 1px solid black;
+}
+
+#todayReportTotal {
+    font-size: 100%;
+    padding: 0.5em 0.5em 0.5em 0;
 }

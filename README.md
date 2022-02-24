@@ -26,7 +26,7 @@ Our extension is now **under test and development**, so all data you saved may *
 
 3. 打开开发者模式
 
-   加载已解压的扩展程序（选择Stap1解压的文件夹）
+   加载已解压的扩展程序（选择Step1解压的文件夹）
 
    ![Image text](./pics/ReadmeS3-2.png)
 

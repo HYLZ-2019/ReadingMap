@@ -196,7 +196,7 @@ function rmAddMarker(){
     pdfRecord.markers.push(mark);
 
     // Save the changes.
-    localStorage.save(pdfMetadata.toString(), pdfRecord);
+    save(pdfMetadata.toString(), pdfRecord);
 
     rmDrawMarker(mark);
 }
