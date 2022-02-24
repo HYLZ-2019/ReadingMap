@@ -35,7 +35,7 @@ function viewerOnLoad(){
     let before = new Date();
     let checkExist = setInterval(function() {
         // Wait until the whole family is neither null nor undefined.
-        if (window.PDFViewerApplication.pdfViewer && window.PDFViewerApplication.pdfViewer.pdfDocument && window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo && window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo.numPages) {
+        if (window.PDFViewerApplication.pdfViewer && window.PDFViewerApplication.pdfViewer.pdfDocument && window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo && window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo.numPages && window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo.fingerprint) {
            clearInterval(checkExist);
            completeLoad(before);
         }

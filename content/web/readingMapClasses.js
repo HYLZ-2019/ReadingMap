@@ -104,7 +104,7 @@ class ReadingMapPreferences {
 class ReadingMapMetadata {
     constructor(){
         // The pdf's title.
-        this.title = document.getElementsByTagName("title")[0].innerText;
+        this.title = this.getTitle(window.location.href);
 
         // The file path.
         this.path = window.location.pathname;
@@ -119,6 +119,62 @@ class ReadingMapMetadata {
     toString(){
         // TODO: Use a unique & more compact representation!
         return JSON.stringify(this);
+    }
+
+    classIsDataSchema(url) {
+        var i = 0,
+            ii = url.length;
+      
+        while (i < ii && url[i].trim() === '') {
+          i++;
+        }
+      
+        return url.substring(i, i + 5).toLowerCase() === 'data:';
+    }
+
+    classGetPDFFileNameFromURL(url) {
+        var defaultFilename = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'document.pdf';
+      
+        if (typeof url !== 'string') {
+          return defaultFilename;
+        }
+      
+        if (this.classIsDataSchema(url)) {
+          console.warn('getPDFFileNameFromURL: ' + 'ignoring "data:" URL for performance reasons.');
+          return defaultFilename;
+        }
+      
+        var reURI = /^(?:(?:[^:]+:)?\/\/[^\/]+)?([^?#]*)(\?[^#]*)?(#.*)?$/;
+        var reFilename = /[^\/?#=]+\.pdf\b(?!.*\.pdf\b)/i;
+        var splitURI = reURI.exec(url);
+        var suggestedFilename = reFilename.exec(splitURI[1]) || reFilename.exec(splitURI[2]) || reFilename.exec(splitURI[3]);
+      
+        if (suggestedFilename) {
+          suggestedFilename = suggestedFilename[0];
+      
+          if (suggestedFilename.includes('%')) {
+            try {
+              suggestedFilename = reFilename.exec(decodeURIComponent(suggestedFilename))[0];
+            } catch (ex) {}
+          }
+        }
+      
+        return suggestedFilename || defaultFilename;
+    }
+
+    getTitle(url) {
+        var title = this.classGetPDFFileNameFromURL(url);
+    
+        if (!title) {
+          try {
+            title = decodeURIComponent(getFilenameFromUrl(url)) || url;
+          } catch (ex) {
+            title = url;
+          }
+        }
+        console.log("title!!!!!!!!!!!!!!!");
+        console.log(title);
+        return title;
     }
 }
 
