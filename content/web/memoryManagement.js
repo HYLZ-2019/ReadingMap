@@ -40,12 +40,28 @@ function load(key) {
             return new Set(JSON.parse(value));
         } else if (key == "rmUserPrefs") {
             return new ReadingMapPreferences(JSON.parse(value));
-        } else if (key == "rmBooksToday"){
-            return new ReadingMapDayHistory(JSON.parse(value));
+        } else if (key == "rmBooksToday") {
+            return curDayHistory(new ReadingMapDayHistory(JSON.parse(value)));
         } else if (key == "rmHistorySet") {
             return new Set(JSON.parse(value));
         } else {
             return new ReadingMapRecord(JSON.parse(value));
         }
     }
+}
+
+function curDayHistory(today) {
+    let cur = new Date();
+    let lastTime = new Date(today.date);
+    console.log(lastTime);
+    console.log(cur);
+    if (lastTime.toDateString() != cur.toDateString()) {
+        let rmHistorySet = load("rmHistorySet");
+        rmHistorySet.add(today);
+        save("rmHistorySet", rmHistorySet);
+        // console.log(rmHistorySet);
+        today = new ReadingMapDayHistory();
+    }
+    save("rmBooksToday", today);
+    return today;
 }
