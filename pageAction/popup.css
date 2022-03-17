@@ -16,11 +16,11 @@ body {
     width: 100%;
 }
 
-#optionsButton {
+/* #optionsButton {
     font-size: 100%;
     margin: 0.5em;
     background-color: lightgreen;
-}
+} */
 
 #todayReport {
     background: rgb(255, 255, 197);

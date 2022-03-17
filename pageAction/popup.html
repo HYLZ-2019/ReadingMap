@@ -15,6 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <html>
+
 <head>
     <meta charset="utf-8">
     <title></title>
@@ -23,12 +24,16 @@ limitations under the License.
     <script src="../content/web/readingMapClasses.js"></script>
     <script src="popup.js"></script>
 </head>
+
 <body contentEditable="plaintext-only" spellcheck="false">
-    <a id="optionsButton"> Options </a>
-    <div id="todayReport"> 
-        <div id="booksReadTodayStr">Books read today:</div>     
+    <input id="optionsUpload"  type="file" multiple="multiple" />
+    <button id="optionsDownload" type="button"> Download meta </button>
+    <button id="optionsButton" type="button"> Options </button>
+    <div id="todayReport">
+        <div id="booksReadTodayStr">Books read today:</div>
         <div id="todayBookList"></div>
         <div id="todayReportTotal"></div>
     </div>
 </body>
+
 </html>
