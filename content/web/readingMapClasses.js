@@ -118,7 +118,8 @@ class ReadingMapMetadata {
 
     toString(){
         // TODO: Use a unique & more compact representation!
-        return JSON.stringify(this);
+        // DXR:Ignore title and path
+        return JSON.stringify({pages:this.pages,fingerprint:this.fingerprint});
     }
 
     classIsDataSchema(url) {
