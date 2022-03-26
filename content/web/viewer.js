@@ -156,6 +156,7 @@ function getViewerConfiguration() {
       scaleSelect: document.getElementById('scaleSelect'),
       customScaleOption: document.getElementById('customScaleOption'),
       previous: document.getElementById('previous'),
+      note: document.getElementById('note'),
       next: document.getElementById('next'),
       zoomIn: document.getElementById('zoomIn'),
       zoomOut: document.getElementById('zoomOut'),
@@ -209,6 +210,9 @@ function getViewerConfiguration() {
     sidebarResizer: {
       outerContainer: document.getElementById('outerContainer'),
       resizer: document.getElementById('sidebarResizer')
+    },
+    noteBar:{
+      notebar: document.getElementById('notebar'),
     },
     findBar: {
       bar: document.getElementById('findbar'),
@@ -788,6 +792,15 @@ var PDFViewerApplication = {
   }(),
   run: function run(config) {
     this.initialize(config).then(webViewerInitialized);
+  },
+  note: function note() {
+    let noteBar=document.querySelector(".notebar")
+    if (noteBar.style.visibility=='hidden')
+    noteBar.style.visibility='visible'
+    else
+      noteBar.style.visibility='hidden'
+    
+
   },
   zoomIn: function zoomIn(ticks) {
     if (this.pdfViewer.isInPresentationMode) {
@@ -1697,6 +1710,7 @@ var PDFViewerApplication = {
     eventBus.on('lastpage', webViewerLastPage);
     eventBus.on('nextpage', webViewerNextPage);
     eventBus.on('previouspage', webViewerPreviousPage);
+    eventBus.on('note', webViewerNote);
     eventBus.on('zoomin', webViewerZoomIn);
     eventBus.on('zoomout', webViewerZoomOut);
     eventBus.on('zoomreset', webViewerZoomReset);
@@ -1779,6 +1793,7 @@ var PDFViewerApplication = {
     eventBus.off('lastpage', webViewerLastPage);
     eventBus.off('nextpage', webViewerNextPage);
     eventBus.off('previouspage', webViewerPreviousPage);
+    eventBus.off('note', webViewerNote);
     eventBus.off('zoomin', webViewerZoomIn);
     eventBus.off('zoomout', webViewerZoomOut);
     eventBus.off('zoomreset', webViewerZoomReset);
@@ -2080,6 +2095,9 @@ function webViewerNextPage() {
 
 function webViewerPreviousPage() {
   PDFViewerApplication.page--;
+}
+function webViewerNote() {
+  PDFViewerApplication.note();
 }
 
 function webViewerZoomIn() {
@@ -5089,6 +5107,7 @@ function () {
       }
 
       this.isOpen = false;
+      // this.noteButton.classList.remove('noted');
       this.toggleButton.classList.remove('toggled');
       this.outerContainer.classList.add('sidebarMoving');
       this.outerContainer.classList.remove('sidebarOpen');
@@ -5223,6 +5242,8 @@ function () {
           _this3.outerContainer.classList.remove('sidebarMoving');
         }
       });
+      // this.noteButton.addEventListener('click', function () {
+      // });
       this.toggleButton.addEventListener('click', function () {
         _this3.toggle();
       });
@@ -13200,6 +13221,11 @@ function () {
       });
       items.next.addEventListener('click', function () {
         eventBus.dispatch('nextpage', {
+          source: self
+        });
+      });
+      items.note.addEventListener('click', function () {
+        eventBus.dispatch('note', {
           source: self
         });
       });

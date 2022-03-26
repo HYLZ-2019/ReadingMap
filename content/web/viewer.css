@@ -406,6 +406,7 @@ body {
   width: 100%;
   background-color: #404040;
   background-image: url(images/texture.png);
+  
 }
 
 body,
@@ -633,20 +634,20 @@ html[dir='rtl'] #sidebarResizer {
   left: -6px;
 }
 
-#toolbarContainer, .findbar, .secondaryToolbar {
+#toolbarContainer, .findbar, .secondaryToolbar, .notebar {
   position: relative;
   height: 32px;
   background-color: #474747; /* fallback */
   background-image: url(images/texture.png),
                     linear-gradient(hsla(0,0%,32%,.99), hsla(0,0%,27%,.95));
 }
-html[dir='ltr'] #toolbarContainer, .findbar, .secondaryToolbar {
+html[dir='ltr'] #toolbarContainer, .findbar, .secondaryToolbar, .notebar {
   box-shadow: inset 0 1px 1px hsla(0,0%,0%,.15),
               inset 0 -1px 0 hsla(0,0%,100%,.05),
               0 1px 0 hsla(0,0%,0%,.15),
               0 1px 1px hsla(0,0%,0%,.1);
 }
-html[dir='rtl'] #toolbarContainer, .findbar, .secondaryToolbar {
+html[dir='rtl'] #toolbarContainer, .findbar, .secondaryToolbar, .notebar {
   box-shadow: inset 0 1px 1px hsla(0,0%,0%,.15),
               inset 0 -1px 0 hsla(0,0%,100%,.05),
               0 1px 0 hsla(0,0%,0%,.15),
@@ -701,7 +702,7 @@ html[dir='rtl'] #toolbarContainer, .findbar, .secondaryToolbar {
   animation: progressIndeterminate 950ms linear infinite;
 }
 
-.findbar, .secondaryToolbar {
+.findbar, .secondaryToolbar, .notebar {
   top: 32px;
   position: absolute;
   z-index: 10000;
@@ -715,7 +716,18 @@ html[dir='rtl'] #toolbarContainer, .findbar, .secondaryToolbar {
   text-align: left;
   cursor: default;
 }
+.notebar {
+  visibility:hidden;
+  /* min-width: 200px;
+  height: 100px; */
+}
 
+html[dir='ltr'] .notebar {
+  left: 40px;
+}
+html[dir='rtl'] .notebar {
+  right: 40px;
+}
 .findbar {
   min-width: 300px;
 }
@@ -739,9 +751,26 @@ html[dir='rtl'] .findbar {
   -webkit-user-select: none;
           user-select: none;
 }
-
+ #noteInput {
+  width: 200px;
+  height: 80px;
+  margin: 5px;
+  padding: 5px;
+}
+/*#noteInput::-webkit-input-placeholder {
+  color: hsl(0, 0%, 75%);
+}
+#noteInput::placeholder {
+  font-style: italic;
+}
+#noteInput[data-status="pending"] {
+  background-image: url(images/loading-small.png);
+  background-repeat: no-repeat;
+  background-position: right;
+} */
 #findInput {
   width: 200px;
+  height: fit-content;
 }
 #findInput::-webkit-input-placeholder {
   color: hsl(0, 0%, 75%);
@@ -874,6 +903,10 @@ html[dir='ltr'] .findbar * {
   position: relative;
   float: left;
 }
+html[dir='ltr'] .notebar * {
+  position: relative;
+  float: left;
+}
 html[dir='rtl'] #toolbarViewerLeft > *,
 html[dir='rtl'] #toolbarViewerMiddle > *,
 html[dir='rtl'] #toolbarViewerRight > *,
@@ -881,7 +914,10 @@ html[dir='rtl'] .findbar * {
   position: relative;
   float: right;
 }
-
+html[dir='rtl'] .notebar * {
+  position: relative;
+  float: right;
+}
 html[dir='ltr'] .splitToolbarButton {
   margin: 3px 2px 4px 0;
   display: inline-block;
@@ -1282,7 +1318,9 @@ html[dir="rtl"] #viewOutline.toolbarButton::before {
 #viewFind.toolbarButton::before {
   content: url(images/toolbarButton-search.png);
 }
-
+#note.toolbarButton::before {
+  content: url(images/toolbarButton-zoomIn.png);
+}
 .toolbarButton.pdfSidebarNotification::after {
   position: absolute;
   display: inline-block;
@@ -2089,7 +2127,9 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
   #viewFind.toolbarButton::before {
     content: url(images/toolbarButton-search@2x.png);
   }
-
+  #note.toolbarButton::before {
+    content: url(images/toolbarButton-zoomIn@2x.png);
+  }
   .secondaryToolbarButton.firstPage::before {
     content: url(images/secondaryToolbarButton-firstPage@2x.png);
   }
@@ -2291,12 +2331,12 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
   .toolbarButtonSpacer {
     width: 0;
   }
-  html[dir='ltr'] .findbar {
+  /* html[dir='ltr'] .findbar {
     left: 38px;
   }
   html[dir='rtl'] .findbar {
     right: 38px;
-  }
+  } */
 }
 
 @media all and (max-width: 535px) {
