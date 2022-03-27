@@ -799,8 +799,6 @@ var PDFViewerApplication = {
     noteBar.style.visibility='visible'
     else
       noteBar.style.visibility='hidden'
-    
-
   },
   zoomIn: function zoomIn(ticks) {
     if (this.pdfViewer.isInPresentationMode) {

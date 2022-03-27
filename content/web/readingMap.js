@@ -137,8 +137,9 @@ function rmUpdate(e){
 
 function rmKeypressCallback(event){
     if (event.key == "m"){
+        console.log("press M")
         // The shortcut to add a marker is "m".
-        rmAddMarker();
+        rmToggleMarker();
     }
 }
 function rmInitializeNote()
@@ -154,6 +155,7 @@ function rmInitializeNote()
         save(pdfMetadata.toString(), pdfRecord);
     }
 }
+
 function rmInitializeBar(){
     let bar = document.getElementById("readingMapBarDiv");
     // Draw a rectangle for each page.
@@ -178,13 +180,18 @@ function rmInitializeBar(){
     bar.appendChild(mark);
 
     // Draw all markers added by user.
-    let i; // ReadingMapMarker
-    for (i in pdfRecord.markers){
-        let marker = pdfRecord.markers[i];
-        rmDrawMarker(marker);
+    for (let i=0; i<pdfMetadata.pages; i++){
+        bar.appendChild(rmDrawMarker(i,pdfRecord.markers[i]?'visible':'hidden'));
     }
 }
+function rmDrawMarker(pagenum,visibility){
+    let mark = document.createElement("marker"+pagenum);
+    mark.setAttribute("class", "rmMarker");
 
+    mark.style.top = String(Math.min((pagenum-1)*100/pdfMetadata.pages, 98)) + "%";
+    mark.style.visibility=visibility
+    return mark;
+}
 // Set the color of the rectangle for page pagenum according to the times it has been read.
 function rmSetPageColor(pagenum, times){
     let rect = document.getElementById("readingMapBarDiv").childNodes[pagenum];
@@ -203,30 +210,24 @@ function rmRenderBar(){
     }
 }
 
-function rmAddMarker(){
-    let mark = new ReadingMapMarker();
-    mark.pagenum = rmGetCurrentPage();
+function rmToggleMarker(){
+    let pagenum = rmGetCurrentPage();
     
     // Reload the data to sync modifications by other tabs.
     pdfRecord = load(pdfMetadata.toString());
+    let mark=document.querySelector('marker'+pagenum)
+    pdfRecord.markers[pagenum]=!pdfRecord.markers[pagenum];
 
-    pdfRecord.markers.push(mark);
-
+    if (mark.style.visibility=='hidden')
+    mark.style.visibility='visible'
+    else mark.style.visibility='hidden'
+    
     // Save the changes.
     save(pdfMetadata.toString(), pdfRecord);
-
-    rmDrawMarker(mark);
+    
 }
 
-function rmDrawMarker(marker) {
-    let mark = document.createElement("img");
-    mark.setAttribute("class", "rmMarker");
-    mark.setAttribute("src", marker.imagesrc);
-    // TODO: This position isn't very accurate.
-    mark.style.top = String(Math.min((marker.pagenum-1)*100/pdfMetadata.pages, 98)) + "%";
-    let bar = document.getElementById("readingMapBarDiv");
-    bar.appendChild(mark);
-}
+
 
 function rmNewPageToday(){
     let today = load("rmBooksToday");

@@ -180,32 +180,32 @@ class ReadingMapMetadata {
 }
 
 // The class for user markers.
-class ReadingMapMarker {
-    constructor(initstring) {
-        if (initstring == undefined) {
-            // Which page the marker is attached to.
-            this.pagenum = 0;
+// class ReadingMapMarker {
+//     constructor(initstring) {
+//         if (initstring == undefined) {
+//             // Which page the marker is attached to.
+//             this.pagenum = 0;
             
-            // The source image to use.
-            // TODO: This string takes up much space. Replace it with more compact representations.
-            this.imagesrc = "../../rmImages/markers/defaultMarker.png";
+//             // The source image to use.
+//             // TODO: This string takes up much space. Replace it with more compact representations.
+//             this.imagesrc = "../../rmImages/markers/defaultMarker.png";
 
-            // Description.
-            this.description = "";
+//             // Description.
+//             this.description = "";
 
-            this.createTime = new Date();
+//             this.createTime = new Date();
 
-        }
-        else {
-            // TODO: json.stringify...
-            console.log("warning: TODO");
-        }
-    }
-    toString(){
-        // TODO: Use a more compact representation.
-        return JSON.stringify(this);
-    }
-}
+//         }
+//         else {
+//             // TODO: json.stringify...
+//             console.log("warning: TODO");
+//         }
+//     }
+//     toString(){
+//         // TODO: Use a more compact representation.
+//         return JSON.stringify(this);
+//     }
+// }
 
 // The class for [ All recorded data for a single PDF ].
 class ReadingMapRecord {
@@ -221,9 +221,12 @@ class ReadingMapRecord {
             this.readTimes = [];
              // An array in which reader took notes[i-1] in the ith page
             this.notes=[];
+            // An array which records marks,initial value is false
+            this.markers=[]
             for (let i=0; i<pages; i++){
                 this.readTimes.push(0);
                 this.notes.push("")
+                this.markers.push(false)
             }
 
             this.lastTime = [];
@@ -234,8 +237,6 @@ class ReadingMapRecord {
                 this.lastTime.push(cur);
             }
 
-            // The list of all ReadingMapMarker impls the user created.
-            this.markers = [];
         }
         else {
             // TODO: make this more elegant.
@@ -247,6 +248,7 @@ class ReadingMapRecord {
             this.notes=obj.notes;
         }
     }
+    
     toString(){
         // TODO: Use a more compact representation.
         return JSON.stringify(this);
