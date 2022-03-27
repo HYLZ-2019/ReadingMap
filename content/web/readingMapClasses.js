@@ -219,8 +219,11 @@ class ReadingMapRecord {
 
             // An array in which readTimes[i-1] is how many times the ith page has been read. 
             this.readTimes = [];
+             // An array in which reader took notes[i-1] in the ith page
+            this.notes=[];
             for (let i=0; i<pages; i++){
                 this.readTimes.push(0);
+                this.notes.push("")
             }
 
             this.lastTime = [];
@@ -241,6 +244,7 @@ class ReadingMapRecord {
             this.readTimes = obj.readTimes;
             this.lastTime = obj.lastTime;
             this.markers = obj.markers;
+            this.notes=obj.notes;
         }
     }
     toString(){

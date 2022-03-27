@@ -66,7 +66,7 @@ function completeLoad(before){
         rmMetadataSet.add(pdfMetadata.toString());
         save("rmMetadataSet", rmMetadataSet);
     }
-    
+    rmInitializeNote();
     rmInitializeBar();
     rmRenderBar();
     
@@ -111,6 +111,11 @@ function rmUpdate(e){
     // Reload the data to sync modifications by other tabs.
     pdfRecord = load(pdfMetadata.toString());
 
+    // Reload the notes to this page
+    let noteInput=document.querySelector('#noteInput')
+    // let noteText=note.textContent
+    noteInput.value=pdfRecord.notes[currentpage]
+
     let timenow = new Date();
     if (timenow.getTime() - rmStartTime.getTime() > rmUserPrefs.minReadMilliseconds) {
         pdfRecord.readTimes[rmPreviousPage-1] += 1;
@@ -136,7 +141,19 @@ function rmKeypressCallback(event){
         rmAddMarker();
     }
 }
+function rmInitializeNote()
+{
+    let noteInput=document.querySelector("#noteInput")
+    noteInput.onchange=function(){
+        let currentpage = rmGetCurrentPage();
+        
+        pdfRecord = load(pdfMetadata.toString());
 
+        pdfRecord.notes[currentpage]=this.value
+        console.log(currentpage+"page's note was changed to "+this.value)
+        save(pdfMetadata.toString(), pdfRecord);
+    }
+}
 function rmInitializeBar(){
     let bar = document.getElementById("readingMapBarDiv");
     // Draw a rectangle for each page.
