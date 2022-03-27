@@ -116,6 +116,11 @@ class ReadingMapMetadata {
         this.fingerprint = window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo.fingerprint;
     }
 
+    // Used to convert data from old versions.
+    oldToString(){
+        return JSON.stringify({title:this.title, path:this.path, pages:this.pages,fingerprint:this.fingerprint});
+    }
+
     toString(){
         // TODO: Use a unique & more compact representation!
         // DXR:Ignore title and path
