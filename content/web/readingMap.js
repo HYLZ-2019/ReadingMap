@@ -63,6 +63,10 @@ function completeLoad(before){
     else if (rmMetadataSet.has(pdfMetadata.oldToString())){
         // It was tracked in an old version -> convert it to new format.
         pdfRecord = load(pdfMetadata.oldToString());
+        pdfRecord.notes = [];
+        for (let i=0; i<pdfRecord.metadata.pages; i++){
+            pdfRecord.notes.push("");
+        }
         save(pdfMetadata.toString(), pdfRecord);
         remove(pdfMetadata.oldToString());
         rmMetadataSet.add(pdfMetadata.toString());
