@@ -65,3 +65,8 @@ function curDayHistory(today) {
     save("rmBooksToday", today);
     return today;
 }
+
+// Removes key & its object from localStorage.
+function remove(key){
+    localStorage.removeItem(key);
+}

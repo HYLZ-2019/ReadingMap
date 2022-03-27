@@ -60,6 +60,15 @@ function completeLoad(before){
         // TODO: This direct method may cause problems.
         pdfRecord = load(pdfMetadata.toString());
     }
+    else if (rmMetadataSet.has(pdfMetadata.oldToString())){
+        // It was tracked in an old version -> convert it to new format.
+        pdfRecord = load(pdfMetadata.oldToString());
+        save(pdfMetadata.toString(), pdfRecord);
+        remove(pdfMetadata.oldToString());
+        rmMetadataSet.add(pdfMetadata.toString());
+        rmMetadataSet.delete(pdfMetadata.oldToString());
+        save("rmMetadataSet", rmMetadataSet);
+    }
     else{
         pdfRecord = new ReadingMapRecord();
         save(pdfMetadata.toString(), pdfRecord);
