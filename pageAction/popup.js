@@ -45,18 +45,18 @@ function turnToDownload(){
 }
 function turnToUpload() {
 
-    var file = document.getElementById('optionsUpload').files[0];
+    var file = document.getElementById('optionsUpload').files
 
-    console.log(file);
+    // console.log(file);
 
     var reader = new FileReader();
 
-    console.log(reader);
+    // console.log(reader);
 
     reader.readAsText(file, 'utf-8');
 
     reader.onload = function () {
-        document.getElementById('result').innerHTML = reader.result;
+        console.log( reader.result);
     }
 }
 function turnToOptions(){
