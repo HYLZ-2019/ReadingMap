@@ -61,11 +61,19 @@ function curDayHistory(today) {
         save("rmHistorySet", rmHistorySet);
         // console.log(rmHistorySet);
         today = new ReadingMapDayHistory();
-    }
+    } 
     save("rmBooksToday", today);
     return today;
 }
 
+function getReadingMap() {
+    let cur = JSON.stringify(localStorage);
+    // for (var i = 0; i < localStorage.length; i++) {
+    //     cur = cur + "{" + encodeURIComponent(localStorage.key(i)) + ":"
+    //          + encodeURIComponent(localStorage.getItem(localStorage.key(i))) + "}\n";       
+    // }
+    return cur; 
+}
 // Removes key & its object from localStorage.
 function remove(key){
     localStorage.removeItem(key);

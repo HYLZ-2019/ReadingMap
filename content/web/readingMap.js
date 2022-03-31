@@ -274,3 +274,7 @@ function rmNewPageToday(){
     save("rmBooksToday", today);
     console.log(today);
 }
+
+// function setReadingMap(readingMap) {
+
+// }
