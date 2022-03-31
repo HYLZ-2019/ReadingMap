@@ -56,11 +56,11 @@ function completeLoad(before){
     
     // Check if we have records for this pdf.
     // TODO: Extend the memory to chrome.Storage(Which has unlimited storage.)
-    if (rmMetadataSet.has(pdfMetadata.toString())){
+    if (rmMetadataSet.includes(pdfMetadata.toString())){
         // TODO: This direct method may cause problems.
         pdfRecord = load(pdfMetadata.toString());
     }
-    else if (rmMetadataSet.has(pdfMetadata.oldToString())){
+    else if (rmMetadataSet.includes(pdfMetadata.oldToString())){
         // It was tracked in an old version -> convert it to new format.
         pdfRecord = load(pdfMetadata.oldToString());
         pdfRecord.notes = [];
@@ -69,14 +69,14 @@ function completeLoad(before){
         }
         save(pdfMetadata.toString(), pdfRecord);
         remove(pdfMetadata.oldToString());
-        rmMetadataSet.add(pdfMetadata.toString());
-        rmMetadataSet.delete(pdfMetadata.oldToString());
+        rmMetadataSet.push(pdfMetadata.toString());
+        rmMetadataSet.splice(rmMetadataSet.indexOf(pdfMetadata.oldToString())); // Remove the previous item
         save("rmMetadataSet", rmMetadataSet);
     }
     else{
         pdfRecord = new ReadingMapRecord();
         save(pdfMetadata.toString(), pdfRecord);
-        rmMetadataSet.add(pdfMetadata.toString());
+        rmMetadataSet.push(pdfMetadata.toString());
         save("rmMetadataSet", rmMetadataSet);
     }
     rmInitializeNote();

@@ -1,7 +1,7 @@
 // save the (key, value) into the localStorage
 function save(key, value) {
     if (key == "rmMetadataSet") {
-        localStorage.setItem(key, JSON.stringify(Array.from(value)));
+        localStorage.setItem(key, JSON.stringify(value));
     } else if (key == "rmUserPrefs") {
         localStorage.setItem(key, JSON.stringify(value));
     } else if (key == "rmBooksToday"){
@@ -19,8 +19,8 @@ function load(key) {
     if (value == null || value == "") {
         // Initialize objects.
         if (key == "rmMetadataSet") {
-            value = new Set();
-            localStorage.setItem(key, JSON.stringify(Array.from(value)));
+            value = [];
+            localStorage.setItem(key, JSON.stringify(value));
             return value;
         } else if (key == "rmUserPrefs") {
             value = new ReadingMapPreferences();
@@ -37,7 +37,7 @@ function load(key) {
         }
     } else {
         if (key == "rmMetadataSet") {
-            return new Set(JSON.parse(value));
+            return JSON.parse(value);
         } else if (key == "rmUserPrefs") {
             return new ReadingMapPreferences(JSON.parse(value));
         } else if (key == "rmBooksToday") {
