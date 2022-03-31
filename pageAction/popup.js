@@ -34,15 +34,18 @@ function popupOnLoad(){
   document.getElementById("optionsUpload").addEventListener("click", turnToUpload);
   document.getElementById("optionsDownload").addEventListener("click", turnToDownload);
   document.getElementById("optionsButton").addEventListener("click", turnToOptions);
+  document.getElementById("manageDataButton").addEventListener("click", turnToDataManager);
   showTodayReport();
 }
 function turnToDownload(){
   var a = document.createElement('a');          // 创建一个a节点插入的document
   var event = new MouseEvent('click')           // 模拟鼠标click点击事件
-  a.download = 'beautifulGirl'                  // 设置a节点的download属性值
-  a.href = 'chrome-extension://kflfdambahhmoghmalngnehlhlccbohm/pageAction/ReadmeS3.png';                                 // 将图片的src赋值给a节点的href
+  a.download = 'ReadingMap'                  // 设置a节点的download属性值
+  a.href = 'data:text/plain;charset=utf-8,' + getReadingMap();   
+  console.log(a.href);                              
   a.dispatchEvent(event)                        // 触发鼠标点击事件                
 }
+
 function turnToUpload() {
 
     var file = document.getElementById('optionsUpload').files
@@ -60,7 +63,10 @@ function turnToUpload() {
     }
 }
 function turnToOptions(){
-  chrome.tabs.create({url: "chrome://extensions/?options=gnpijndnjicgjlnfkkcfjdphbfaocgjm"});
+  chrome.tabs.create({url: "chrome://extensions/?options="+chrome.runtime.id});
+}
+function turnToDataManager(){
+  chrome.tabs.create({url: "chrome-extension://"+chrome.runtime.id+"/dataManager/dataManager.html"})
 }
 
 function showTodayReport() {

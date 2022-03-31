@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+    width: 100vw;
+}
+
+
+#storageListTable {
+    width: 90%;
+    table-layout: fixed;
+    background-color: lightblue;
+}
+
+.storageListRow {
+    width: 90%;
+    background-color: lightblue;
+}
+
+td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fingerprintCol {
+    width: 5%;
+}
+
+.titleCol {
+    width: 30%;
+}
+
+.pagesCol {
+    width: 2%;
+}
+
+.readpagesCol {
+    width: 2%;
+}
+
+.slashCol {
+    width: 1%;
+}
+
+.latestTSCol {
+    width: 5%;
+}
+
+.bookmarksCol {
+    width: 5%;
+}
+
+.spaceCol {
+    width: 5%;
+}
