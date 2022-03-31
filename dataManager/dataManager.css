@@ -30,5 +30,25 @@ td {
 }
 
 .pagesCol {
+    width: 2%;
+}
+
+.readpagesCol {
+    width: 2%;
+}
+
+.slashCol {
+    width: 1%;
+}
+
+.latestTSCol {
+    width: 5%;
+}
+
+.bookmarksCol {
+    width: 5%;
+}
+
+.spaceCol {
     width: 5%;
 }
