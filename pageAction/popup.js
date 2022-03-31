@@ -40,7 +40,7 @@ function turnToDownload(){
   var a = document.createElement('a');          // 创建一个a节点插入的document
   var event = new MouseEvent('click')           // 模拟鼠标click点击事件
   a.download = 'beautifulGirl'                  // 设置a节点的download属性值
-  a.href = 'chrome-extension://kflfdambahhmoghmalngnehlhlccbohm/pageAction/ReadmeS3.png';                                 // 将图片的src赋值给a节点的href
+  a.href = 'chrome-extension://'+chrome.runtime.id+'/pageAction/ReadmeS3.png';                                 // 将图片的src赋值给a节点的href
   a.dispatchEvent(event)                        // 触发鼠标点击事件                
 }
 function turnToUpload() {
