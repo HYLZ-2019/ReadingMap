@@ -45,4 +45,5 @@
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
+    content: url(../../rmImages/markers/defaultMarker.png);
 }

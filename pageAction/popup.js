@@ -34,6 +34,7 @@ function popupOnLoad(){
   document.getElementById("optionsUpload").addEventListener("click", turnToUpload);
   document.getElementById("optionsDownload").addEventListener("click", turnToDownload);
   document.getElementById("optionsButton").addEventListener("click", turnToOptions);
+  document.getElementById("manageDataButton").addEventListener("click", turnToDataManager);
   showTodayReport();
 }
 function turnToDownload(){
@@ -62,7 +63,10 @@ function turnToUpload() {
     }
 }
 function turnToOptions(){
-  chrome.tabs.create({url: "chrome://extensions/?options=gnpijndnjicgjlnfkkcfjdphbfaocgjm"});
+  chrome.tabs.create({url: "chrome://extensions/?options="+chrome.runtime.id});
+}
+function turnToDataManager(){
+  chrome.tabs.create({url: "chrome-extension://"+chrome.runtime.id+"/dataManager/dataManager.html"})
 }
 
 function showTodayReport() {
