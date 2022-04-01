@@ -26,6 +26,16 @@ function showStorageTable(){
         title.innerText = record.metadata.title;
         row.appendChild(title);
 
+        let path = document.createElement("td");
+        path.setAttribute("class", "pathCol");
+        path.innerText = record.metadata.path;
+        row.appendChild(path);
+
+        let firstpagenote = document.createElement("td");
+        firstpagenote.setAttribute("class", "firstpagenoteCol");
+        firstpagenote.innerText = record.notes ? record.notes[0] : "";
+        row.appendChild(firstpagenote);
+
         let readpages = document.createElement("td");
         readpages.setAttribute("class", "readpagesCol");
         let readpages_cnt = 0;
