@@ -63,6 +63,7 @@ function completeLoad(before){
     else if (rmMetadataSet.includes(pdfMetadata.oldToString())){
         // It was tracked in an old version -> convert it to new format.
         pdfRecord = load(pdfMetadata.oldToString());
+        // Page 1 ~ notes[0]; Page pages ~ notes[pages-1]
         pdfRecord.notes = [];
         for (let i=0; i<pdfRecord.metadata.pages; i++){
             pdfRecord.notes.push("");
@@ -127,7 +128,7 @@ function rmUpdate(e){
     // Reload the notes to this page
     let noteInput=document.querySelector('#noteInput')
     // let noteText=note.textContent
-    noteInput.value=pdfRecord.notes[currentpage]
+    noteInput.value=pdfRecord.notes[currentpage-1]
 
     let timenow = new Date();
     if (timenow.getTime() - rmStartTime.getTime() > rmUserPrefs.minReadMilliseconds) {
@@ -163,7 +164,7 @@ function rmInitializeNote()
         
         pdfRecord = load(pdfMetadata.toString());
 
-        pdfRecord.notes[currentpage]=this.value
+        pdfRecord.notes[currentpage-1]=this.value
         console.log(currentpage+"page's note was changed to "+this.value)
         save(pdfMetadata.toString(), pdfRecord);
     }
