@@ -71,7 +71,7 @@ function completeLoad(before){
         save(pdfMetadata.toString(), pdfRecord);
         remove(pdfMetadata.oldToString());
         rmMetadataSet.push(pdfMetadata.toString());
-        rmMetadataSet.splice(rmMetadataSet.indexOf(pdfMetadata.oldToString())); // Remove the previous item
+        rmMetadataSet.splice(rmMetadataSet.indexOf(pdfMetadata.oldToString()), 1); // Remove the previous item
         save("rmMetadataSet", rmMetadataSet);
     }
     else{
