@@ -1,5 +1,6 @@
 <html>
     <head>
+        <meta charset="utf-8"/>
         <title>ReadingMap Data Manager</title>
         <script src="../content/web/readingMapClasses.js" ></script>
         <script src="../content/web/memoryManagement.js" ></script>
@@ -9,8 +10,36 @@
     <body>
         <h1>ReadingMap Data Manager</h1>
         <h2>Currently managed PDFs:</h2>
+        <div id="operationButtons">
+            <button id="showBrowserData">查看当前数据概览</button>
+            <button id="openLocalData">查看本地数据概览</button>
+            <button id="exportChosen">导出选中数据并下载</button>
+            <button id="importChosen">导入选中数据并与浏览器数据合并</button>
+            <button id="deleteChosen">从浏览器删除选中的数据</button>
+            <button id="mergeFiles">合并两个本地.rmrf文件</button>
+            
+        </div>
+        <div id="uploadArea">
+            <input id="uploadButton" type="file"/>
+        </div>
+        
         <div id="storageList">
+            <div id="totalSize"></div>
+            <div id="tableToolbar">
+                <button id="storageListChooseAll">全选</button>
+                <div>排序功能(TODO)</div>
+            </div>
             <table id="storageListTable"></table>
         </div>
+        <div id="mergeInputArea">
+            <input id="mergeInput1" type="file"/>
+            <input id="mergeInput2" type="file"/>
+        </div>
+        <div id="showConflictArea">
+            <div id="conflictNumber"></div>
+            <table id="conflictTable"></table>
+            <button id="confirmMerge">确认合并</button>
+        </div>
+
     </body>
 </html>

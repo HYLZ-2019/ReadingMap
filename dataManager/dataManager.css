@@ -3,11 +3,25 @@ body {
     width: 100vw;
 }
 
+#operationButtons {
+    display: flex;
+    flex-direction: row;
+}
 
 #storageListTable {
     width: 90%;
     table-layout: fixed;
     background-color: lightblue;
+}
+
+#conflictTable {
+    width: 90%;
+    table-layout: fixed;
+    background-color: white;
+}
+
+#uploadArea {
+    display: none;
 }
 
 .storageListRow {
@@ -19,6 +33,10 @@ td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.checkboxCol {
+    width: 2%;
 }
 
 .fingerprintCol {
@@ -60,3 +78,10 @@ td {
 .firstpagenoteCol {
     width: 10%;
 }
+
+.mergeModeButton {
+    background-color: lightblue;
+    height: 30px;
+    width: 30px;
+}
+

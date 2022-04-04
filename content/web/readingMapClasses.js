@@ -184,33 +184,6 @@ class ReadingMapMetadata {
     }
 }
 
-// The class for user markers.
-// class ReadingMapMarker {
-//     constructor(initstring) {
-//         if (initstring == undefined) {
-//             // Which page the marker is attached to.
-//             this.pagenum = 0;
-            
-//             // The source image to use.
-//             // TODO: This string takes up much space. Replace it with more compact representations.
-//             this.imagesrc = "../../rmImages/markers/defaultMarker.png";
-
-//             // Description.
-//             this.description = "";
-
-//             this.createTime = new Date();
-
-//         }
-//         else {
-//             // TODO: json.stringify...
-//             console.log("warning: TODO");
-//         }
-//     }
-//     toString(){
-//         // TODO: Use a more compact representation.
-//         return JSON.stringify(this);
-//     }
-// }
 
 // The class for [ All recorded data for a single PDF ].
 class ReadingMapRecord {
@@ -242,6 +215,8 @@ class ReadingMapRecord {
                 this.lastTime.push(cur);
             }
 
+            this.createTime = cur.toJSON();
+
         }
         else {
             // TODO: make this more elegant.
@@ -251,6 +226,7 @@ class ReadingMapRecord {
             this.lastTime = obj.lastTime;
             this.markers = obj.markers;
             this.notes=obj.notes;
+            this.createTime = obj.createTime;
         }
     }
     
