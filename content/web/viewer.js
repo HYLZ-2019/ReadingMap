@@ -157,6 +157,7 @@ function getViewerConfiguration() {
       customScaleOption: document.getElementById('customScaleOption'),
       previous: document.getElementById('previous'),
       note: document.getElementById('note'),
+      mark: document.getElementById('mark'),
       next: document.getElementById('next'),
       zoomIn: document.getElementById('zoomIn'),
       zoomOut: document.getElementById('zoomOut'),
@@ -799,6 +800,9 @@ var PDFViewerApplication = {
     noteBar.style.visibility='visible'
     else
       noteBar.style.visibility='hidden'
+  },
+  mark: function mark() {
+    showSomeMarks();
   },
   zoomIn: function zoomIn(ticks) {
     if (this.pdfViewer.isInPresentationMode) {
@@ -1709,6 +1713,7 @@ var PDFViewerApplication = {
     eventBus.on('nextpage', webViewerNextPage);
     eventBus.on('previouspage', webViewerPreviousPage);
     eventBus.on('note', webViewerNote);
+    eventBus.on('mark', webViewerMark);
     eventBus.on('zoomin', webViewerZoomIn);
     eventBus.on('zoomout', webViewerZoomOut);
     eventBus.on('zoomreset', webViewerZoomReset);
@@ -1792,6 +1797,7 @@ var PDFViewerApplication = {
     eventBus.off('nextpage', webViewerNextPage);
     eventBus.off('previouspage', webViewerPreviousPage);
     eventBus.off('note', webViewerNote);
+    eventBus.off('mark', webViewerMark);
     eventBus.off('zoomin', webViewerZoomIn);
     eventBus.off('zoomout', webViewerZoomOut);
     eventBus.off('zoomreset', webViewerZoomReset);
@@ -2097,7 +2103,9 @@ function webViewerPreviousPage() {
 function webViewerNote() {
   PDFViewerApplication.note();
 }
-
+function webViewerMark() {
+  PDFViewerApplication.mark();
+}
 function webViewerZoomIn() {
   PDFViewerApplication.zoomIn();
 }
@@ -13224,6 +13232,11 @@ function () {
       });
       items.note.addEventListener('click', function () {
         eventBus.dispatch('note', {
+          source: self
+        });
+      });
+      items.mark.addEventListener('click', function () {
+        eventBus.dispatch('mark', {
           source: self
         });
       });

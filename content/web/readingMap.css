@@ -47,3 +47,20 @@
     transform: translate(-50%, 0);
     content: url(../../rmImages/markers/defaultMarker.png);
 }
+
+.rmMarkerNote {
+    /* height: 2%; */
+    width: 200%;
+    position: absolute;
+    left: 120%;
+    background-color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 1px;
+    /* border:10px; */
+    padding: 5em;
+    opacity:0.6;
+    /* transform: translate(-50%, 0); */
+    /* content: url(../../rmImages/markers/defaultMarker.png); */
+}

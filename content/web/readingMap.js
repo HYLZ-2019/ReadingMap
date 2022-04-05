@@ -23,6 +23,8 @@ var rmStartTime = new Date();
 // The History set
 var rmHistorySet;
 
+var flag = 0;
+
 window.addEventListener("load", viewerOnLoad);
 
 
@@ -156,6 +158,20 @@ function rmKeypressCallback(event){
         rmToggleMarker();
     }
 }
+
+function checkMarkNote(pagenum) {
+    let markNote=document.querySelector('markerNote'+pagenum);
+    markNote.innerText = String(pdfRecord.notes[pagenum - 1]);
+    switch (flag) {
+        case 0: markNote.style.visibility = 'hidden';
+                break ;
+        case 1: markNote.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : 'visible');
+                break ;
+        case 2: markNote.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : (pdfRecord.markers[pagenum] ? 'visible' : 'hidden'));
+                break ;
+    }
+}
+
 function rmInitializeNote()
 {
     let noteInput=document.querySelector("#noteInput")
@@ -167,6 +183,7 @@ function rmInitializeNote()
         pdfRecord.notes[currentpage-1]=this.value
         console.log(currentpage+"page's note was changed to "+this.value)
         save(pdfMetadata.toString(), pdfRecord);
+        checkMarkNote(currentpage);
     }
 }
 
@@ -197,6 +214,10 @@ function rmInitializeBar(){
     for (let i=0; i<pdfMetadata.pages; i++){
         bar.appendChild(rmDrawMarker(i,pdfRecord.markers[i]?'visible':'hidden'));
     }
+
+    for (let i=0; i<pdfMetadata.pages; i++){
+        bar.appendChild(rmDrawMarkerNote(i,'hidden'));
+    }
 }
 function rmDrawMarker(pagenum,visibility){
     let mark = document.createElement("marker"+pagenum);
@@ -206,6 +227,24 @@ function rmDrawMarker(pagenum,visibility){
     mark.style.visibility=visibility
     return mark;
 }
+
+function rmDrawMarkerNote(pagenum,visibility){
+    let markNote = document.createElement("markerNote" + pagenum);
+    markNote.setAttribute("class", "rmMarkerNote");
+    markNote.innerText = String(pdfRecord.notes[pagenum-1]);
+    // console.log(markNote.innerText);
+    markNote.style.top = String(Math.min((pagenum-1)*100/pdfMetadata.pages, 98)) + "%";
+    markNote.style.visibility=visibility;
+    return markNote;
+}
+
+function showSomeMarks() {
+    flag = (flag + 1) % 3;
+    for (let i = 0; i < pdfMetadata.pages; i++) {
+        checkMarkNote(i);
+    }
+}
+
 // Set the color of the rectangle for page pagenum according to the times it has been read.
 function rmSetPageColor(pagenum, times){
     let rect = document.getElementById("readingMapBarDiv").childNodes[pagenum];
@@ -233,7 +272,7 @@ function rmToggleMarker(){
     pdfRecord.markers[pagenum]=!pdfRecord.markers[pagenum];
 
     if (mark.style.visibility=='hidden')
-    mark.style.visibility='visible'
+        mark.style.visibility='visible'
     else mark.style.visibility='hidden'
     
     // Save the changes.

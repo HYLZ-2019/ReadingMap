@@ -751,7 +751,7 @@ html[dir='rtl'] .findbar {
   -webkit-user-select: none;
           user-select: none;
 }
- #noteInput {
+#noteInput {
   width: 200px;
   height: 80px;
   margin: 5px;
@@ -2129,6 +2129,9 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
   }
   #note.toolbarButton::before {
     content: url(images/toolbarButton-zoomIn@2x.png);
+  }
+  #mark.toolbarButton::before {
+    content: url(images/toolbarButton-mark.png);
   }
   .secondaryToolbarButton.firstPage::before {
     content: url(images/secondaryToolbarButton-firstPage@2x.png);
