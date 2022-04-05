@@ -89,7 +89,7 @@ function completeLoad(before){
     window.addEventListener("wheel", rmUpdate);
     window.addEventListener("click", rmUpdate);
     window.addEventListener("keydown", rmUpdate);
-    document.addEventListener("keypress", rmKeypressCallback);
+    // document.addEventListener("keypress", rmKeypressCallback);
 
     // Touch them in case they are undefined
     load("rmUserPrefs");
@@ -156,23 +156,23 @@ function rmUpdate(e){
     save(pdfMetadata.toString(), pdfRecord);
 }
 
-function rmKeypressCallback(event){
-    if (event.key == "m"){
-        console.log("press M")
-        // The shortcut to add a marker is "m".
-        rmToggleMarker();
-    }
-}
+// function rmKeypressCallback(event){
+//     if (event.key == "m"){
+//         console.log("press M")
+//         // The shortcut to add a marker is "m".
+//         rmToggleMarker();
+//     }
+// }
 
-function checkMarkNote(pagenum) {
-    let markNote=document.querySelector('markerNote'+pagenum);
-    markNote.innerText = String(pdfRecord.notes[pagenum - 1]);
+function checkAbstract(pagenum) {
+    let abstract=document.querySelector('abstract'+pagenum);
+    abstract.innerText = String(pdfRecord.notes[pagenum - 1]);
     switch (flag) {
-        case 0: markNote.style.visibility = 'hidden';
+        case 0: abstract.style.visibility = 'hidden';
                 break ;
-        case 1: markNote.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : 'visible');
+        case 1: abstract.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : 'visible');
                 break ;
-        case 2: markNote.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : (pdfRecord.markers[pagenum] ? 'visible' : 'hidden'));
+        case 2: abstract.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : (pdfRecord.markers[pagenum] ? 'visible' : 'hidden'));
                 break ;
     }
 }
@@ -188,7 +188,7 @@ function rmInitializeNote()
         pdfRecord.notes[currentpage-1]=this.value
         console.log(currentpage+"page's note was changed to "+this.value)
         save(pdfMetadata.toString(), pdfRecord);
-        checkMarkNote(currentpage);
+        checkAbstract(currentpage);
     }
 }
 
@@ -221,7 +221,7 @@ function rmInitializeBar(){
     }
 
     for (let i=0; i<pdfMetadata.pages; i++){
-        bar.appendChild(rmDrawMarkerNote(i,'hidden'));
+        bar.appendChild(rmDrawAbstract(i,'hidden'));
     }
 }
 function rmDrawMarker(pagenum,visibility){
@@ -233,20 +233,20 @@ function rmDrawMarker(pagenum,visibility){
     return mark;
 }
 
-function rmDrawMarkerNote(pagenum,visibility){
-    let markNote = document.createElement("markerNote" + pagenum);
-    markNote.setAttribute("class", "rmMarkerNote");
-    markNote.innerText = String(pdfRecord.notes[pagenum-1]);
-    // console.log(markNote.innerText);
-    markNote.style.top = String(Math.min((pagenum-1)*100/pdfMetadata.pages, 98)) + "%";
-    markNote.style.visibility=visibility;
-    return markNote;
+function rmDrawAbstract(pagenum,visibility){
+    let Abstract = document.createElement("abstract" + pagenum);
+    Abstract.setAttribute("class", "rmAbstract");
+    Abstract.innerText = String(pdfRecord.notes[pagenum-1]);
+    // console.log(Abstract.innerText);
+    Abstract.style.top = String(Math.min((pagenum-1)*100/pdfMetadata.pages, 98)) + "%";
+    Abstract.style.visibility=visibility;
+    return Abstract;
 }
 
-function showSomeMarks() {
+function showSomeAbstracts() {
     flag = (flag + 1) % 3;
     for (let i = 0; i < pdfMetadata.pages; i++) {
-        checkMarkNote(i);
+        checkAbstract(i);
     }
 }
 
@@ -268,9 +268,9 @@ function rmRenderBar(){
     }
 }
 
-function rmToggleMarker(){
+function markCurrentPage(){
     let pagenum = rmGetCurrentPage();
-    
+    console.log("mark page");
     // Reload the data to sync modifications by other tabs.
     pdfRecord = load(pdfMetadata.toString());
     let mark=document.querySelector('marker'+pagenum)
@@ -279,7 +279,7 @@ function rmToggleMarker(){
     if (mark.style.visibility=='hidden')
         mark.style.visibility='visible'
     else mark.style.visibility='hidden'
-    
+    checkAbstract(pagenum);
     // Save the changes.
     save(pdfMetadata.toString(), pdfRecord);
     

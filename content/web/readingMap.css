@@ -48,7 +48,7 @@
     content: url(../../rmImages/markers/defaultMarker.png);
 }
 
-.rmMarkerNote {
+.rmAbstract {
     /* height: 2%; */
     width: 200%;
     position: absolute;

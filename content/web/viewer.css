@@ -2130,6 +2130,9 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
   #note.toolbarButton::before {
     content: url(images/toolbarButton-zoomIn@2x.png);
   }
+  #abstract.toolbarButton::before {
+    content: url(images/toolbarButton-abstract.png);
+  }
   #mark.toolbarButton::before {
     content: url(images/toolbarButton-mark.png);
   }

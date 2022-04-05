@@ -158,6 +158,7 @@ function getViewerConfiguration() {
       previous: document.getElementById('previous'),
       note: document.getElementById('note'),
       mark: document.getElementById('mark'),
+      abstract: document.getElementById('abstract'),
       next: document.getElementById('next'),
       zoomIn: document.getElementById('zoomIn'),
       zoomOut: document.getElementById('zoomOut'),
@@ -801,8 +802,12 @@ var PDFViewerApplication = {
     else
       noteBar.style.visibility='hidden'
   },
+  abstract: function abstract() {
+    showSomeAbstracts();
+  },
   mark: function mark() {
-    showSomeMarks();
+    console.log("enterviewbookmark");
+    markCurrentPage();
   },
   zoomIn: function zoomIn(ticks) {
     if (this.pdfViewer.isInPresentationMode) {
@@ -1714,6 +1719,7 @@ var PDFViewerApplication = {
     eventBus.on('previouspage', webViewerPreviousPage);
     eventBus.on('note', webViewerNote);
     eventBus.on('mark', webViewerMark);
+    eventBus.on('abstract', webViewerAbstract);
     eventBus.on('zoomin', webViewerZoomIn);
     eventBus.on('zoomout', webViewerZoomOut);
     eventBus.on('zoomreset', webViewerZoomReset);
@@ -1798,6 +1804,7 @@ var PDFViewerApplication = {
     eventBus.off('previouspage', webViewerPreviousPage);
     eventBus.off('note', webViewerNote);
     eventBus.off('mark', webViewerMark);
+    eventBus.off('abstract', webViewerAbstract);
     eventBus.off('zoomin', webViewerZoomIn);
     eventBus.off('zoomout', webViewerZoomOut);
     eventBus.off('zoomreset', webViewerZoomReset);
@@ -2105,6 +2112,9 @@ function webViewerNote() {
 }
 function webViewerMark() {
   PDFViewerApplication.mark();
+}
+function webViewerAbstract() {
+  PDFViewerApplication.abstract();
 }
 function webViewerZoomIn() {
   PDFViewerApplication.zoomIn();
@@ -13232,6 +13242,11 @@ function () {
       });
       items.note.addEventListener('click', function () {
         eventBus.dispatch('note', {
+          source: self
+        });
+      });
+      items.abstract.addEventListener('click', function () {
+        eventBus.dispatch('abstract', {
           source: self
         });
       });
