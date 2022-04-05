@@ -3,25 +3,71 @@ body {
     width: 100vw;
 }
 
+h1 {
+    text-align:center;
+    margin: 1em;
+}
+
 #operationButtons {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 }
 
 #storageListTable {
-    width: 90%;
+    width: 97%;
+    margin: 1%;
     table-layout: fixed;
+    background-color: white;
+    border-collapse: collapse;
+}
+
+#storageListTable td, #storageListTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#storageListTable th {
     background-color: lightblue;
 }
 
+#storageListTable tr:nth-child(even){background-color: rgb(222, 244, 251);}
+#storageListTable tr:nth-child(odd){background-color: white;}
+
 #conflictTable {
-    width: 90%;
+    width: 97%;
+    margin: 1%;
     table-layout: fixed;
     background-color: white;
 }
 
+#conflictTable td, #conflictTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#conflictTable th {
+    background-color: lightcoral;
+}
+
 #uploadArea {
-    display: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border: orange dashed 3px;
+    margin: 2em;
+    padding: 2em;
+    border-radius: 2em;
+}
+
+#mergeInputArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border: orange dashed 3px;
+    margin: 2em;
+    padding: 2em;
+    border-radius: 2em;
 }
 
 .storageListRow {
@@ -33,6 +79,18 @@ td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    word-break: break-all;
+}
+
+th {
+    overflow: hidden;
+    white-space: normal;
+    word-break: break-all;
+}
+
+button {
+    padding: 1em;
+    margin: 1em;
 }
 
 .checkboxCol {
@@ -80,8 +138,31 @@ td {
 }
 
 .mergeModeButton {
-    background-color: lightblue;
+    background-image:url("../rmImages/overwrite.png");
+    background-size: 100% 100%;
     height: 30px;
     width: 30px;
 }
 
+#showConflictArea {
+    flex-direction: column;
+    align-content:center;
+}
+
+#storageList {
+    flex-direction: column;
+    align-content:center;
+}
+
+.chooseCheckbox {
+    margin: 0;
+}
+
+#conflictNumber {
+    font-size: medium;
+    margin: 2em;
+}
+
+#confirmMerge {
+    margin: 2em;
+}
