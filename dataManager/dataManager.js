@@ -10,14 +10,15 @@ function dataManagerOnLoad(){
     document.getElementById("deleteChosen").addEventListener("click", deleteChosen);
     document.getElementById("mergeFiles").addEventListener("click", mergeFiles);
     
-    document.getElementById("showBrowserData").style.display="block";
-    document.getElementById("openLocalData").style.display="block";
+    document.getElementById("showBrowserData").style.display="flex";
+    document.getElementById("openLocalData").style.display="flex";
     document.getElementById("exportChosen").style.display="none";
     document.getElementById("importChosen").style.display="none";
     document.getElementById("deleteChosen").style.display="none";
-    document.getElementById("mergeFiles").style.display="block";
+    document.getElementById("mergeFiles").style.display="flex";
     document.getElementById("showConflictArea").style.display="none";
     document.getElementById("mergeInputArea").style.display="none";
+    document.getElementById("uploadArea").style.display = "none";
 
     document.getElementById("uploadButton").addEventListener("change", loadFileAndDisplay);
     document.getElementById("storageListChooseAll").addEventListener("click", function(){checkAll(document.getElementById("storageListTable"));});
@@ -33,22 +34,22 @@ function showBrowserData(){
     table.innerHTML = "";
     showStorageTable(curstorage, table);
 
-    document.getElementById("showBrowserData").style.display="block";
-    document.getElementById("openLocalData").style.display="block";
-    document.getElementById("exportChosen").style.display="block";
+    document.getElementById("showBrowserData").style.display="flex";
+    document.getElementById("openLocalData").style.display="flex";
+    document.getElementById("exportChosen").style.display="flex";
     document.getElementById("importChosen").style.display="none";
-    document.getElementById("deleteChosen").style.display="block";
-    document.getElementById("mergeFiles").style.display="block";
+    document.getElementById("deleteChosen").style.display="flex";
+    document.getElementById("mergeFiles").style.display="flex";
     document.getElementById("showConflictArea").style.display="none";
     document.getElementById("mergeInputArea").style.display="none";
     document.getElementById("uploadArea").style.display = "none";
-    document.getElementById("storageList").style.display = "block";
+    document.getElementById("storageList").style.display = "flex";
 }
 
 var uploadedStorage;
 
 function openLocalData(){
-    document.getElementById("uploadArea").style.display = "block";
+    document.getElementById("uploadArea").style.display = "flex";
     let table = document.getElementById("storageListTable");
     if (uploadedStorage == undefined){
         table.innerHTML = "";
@@ -58,15 +59,15 @@ function openLocalData(){
         showStorageTable(uploadedStorage, table);
     }
 
-    document.getElementById("showBrowserData").style.display="block";
-    document.getElementById("openLocalData").style.display="block";
+    document.getElementById("showBrowserData").style.display="flex";
+    document.getElementById("openLocalData").style.display="flex";
     document.getElementById("exportChosen").style.display="none";
     document.getElementById("importChosen").style.display="none";
     document.getElementById("deleteChosen").style.display="none";
-    document.getElementById("mergeFiles").style.display="block";
+    document.getElementById("mergeFiles").style.display="flex";
     document.getElementById("showConflictArea").style.display="none";
     document.getElementById("mergeInputArea").style.display="none";
-    document.getElementById("storageList").style.display = "block";
+    document.getElementById("storageList").style.display = "flex";
 }
 
 function loadFileAndDisplay(){
@@ -77,7 +78,7 @@ function loadFileAndDisplay(){
         let table = document.getElementById("storageListTable");
         table.innerHTML = "";
         showStorageTable(uploadedStorage, table);
-        document.getElementById("importChosen").style.display="block";
+        document.getElementById("importChosen").style.display="flex";
     }
     reader.readAsText(file, 'utf-8');
 }
@@ -140,14 +141,14 @@ function deleteChosen(){
 
 function mergeFiles(){
     document.getElementById("uploadArea").style.display = "none";
-    document.getElementById("showBrowserData").style.display="block";
-    document.getElementById("openLocalData").style.display="block";
+    document.getElementById("showBrowserData").style.display="flex";
+    document.getElementById("openLocalData").style.display="flex";
     document.getElementById("exportChosen").style.display="none";
     document.getElementById("importChosen").style.display="none";
     document.getElementById("deleteChosen").style.display="none";
-    document.getElementById("mergeFiles").style.display="block";
+    document.getElementById("mergeFiles").style.display="flex";
     document.getElementById("showConflictArea").style.display="none";
-    document.getElementById("mergeInputArea").style.display="block";
+    document.getElementById("mergeInputArea").style.display="flex";
     document.getElementById("storageList").style.display = "none";
 }
 
@@ -189,6 +190,69 @@ function checkBothInputsForRead(){
 
 
 function showStorageTable(storage, table){
+    let row = document.createElement("tr");   
+    row.setAttribute("class", "storageListRow")
+    
+    let checkboxtd = document.createElement("th");
+    checkboxtd.setAttribute("class","checkboxCol");
+    row.appendChild(checkboxtd);
+    
+    let fingerprint = document.createElement("th");
+    fingerprint.setAttribute("class", "fingerprintCol");
+    fingerprint.innerText = "File fingerprint";
+    row.appendChild(fingerprint);
+
+    let title = document.createElement("th");
+    title.setAttribute("class", "titleCol");
+    title.innerText = "File title";
+    row.appendChild(title);
+
+    let path = document.createElement("th");
+    path.setAttribute("class", "pathCol");
+    path.innerText = "File path";
+    row.appendChild(path);
+
+    let firstpagenote = document.createElement("th");
+    firstpagenote.setAttribute("class", "firstpagenoteCol");
+    firstpagenote.innerText = "Notes on first page";
+    row.appendChild(firstpagenote);
+
+    let readpages = document.createElement("th");
+    readpages.setAttribute("class", "readpagesCol");
+    readpages.innerText = "Read pages";
+    row.appendChild(readpages);
+
+    // The "/" of "5/10"
+    let slash = document.createElement("th");
+    slash.setAttribute("class", "slashCol");
+    slash.innerText = "/";
+    row.appendChild(slash);
+
+    let pages = document.createElement("th");
+    pages.setAttribute("class", "pagesCol");
+    pages.innerText = "Total pages";
+    row.appendChild(pages);
+
+    // Latest timestamp
+    let latestTS = document.createElement("th");
+    latestTS.setAttribute("class", "latestTSCol");
+    latestTS.innerText = "Latest read time";
+    row.appendChild(latestTS);
+
+    let bookmarks = document.createElement("th");
+    bookmarks.setAttribute("class", "bookmarksCol");
+    bookmarks.innerText = "Bookmark count";
+    row.appendChild(bookmarks);
+
+    // How much space tracing it takes up.
+    let space = document.createElement("th");
+    space.setAttribute("class", "spaceCol");
+    space.innerText = "Space used";
+    row.appendChild(space);
+
+    table.appendChild(row);
+
+
     var rmMetadataList = JSON.parse(storage["rmMetadataSet"]);
     for (metaI in rmMetadataList){
         let identity = rmMetadataList[metaI];
@@ -201,6 +265,7 @@ function showStorageTable(storage, table){
         checkboxtd.setAttribute("class","checkboxCol");
         let checkbox = document.createElement("input");
         checkbox.setAttribute("type", "checkbox");
+        checkbox.setAttribute("class", "chooseCheckbox");
         checkbox.checked = false;
         checkboxtd.appendChild(checkbox);
         row.appendChild(checkboxtd);
@@ -387,7 +452,7 @@ function getAllSelectedKeys(table){
     for (i=0; i<rows.length; i++){
         let row = rows[i];
         let cb = row.getElementsByClassName("checkboxCol")[0].getElementsByTagName("input")[0];
-        if (cb.checked){
+        if (cb != undefined && cb.checked){
             let fingerprint = row.getElementsByClassName("fingerprintCol")[0].innerText;
             let pages = Number(row.getElementsByClassName("pagesCol")[0].innerText);
             let key = JSON.stringify({pages:pages, fingerprint:fingerprint});
@@ -417,7 +482,9 @@ function checkAll(table){
     let cols = table.getElementsByClassName("checkboxCol");
     for (let i=0; i<cols.length; i++){
         let cb = cols[i].getElementsByTagName("input")[0];
-        cb.checked = true;
+        if (cb != undefined){
+            cb.checked = true;
+        }
     }
 }
 
@@ -445,6 +512,57 @@ function showConflicts(s1, s2, table){
     conflictNumber.scrollIntoView();
     table.innerHTML = "";
 
+    // Table head
+    let row = document.createElement("tr");
+
+    let mergeModeButtonCol = document.createElement("th");
+    mergeModeButtonCol.innerText = "Merge Mode";
+    row.append(mergeModeButtonCol);
+    
+    let fingerprint = document.createElement("th");
+    fingerprint.setAttribute("class", "fingerprintCol");
+    fingerprint.innerText = "File fingerprint";
+    row.appendChild(fingerprint);
+
+    let title = document.createElement("th");
+    title.setAttribute("class", "titleCol");
+    title.innerText = "File title";
+    row.appendChild(title);
+
+    let pages = document.createElement("th");
+    pages.setAttribute("class", "pagesCol");
+    pages.innerText = "Total pages";
+    row.appendChild(pages);
+
+    // How much space tracing it takes up.
+    let space1 = document.createElement("th");
+    space1.setAttribute("class", "spaceCol");
+    space1.innerText = "Space of 1";
+    space1.style.backgroundColor = leftcolor;
+    row.appendChild(space1);
+
+    let createTime1 = document.createElement("th");
+    createTime1.setAttribute("class", "createTimeCol");
+    createTime1.innerText = "Creation time of 1";
+    createTime1.style.backgroundColor = leftcolor;
+    row.appendChild(createTime1);
+    
+    // How much space tracing it takes up.
+    let space2 = document.createElement("th");
+    space2.setAttribute("class", "spaceCol");
+    space2.innerText = "Space of 2";
+    space2.style.backgroundColor = rightcolor;
+    row.appendChild(space2);
+
+    let createTime2 = document.createElement("th");
+    createTime2.setAttribute("class", "createTimeCol");
+    createTime2.innerText = "Creation time of 2";
+    createTime2.style.backgroundColor = rightcolor;
+    row.appendChild(createTime2);
+
+    table.appendChild(row);
+
+
     for (let i=0; i<conflictList.length; i++){
         let key = conflictList[i];
         let r1 = JSON.parse(s1[key]);
@@ -462,8 +580,8 @@ function showConflicts(s1, s2, table){
             // The record was exported, but the original copy wasn't deleted
             mergeModeButton.changeTo("overwrite");
         }
-        mergeModeButtonCol.appendChild
-        row.append(mergeModeButton);
+        mergeModeButtonCol.appendChild(mergeModeButton);
+        row.append(mergeModeButtonCol);
         
         let fingerprint = document.createElement("td");
         fingerprint.setAttribute("class", "fingerprintCol");
@@ -511,7 +629,7 @@ function showConflicts(s1, s2, table){
         table.appendChild(row);
     }
 
-    document.getElementById("showConflictArea").style.display="block";
+    document.getElementById("showConflictArea").style.display="flex";
 }
 
 function createMergeModeButton(){
@@ -519,13 +637,14 @@ function createMergeModeButton(){
     button.setAttribute("class", "mergeModeButton");
     button.mode = "overwrite"; // or "add"
     button.changeTo = function(dst){
+        console.log(dst);
         if (dst == "add"){
             button.mode = "add";
-            button.style.backgroundColor = "lightyellow";
+            button.style.backgroundImage='url("../rmImages/add.png")';
         }
         else if (dst == "overwrite"){
             button.mode = "overwrite";
-            button.style.backgroundColor = "lightblue";
+            button.style.backgroundImage = 'url("../rmImages/overwrite.png")';
         }
     }
     button.onclick = function(){
@@ -546,12 +665,13 @@ function getMergeModeDict(){
     for (i=0; i<rows.length; i++){
         let row = rows[i];
         let mm = row.getElementsByClassName("mergeModeButton")[0];
-        
-        let fingerprint = row.getElementsByClassName("fingerprintCol")[0].innerText;
-        let pages = Number(row.getElementsByClassName("pagesCol")[0].innerText);
-        let key = JSON.stringify({pages:pages, fingerprint:fingerprint});
-        
-        modeDict[key] = mm.mode;
+        if (mm != undefined) {
+            let fingerprint = row.getElementsByClassName("fingerprintCol")[0].innerText;
+            let pages = Number(row.getElementsByClassName("pagesCol")[0].innerText);
+            let key = JSON.stringify({pages:pages, fingerprint:fingerprint});
+            
+            modeDict[key] = mm.mode;
+        }
     }
     return modeDict;
 }
