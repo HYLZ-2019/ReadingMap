@@ -310,16 +310,18 @@ function mergeTwoStorages(s1, s2, addMap){
 
     // Merge rmUserPrefs
     // Use parse+stringify to implement deep copy
-    newStorage["rmUserPrefs"] = JSON.stringify(s1["rmUserPrefs"]);
+    newStorage["rmUserPrefs"] = s1["rmUserPrefs"];
 
     // Merge rmBooksToday
-    newStorage["rmBooksToday"] = JSON.stringify(s1["rmBooksToday"]);
+    newStorage["rmBooksToday"] = s1["rmBooksToday"];
     
     // Merge rmHistorySet
     // The object stored in localStorage is actually a list.
     let historydict = {};
-    let history1 = s1["rmHistorySet"];
-    let history2 = s2["rmHistorySet"];
+    console.log(s1);
+    console.log(s2);
+    let history1 = JSON.parse(s1["rmHistorySet"]);
+    let history2 = JSON.parse(s2["rmHistorySet"]);
     for (let i in history2){
         historydict[history2[i].date] = history2[i];
     }
@@ -441,6 +443,7 @@ function showConflicts(s1, s2, table){
         conflictNumber.innerText = "数据合并中共产生 "+conflictList.length + " 个冲突，请选择合并模式后在清单下方确认。";
     }
     conflictNumber.scrollIntoView();
+    table.innerHTML = "";
 
     for (let i=0; i<conflictList.length; i++){
         let key = conflictList[i];
@@ -450,6 +453,15 @@ function showConflicts(s1, s2, table){
 
         let mergeModeButtonCol = document.createElement("td");
         let mergeModeButton = createMergeModeButton();
+        // Suggest merge mode.
+        if (r1.createTime > s2["dumpTime"]){
+            // The record probably was exported -> deleted -> created again
+            mergeModeButton.changeTo("add");
+        }
+        else{
+            // The record was exported, but the original copy wasn't deleted
+            mergeModeButton.changeTo("overwrite");
+        }
         mergeModeButtonCol.appendChild
         row.append(mergeModeButton);
         
@@ -506,14 +518,22 @@ function createMergeModeButton(){
     let button = document.createElement("div")
     button.setAttribute("class", "mergeModeButton");
     button.mode = "overwrite"; // or "add"
-    button.onclick = function(){
-        if (button.mode == "overwrite"){
+    button.changeTo = function(dst){
+        if (dst == "add"){
             button.mode = "add";
             button.style.backgroundColor = "lightyellow";
         }
-        else if (button.mode == "add"){
+        else if (dst == "overwrite"){
             button.mode = "overwrite";
             button.style.backgroundColor = "lightblue";
+        }
+    }
+    button.onclick = function(){
+        if (button.mode == "overwrite"){
+            button.changeTo("add");
+        }
+        else if (button.mode == "add"){
+            button.changeTo("overwrite");
         }
     }
     return button;

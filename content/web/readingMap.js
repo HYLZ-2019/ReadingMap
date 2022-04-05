@@ -88,6 +88,11 @@ function completeLoad(before){
     window.addEventListener("click", rmUpdate);
     window.addEventListener("keydown", rmUpdate);
     document.addEventListener("keypress", rmKeypressCallback);
+
+    // Touch them in case they are undefined
+    load("rmUserPrefs");
+    load("rmBooksToday");
+    load("rmHistorySet");
 }
 
 function rmGetCurrentPage(){
