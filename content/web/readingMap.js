@@ -47,6 +47,11 @@ function viewerOnLoad() {
     checkMemoryUsage();
 }
 
+function isBetter(s) {
+    if (s == "pdf.js" || s == "document.pdf") return false;
+    return true ;
+}
+
 function completeLoad(before) {
     let after = new Date();
     console.log("It took " + (after.getTime() - before.getTime()) + "ms for pdfViewer to load.");
@@ -64,6 +69,10 @@ function completeLoad(before) {
     if (rmMetadataSet.includes(pdfMetadata.toString())) {
         // TODO: This direct method may cause problems.
         pdfRecord = load(pdfMetadata.toString());
+        if (isBetter(pdfMetadata.title)) {
+            pdfRecord.metadata.title = pdfMetadata.title;
+            save(pdfMetadata.toString(), pdfRecord); 
+        } else pdfMetadata.title = pdfRecord.metadata.title;
     }
     else if (rmMetadataSet.includes(pdfMetadata.oldToString())) {
         // It was tracked in an old version -> convert it to new format.
