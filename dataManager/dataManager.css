@@ -158,6 +158,10 @@ button {
     margin: 0;
 }
 
+.checkAllCheckbox {
+    margin: 0;
+}
+
 #conflictNumber {
     font-size: medium;
     margin: 2em;
