@@ -31,37 +31,12 @@ if (url) {
 window.addEventListener("load", popupOnLoad);
 
 function popupOnLoad(){
-  document.getElementById("optionsUpload").addEventListener("click", turnToUpload);
-  document.getElementById("optionsDownload").addEventListener("click", turnToDownload);
   document.getElementById("optionsButton").addEventListener("click", turnToOptions);
   document.getElementById("manageDataButton").addEventListener("click", turnToDataManager);
   showTodayReport();
 }
-function turnToDownload(){
-  var a = document.createElement('a');          // 创建一个a节点插入的document
-  var event = new MouseEvent('click')           // 模拟鼠标click点击事件
-  a.download = 'ReadingMap'                  // 设置a节点的download属性值
-  a.href = 'data:text/plain;charset=utf-8,' + getReadingMap();   
-  console.log(a.href);                              
-  a.dispatchEvent(event)                        // 触发鼠标点击事件                
-}
 
-function turnToUpload() {
 
-    var file = document.getElementById('optionsUpload').files
-
-    // console.log(file);
-
-    var reader = new FileReader();
-
-    // console.log(reader);
-
-    reader.readAsText(file, 'utf-8');
-
-    reader.onload = function () {
-        console.log( reader.result);
-    }
-}
 function turnToOptions(){
   chrome.tabs.create({url: "chrome://extensions/?options="+chrome.runtime.id});
 }
