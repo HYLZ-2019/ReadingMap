@@ -21,8 +21,7 @@ function dataManagerOnLoad(){
     document.getElementById("uploadArea").style.display = "none";
 
     document.getElementById("uploadButton").addEventListener("change", loadFileAndDisplay);
-    document.getElementById("storageListChooseAll").addEventListener("click", function(){checkAll(document.getElementById("storageListTable"));});
-
+    
     document.getElementById("mergeInput1").addEventListener("change", checkBothInputsForRead);
     document.getElementById("mergeInput2").addEventListener("change", checkBothInputsForRead);
 }
@@ -207,6 +206,13 @@ function showStorageTable(storage, table, origin){
     
     let checkboxtd = document.createElement("th");
     checkboxtd.setAttribute("class","checkboxCol");
+    let checkall = document.createElement("input");
+    checkall.setAttribute("type", "checkbox");
+    checkall.setAttribute("class", "checkAllCheckbox");
+    checkall.addEventListener("click", function(){
+        checkAll(checkall, table, "chooseCheckbox");
+    })
+    checkboxtd.appendChild(checkall);
     row.appendChild(checkboxtd);
     
     let fingerprint = document.createElement("th");
@@ -395,8 +401,6 @@ function mergeTwoStorages(s1, s2, addMap){
     // Merge rmHistorySet
     // The object stored in localStorage is actually a list.
     let historydict = {};
-    console.log(s1);
-    console.log(s2);
     let history1 = JSON.parse(s1["rmHistorySet"]);
     let history2 = JSON.parse(s2["rmHistorySet"]);
     for (let i in history2){
@@ -440,7 +444,9 @@ function mergeTwoStorages(s1, s2, addMap){
             let pages = record.metadata.pages;
             for (let i=0; i<pages; i++){
                 record.readTimes[i] = record.readTimes[i] + r2.readTimes[i];
-                record.notes[i] = record.notes[i] + "\n\n" + r2.notes[i];
+                if (record.notes[i] != "" || r2.notes[i] != ""){
+                    record.notes[i] = record.notes[i] + "\n\n" + r2.notes[i];
+                }
                 record.markers[i] = record.markers[i] || r2.markers[i];
                 if (r2.lastTime[i] > record.lastTime[i]){
                     record.lastTime[i] = r2.lastTime[i];
@@ -463,7 +469,7 @@ function getAllSelectedKeys(table){
     let rows = table.getElementsByTagName("tr");
     for (i=0; i<rows.length; i++){
         let row = rows[i];
-        let cb = row.getElementsByClassName("checkboxCol")[0].getElementsByTagName("input")[0];
+        let cb = row.getElementsByClassName("checkboxCol")[0].getElementsByClassName("chooseCheckbox")[0];
         if (cb != undefined && cb.checked){
             let fingerprint = row.getElementsByClassName("fingerprintCol")[0].innerText;
             let pages = Number(row.getElementsByClassName("pagesCol")[0].innerText);
@@ -490,13 +496,10 @@ function exportStorageFromList(bigstorage, keyList){
     return storage;
 }
 
-function checkAll(table){
-    let cols = table.getElementsByClassName("checkboxCol");
-    for (let i=0; i<cols.length; i++){
-        let cb = cols[i].getElementsByTagName("input")[0];
-        if (cb != undefined){
-            cb.checked = true;
-        }
+function checkAll(box, table, boxclass){
+    let others = table.getElementsByClassName(boxclass);
+    for (let i=0; i<others.length; i++){
+        others[i].checked = box.checked;
     }
 }
 
@@ -649,7 +652,6 @@ function createMergeModeButton(){
     button.setAttribute("class", "mergeModeButton");
     button.mode = "overwrite"; // or "add"
     button.changeTo = function(dst){
-        console.log(dst);
         if (dst == "add"){
             button.mode = "add";
             button.style.backgroundImage='url("../rmImages/add.png")';
