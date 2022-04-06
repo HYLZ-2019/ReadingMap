@@ -444,7 +444,9 @@ function mergeTwoStorages(s1, s2, addMap){
             let pages = record.metadata.pages;
             for (let i=0; i<pages; i++){
                 record.readTimes[i] = record.readTimes[i] + r2.readTimes[i];
-                record.notes[i] = record.notes[i] + "\n\n" + r2.notes[i];
+                if (record.notes[i] != "" || r2.notes[i] != ""){
+                    record.notes[i] = record.notes[i] + "\n\n" + r2.notes[i];
+                }
                 record.markers[i] = record.markers[i] || r2.markers[i];
                 if (r2.lastTime[i] > record.lastTime[i]){
                     record.lastTime[i] = r2.lastTime[i];
