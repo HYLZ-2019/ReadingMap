@@ -1,46 +1,47 @@
 {
-   "background": {
-      "page": "pdfHandler.html"
-   },
-   "content_scripts": [ {
-      "all_frames": true,
-      "css": [ "contentstyle.css" ],
-      "js": [ "contentscript.js" ],
-      "matches": [ "http://*/*", "https://*/*", "ftp://*/*", "file://*/*" ],
-      "run_at": "document_start"
-   } ],
-   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-   "description": "A chrome side-bar extension to visualize reading progress. Based on 'PDF-Viewer'. Under construction.",
-   "file_browser_handlers": [ {
-      "default_title": "Open with PDF Viewer",
-      "file_filters": [ "filesystem:*.pdf" ],
-      "id": "open-as-pdf"
-   } ],
-   "icons": {
-      "128": "icon128.png",
-      "16": "icon16.png",
-      "48": "icon48.png"
-   },
-   "incognito": "split",
-   "manifest_version": 2,
-   "name": "ReadingMap (PDF Viewer Modified)",
-   "options_page": "options/options.html",
-   "options_ui": {
-      "chrome_style": true,
-      "page": "options/options.html"
-   },
-   "page_action": {
-      "default_icon": {
-         "19": "icon19.png",
-         "38": "icon38.png"
-      },
-      "default_title": "Show PDF URL"
-   },
-   "permissions": [ "fileBrowserHandler", "webRequest", "webRequestBlocking", "\u003Call_urls>", "tabs", "webNavigation", "storage" ],
-   "storage": {
-      "managed_schema": "preferences_schema.json"
-   },
-   "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "1.0",
-   "web_accessible_resources": [ "content/web/viewer.html", "http:/*", "https:/*", "ftp:/*", "file:/*", "chrome-extension:/*", "blob:*", "data:*", "filesystem:/*", "drive:*" ]
-}
+    "background": {
+       "page": "pdfHandler.html"
+    },
+    "content_scripts": [ {
+       "all_frames": true,
+       "css": [ "contentstyle.css" ],
+       "js": [ "contentscript.js" ],
+       "matches": [ "http://*/*", "https://*/*", "ftp://*/*", "file://*/*" ],
+       "run_at": "document_start"
+    } ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "description": "A chrome side-bar extension to visualize reading progress. Based on 'PDF-Viewer'. Under construction.",
+    "file_browser_handlers": [ {
+       "default_title": "Open with PDF Viewer",
+       "file_filters": [ "filesystem:*.pdf" ],
+       "id": "open-as-pdf"
+    } ],
+    "icons": {
+       "128": "icon128.png",
+       "16": "icon16.png",
+       "48": "icon48.png"
+    },
+    "incognito": "split",
+    "manifest_version": 2,
+    "name": "ReadingMap (PDF Viewer Modified)",
+    "options_page": "options/options.html",
+    "options_ui": {
+       "chrome_style": true,
+       "page": "options/options.html"
+    },
+    "page_action": {
+       "default_icon": {
+          "19": "icon19.png",
+          "38": "icon38.png"
+       },
+       "default_title": "Show PDF URL"
+    },
+    "permissions": [ "fileBrowserHandler", "webRequest", "webRequestBlocking", "\u003Call_urls>", "tabs", "webNavigation", "storage" ],
+    "storage": {
+       "managed_schema": "preferences_schema.json"
+    },
+    "update_url": "https://clients2.google.com/service/update2/crx",
+    "version": "1.1",
+    "web_accessible_resources": [ "content/web/viewer.html", "http:/*", "https:/*", "ftp:/*", "file:/*", "chrome-extension:/*", "blob:*", "data:*", "filesystem:/*", "drive:*" ]
+ }
+ 
