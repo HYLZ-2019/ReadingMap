@@ -41,7 +41,10 @@ function viewerOnLoad() {
             clearInterval(checkExist);
             completeLoad(before);
         }
-    }, 10); // check every 100ms
+     }, 10); // check every 100ms
+
+    // If too much memory is used, alert the user.
+    checkMemoryUsage();
 }
 
 function completeLoad(before) {
@@ -327,6 +330,12 @@ function rmNewPageToday() {
     console.log(today);
 }
 
-// function setReadingMap(readingMap) {
 
-// }
+// Check how much memory is used up.
+function checkMemoryUsage() {
+    let usage = JSON.stringify(localStorage).length;
+    let MBs = usage / (1000* 1000);
+    if (MBs > 4.5) {
+        alert('ReadingMap当前已经占用了 ' + MBs + 'MB / 5MB = ' + MBs/5 + '% 的可用空间，请您尽快前往"数据管理器"中导出数据并清理空间~');
+    }
+}

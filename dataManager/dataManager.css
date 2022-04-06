@@ -163,6 +163,11 @@ button {
     margin: 2em;
 }
 
+#totalSize {
+    font-size: medium;
+    margin: 2em;
+}
+
 #confirmMerge {
     margin: 2em;
 }

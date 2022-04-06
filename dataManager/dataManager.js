@@ -29,10 +29,10 @@ function dataManagerOnLoad(){
 
 function showBrowserData(){
     let curstorage = JSON.parse(JSON.stringify(localStorage));
-    
+
     let table = document.getElementById("storageListTable");
     table.innerHTML = "";
-    showStorageTable(curstorage, table);
+    showStorageTable(curstorage, table, "browser");
 
     document.getElementById("showBrowserData").style.display="flex";
     document.getElementById("openLocalData").style.display="flex";
@@ -53,10 +53,11 @@ function openLocalData(){
     let table = document.getElementById("storageListTable");
     if (uploadedStorage == undefined){
         table.innerHTML = "";
+        document.getElementById("totalSize").innerText = "";
     }
     else{
         table.innerHTML = "";
-        showStorageTable(uploadedStorage, table);
+        showStorageTable(uploadedStorage, table, "local");
     }
 
     document.getElementById("showBrowserData").style.display="flex";
@@ -77,7 +78,7 @@ function loadFileAndDisplay(){
         uploadedStorage = JSON.parse(reader.result);
         let table = document.getElementById("storageListTable");
         table.innerHTML = "";
-        showStorageTable(uploadedStorage, table);
+        showStorageTable(uploadedStorage, table, "local");
         document.getElementById("importChosen").style.display="flex";
     }
     reader.readAsText(file, 'utf-8');
@@ -150,6 +151,7 @@ function mergeFiles(){
     document.getElementById("showConflictArea").style.display="none";
     document.getElementById("mergeInputArea").style.display="flex";
     document.getElementById("storageList").style.display = "none";
+    document.getElementById("totalSize").innerText = "";
 }
 
 var storageToMerge1;
@@ -189,7 +191,17 @@ function checkBothInputsForRead(){
 
 
 
-function showStorageTable(storage, table){
+function showStorageTable(storage, table, origin){
+    let spacemessage = "";
+    let curspace = JSON.stringify(storage).length;
+    if (origin == "browser"){
+        spacemessage = "当前占用空间：" + curspace + "B = " + curspace/(1000*1000) + "MB，总可用空间：5MB，剩余：" + (1-curspace/(1000*1000*5))*100 + "%。";
+    }
+    else if (origin == "local"){
+        spacemessage = "文件总大小：" + curspace + "B = " + curspace/(1000*1000) + "MB";
+    }
+    document.getElementById("totalSize").innerText = spacemessage;
+
     let row = document.createElement("tr");   
     row.setAttribute("class", "storageListRow")
     
