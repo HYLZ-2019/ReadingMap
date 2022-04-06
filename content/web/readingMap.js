@@ -23,7 +23,7 @@ var rmStartTime = new Date();
 // The History set
 var rmHistorySet;
 
-// var flag = 0;
+var flag = 'abstractClosed';
 
 window.addEventListener("load", viewerOnLoad);
 
@@ -163,7 +163,8 @@ function rmUpdate(e) {
 //     }
 // }
 
-function checkAbstract(pagenum,flag) {
+function checkAbstract(pagenum, status = '') {
+    if (status != '') flag = status;
     let abstract = document.querySelector('abstract' + pagenum);
     abstract.innerText = String(pdfRecord.notes[pagenum - 1]);
     switch (flag) {
