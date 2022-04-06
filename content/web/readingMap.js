@@ -166,7 +166,7 @@ function rmUpdate(e) {
 function checkAbstract(pagenum, status = '') {
     if (status != '') flag = status;
     let abstract = document.querySelector('abstract' + pagenum);
-    abstract.innerText = String(pdfRecord.notes[pagenum - 1]);
+    abstract.innerText = String(pdfRecord.notes[pagenum - 1]).split('\n')[0];
     switch (flag) {
         case 'abstractClosed': abstract.style.visibility = 'hidden';
             break;
@@ -235,7 +235,7 @@ function rmDrawMarker(pagenum, visibility) {
 function rmDrawAbstract(pagenum, visibility) {
     let Abstract = document.createElement("abstract" + pagenum);
     Abstract.setAttribute("class", "rmAbstract");
-    Abstract.innerText = String(pdfRecord.notes[pagenum - 1]);
+    Abstract.innerText = String(pdfRecord.notes[pagenum - 1]).split('\n')[0];
     // console.log(Abstract.innerText);
     Abstract.style.top = String(Math.min((pagenum - 1) * 100 / pdfMetadata.pages, 98)) + "%";
     Abstract.style.visibility = visibility;
