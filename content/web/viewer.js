@@ -800,10 +800,10 @@ var PDFViewerApplication = {
   },
   note: function note() {
     let noteBar=document.querySelector(".notebar")
-    if (noteBar.style.visibility=='hidden')
-    noteBar.style.visibility='visible'
+    if (noteBar.style.visibility=='visible')
+    noteBar.style.visibility='hidden'
     else
-      noteBar.style.visibility='hidden'
+      noteBar.style.visibility='visible'
   },
   abstract: function abstract(state) {
     showSomeAbstracts(state);

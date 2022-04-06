@@ -41,7 +41,7 @@ function viewerOnLoad() {
             clearInterval(checkExist);
             completeLoad(before);
         }
-     }, 10); // check every 100ms
+    }, 10); // check every 100ms
 
     // If too much memory is used, alert the user.
     checkMemoryUsage();
@@ -169,15 +169,18 @@ function rmUpdate(e) {
 function checkAbstract(pagenum, status = '') {
     if (status != '') flag = status;
     let abstract = document.querySelector('abstract' + pagenum);
+    let abstractPoint = document.querySelector('#rmAbstractPoint' + pagenum);
     abstract.innerText = String(pdfRecord.notes[pagenum - 1]).split('\n')[0];
     switch (flag) {
         case 'abstractClosed': abstract.style.visibility = 'hidden';
             break;
-        case 'abstractAll': abstract.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : 'visible');
+        case 'abstractAll':
+            abstract.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : 'visible');
             break;
         case 'abstractMarked': abstract.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : (pdfRecord.markers[pagenum] ? 'visible' : 'hidden'));
             break;
     }
+    abstractPoint.style.visibility = abstract.style.visibility;
 }
 
 function rmInitializeNote() {
@@ -224,6 +227,7 @@ function rmInitializeBar() {
 
     for (let i = 0; i < pdfMetadata.pages; i++) {
         bar.appendChild(rmDrawAbstract(i, 'hidden'));
+        bar.appendChild(rmDrawAbstractPoint(i, 'hidden'));
     }
 }
 function rmDrawMarker(pagenum, visibility) {
@@ -237,26 +241,40 @@ function rmDrawMarker(pagenum, visibility) {
 
 function rmDrawAbstract(pagenum, visibility) {
     let Abstract = document.createElement("abstract" + pagenum);
+
     Abstract.setAttribute("class", "rmAbstract");
+
     Abstract.innerText = String(pdfRecord.notes[pagenum - 1]).split('\n')[0];
-    // console.log(Abstract.innerText);
+
     Abstract.style.top = String(Math.min((pagenum - 1) * 100 / pdfMetadata.pages, 98)) + "%";
+
     Abstract.style.visibility = visibility;
+
     return Abstract;
 }
+function rmDrawAbstractPoint(pagenum, visibility) {
+    let AbstractPoint = document.createElement("img" );
+    AbstractPoint.setAttribute("src", "../../rmImages/point.png");
+    AbstractPoint.setAttribute('id','rmAbstractPoint'+pagenum)
+    AbstractPoint.setAttribute('class','rmAbstractPoint')
+    AbstractPoint.style.top = String(Math.min((pagenum - 0.5) * 100 / pdfMetadata.pages, 98)) + "%";
 
+    AbstractPoint.style.visibility = visibility;
+    return AbstractPoint;
+}
 function showSomeAbstracts(state) {
     // console.log(state)
     if (state === 'toggle') {
         let abstractButton = document.getElementById("abstractToolbar")
-        if (abstractButton.style.visibility == 'hidden')
-            abstractButton.style.visibility = 'visible'
-        else abstractButton.style.visibility = 'hidden'
+        console.log('abstractButton.style.visibility', abstractButton)
+        if (abstractButton.style.visibility == 'visible')
+            abstractButton.style.visibility = 'hidden'
+        else abstractButton.style.visibility = 'visible'
         return
     }
     // flag = (flag + 1) % 3;
     for (let i = 0; i < pdfMetadata.pages; i++) {
-        checkAbstract(i,state);
+        checkAbstract(i, state);
     }
 }
 
@@ -334,8 +352,8 @@ function rmNewPageToday() {
 // Check how much memory is used up.
 function checkMemoryUsage() {
     let usage = JSON.stringify(localStorage).length;
-    let MBs = usage / (1000* 1000);
+    let MBs = usage / (1000 * 1000);
     if (MBs > 4.5) {
-        alert('ReadingMap当前已经占用了 ' + MBs + 'MB / 5MB = ' + MBs/5 + '% 的可用空间，请您尽快前往"数据管理器"中导出数据并清理空间~');
+        alert('ReadingMap当前已经占用了 ' + MBs + 'MB / 5MB = ' + MBs / 5 + '% 的可用空间，请您尽快前往"数据管理器"中导出数据并清理空间~');
     }
 }

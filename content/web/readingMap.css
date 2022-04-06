@@ -52,15 +52,48 @@
     /* height: 2%; */
     width: 200%;
     position: absolute;
-    left: 120%;
+    left: 105%;
     background-color: white;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     font-size: 1px;
-    /* border:10px; */
+    border: 1px inset gray;
+    border-radius: 1px;
     padding: 5em;
-    opacity:0.6;
-    /* transform: translate(-50%, 0); */
-    /* content: url(../../rmImages/markers/defaultMarker.png); */
+    opacity:0.7;
+    z-index: 3000;
+
 }
+.rmAbstractPoint{
+    width: 50%;
+    height: 1%;
+    left: 55%;
+    /* width: 20px;
+    height: 20px; */
+    z-index: 3000;
+    position: absolute;
+    /* background-image: url(../../rmImages/point.png); */
+}
+/* .rmAbstract:before, .rmAbstract:after{
+    bottom: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.rmAbstract:before{
+    border-bottom-color: rgba(231, 17, 17, 0.888);
+    border-width: 9px;
+    left: 13px;
+  margin-left: -9px;
+}
+.rmAbstract:after{
+    border-bottom-color: rgba(245, 10, 10, 0.909);
+    border-width: 9px;   
+    left: 13px; 
+    margin-left: -8px;
+} */
