@@ -159,6 +159,9 @@ function getViewerConfiguration() {
       note: document.getElementById('note'),
       mark: document.getElementById('mark'),
       abstract: document.getElementById('abstract'),
+      abstractAll: document.getElementById('abstractAll'),
+      abstractMarked: document.getElementById('abstractMarked'),
+      abstractClosed: document.getElementById('abstractClosed'),
       next: document.getElementById('next'),
       zoomIn: document.getElementById('zoomIn'),
       zoomOut: document.getElementById('zoomOut'),
@@ -802,9 +805,18 @@ var PDFViewerApplication = {
     else
       noteBar.style.visibility='hidden'
   },
-  abstract: function abstract() {
-    showSomeAbstracts();
+  abstract: function abstract(state) {
+    showSomeAbstracts(state);
   },
+  // abstractAll: function abstract() {
+  //   showabstractAll();
+  // },
+  // abstractMarked: function abstract() {
+  //   showabstractMarked();
+  // },
+  // abstractClosed: function abstract() {
+  //   showabstractClosed();
+  // },
   mark: function mark() {
     console.log("enterviewbookmark");
     markCurrentPage();
@@ -1720,6 +1732,9 @@ var PDFViewerApplication = {
     eventBus.on('note', webViewerNote);
     eventBus.on('mark', webViewerMark);
     eventBus.on('abstract', webViewerAbstract);
+    eventBus.on('abstractAll', webViewerAbstractAll);
+    eventBus.on('abstractMarked', webViewerAbstractMarked);
+    eventBus.on('abstractClosed', webViewerAbstractClosed);
     eventBus.on('zoomin', webViewerZoomIn);
     eventBus.on('zoomout', webViewerZoomOut);
     eventBus.on('zoomreset', webViewerZoomReset);
@@ -1805,6 +1820,9 @@ var PDFViewerApplication = {
     eventBus.off('note', webViewerNote);
     eventBus.off('mark', webViewerMark);
     eventBus.off('abstract', webViewerAbstract);
+    eventBus.off('abstractAll', webViewerAbstractAll);
+    eventBus.off('abstractMarked', webViewerAbstractMarked);
+    eventBus.off('abstractClosed', webViewerAbstractClosed);
     eventBus.off('zoomin', webViewerZoomIn);
     eventBus.off('zoomout', webViewerZoomOut);
     eventBus.off('zoomreset', webViewerZoomReset);
@@ -2113,8 +2131,17 @@ function webViewerNote() {
 function webViewerMark() {
   PDFViewerApplication.mark();
 }
-function webViewerAbstract() {
-  PDFViewerApplication.abstract();
+function webViewerAbstract(evt) {
+  PDFViewerApplication.abstract(evt.state);
+}
+function webViewerAbstractAll() {
+  PDFViewerApplication.abstract('all');
+}
+function webViewerAbstractMarked() {
+  PDFViewerApplication.abstract('marked');
+}
+function webViewerAbstractClosed() {
+  PDFViewerApplication.abstract('closed');
 }
 function webViewerZoomIn() {
   PDFViewerApplication.zoomIn();
@@ -13247,7 +13274,27 @@ function () {
       });
       items.abstract.addEventListener('click', function () {
         eventBus.dispatch('abstract', {
-          source: self
+          source: self,
+          state:'toggle'
+
+        });
+      });
+      items.abstractAll.addEventListener('click', function () {
+        eventBus.dispatch('abstract', {
+          source: self,
+          state:'abstractAll'
+        });
+      });
+      items.abstractMarked.addEventListener('click', function () {
+        eventBus.dispatch('abstract', {
+          source: self,
+          state:'abstractMarked'
+        });
+      });
+      items.abstractClosed.addEventListener('click', function () {
+        eventBus.dispatch('abstract', {
+          source: self,
+          state:'abstractClosed'
         });
       });
       items.mark.addEventListener('click', function () {

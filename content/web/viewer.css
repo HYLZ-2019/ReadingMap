@@ -634,20 +634,20 @@ html[dir='rtl'] #sidebarResizer {
   left: -6px;
 }
 
-#toolbarContainer, .findbar, .secondaryToolbar, .notebar {
+#toolbarContainer, .findbar, .secondaryToolbar, .notebar,.abstractToolbar {
   position: relative;
   height: 32px;
   background-color: #474747; /* fallback */
   background-image: url(images/texture.png),
                     linear-gradient(hsla(0,0%,32%,.99), hsla(0,0%,27%,.95));
 }
-html[dir='ltr'] #toolbarContainer, .findbar, .secondaryToolbar, .notebar {
+html[dir='ltr'] #toolbarContainer, .findbar, .secondaryToolbar, .notebar,.abstractToolbar {
   box-shadow: inset 0 1px 1px hsla(0,0%,0%,.15),
               inset 0 -1px 0 hsla(0,0%,100%,.05),
               0 1px 0 hsla(0,0%,0%,.15),
               0 1px 1px hsla(0,0%,0%,.1);
 }
-html[dir='rtl'] #toolbarContainer, .findbar, .secondaryToolbar, .notebar {
+html[dir='rtl'] #toolbarContainer, .findbar, .secondaryToolbar, .notebar,.abstractToolbar {
   box-shadow: inset 0 1px 1px hsla(0,0%,0%,.15),
               inset 0 -1px 0 hsla(0,0%,100%,.05),
               0 1px 0 hsla(0,0%,0%,.15),
@@ -702,7 +702,7 @@ html[dir='rtl'] #toolbarContainer, .findbar, .secondaryToolbar, .notebar {
   animation: progressIndeterminate 950ms linear infinite;
 }
 
-.findbar, .secondaryToolbar, .notebar {
+.findbar, .secondaryToolbar, .notebar ,.abstractToolbar{
   top: 32px;
   position: absolute;
   z-index: 10000;
@@ -723,10 +723,10 @@ html[dir='rtl'] #toolbarContainer, .findbar, .secondaryToolbar, .notebar {
 }
 
 html[dir='ltr'] .notebar {
-  left: 40px;
+  left: 38px;
 }
 html[dir='rtl'] .notebar {
-  right: 40px;
+  right: 38px;
 }
 .findbar {
   min-width: 300px;
@@ -741,10 +741,10 @@ html[dir='rtl'] .notebar {
   height: auto;
 }
 html[dir='ltr'] .findbar {
-  left: 68px;
+  left: 70px;
 }
 html[dir='rtl'] .findbar {
-  right: 68px;
+  right: 70px;
 }
 
 .findbar label {
@@ -786,7 +786,18 @@ html[dir='rtl'] .findbar {
 html[dir='rtl'] #findInput[data-status="pending"] {
   background-position: left;
 }
-
+.abstractToolbar {
+  padding: 6px;
+  height: auto;
+  z-index: 30000;
+  visibility: hidden;
+}
+html[dir='ltr'] .abstractToolbar {
+  left: 105px;
+}
+html[dir='rtl'] .abstractToolbar {
+  right: 105px;
+}
 .secondaryToolbar {
   padding: 6px;
   height: auto;
@@ -2128,7 +2139,7 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
     content: url(images/toolbarButton-search@2x.png);
   }
   #note.toolbarButton::before {
-    content: url(images/toolbarButton-zoomIn@2x.png);
+    content: url(images/toolbarButton-note.png);
   }
   #abstract.toolbarButton::before {
     content: url(images/toolbarButton-abstract.png);
