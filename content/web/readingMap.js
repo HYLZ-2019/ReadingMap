@@ -23,51 +23,51 @@ var rmStartTime = new Date();
 // The History set
 var rmHistorySet;
 
-var flag = 0;
+// var flag = 0;
 
 window.addEventListener("load", viewerOnLoad);
 
 
-function viewerOnLoad(){
+function viewerOnLoad() {
     // Load rmMetadataSet. (It doesn't need to wait for pdfViewer.)
 
     rmMetadataSet = load("rmMetadataSet");
 
     // Wait for pdfViewer to load.
     let before = new Date();
-    let checkExist = setInterval(function() {
+    let checkExist = setInterval(function () {
         // Wait until the whole family is neither null nor undefined.
         if (window.PDFViewerApplication.pdfViewer && window.PDFViewerApplication.pdfViewer.pdfDocument && window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo && window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo.numPages && window.PDFViewerApplication.pdfViewer.pdfDocument._pdfInfo.fingerprint) {
-           clearInterval(checkExist);
-           completeLoad(before);
+            clearInterval(checkExist);
+            completeLoad(before);
         }
-     }, 10); // check every 100ms
+    }, 10); // check every 100ms
 }
 
-function completeLoad(before){
+function completeLoad(before) {
     let after = new Date();
-    console.log("It took " + (after.getTime()-before.getTime()) + "ms for pdfViewer to load.");
-    
+    console.log("It took " + (after.getTime() - before.getTime()) + "ms for pdfViewer to load.");
+
     rmPreviousPage = rmGetCurrentPage();
     rmStartTime = new Date();
 
     rmUserPrefs = load("rmUserPrefs")
-    
+
     // Initialize pdfMetadata with real data acquired from the viewer.
     pdfMetadata = new ReadingMapMetadata();
-    
+
     // Check if we have records for this pdf.
     // TODO: Extend the memory to chrome.Storage(Which has unlimited storage.)
-    if (rmMetadataSet.includes(pdfMetadata.toString())){
+    if (rmMetadataSet.includes(pdfMetadata.toString())) {
         // TODO: This direct method may cause problems.
         pdfRecord = load(pdfMetadata.toString());
     }
-    else if (rmMetadataSet.includes(pdfMetadata.oldToString())){
+    else if (rmMetadataSet.includes(pdfMetadata.oldToString())) {
         // It was tracked in an old version -> convert it to new format.
         pdfRecord = load(pdfMetadata.oldToString());
         // Page 1 ~ notes[0]; Page pages ~ notes[pages-1]
         pdfRecord.notes = [];
-        for (let i=0; i<pdfRecord.metadata.pages; i++){
+        for (let i = 0; i < pdfRecord.metadata.pages; i++) {
             pdfRecord.notes.push("");
         }
         save(pdfMetadata.toString(), pdfRecord);
@@ -76,7 +76,7 @@ function completeLoad(before){
         rmMetadataSet.splice(rmMetadataSet.indexOf(pdfMetadata.oldToString()), 1); // Remove the previous item
         save("rmMetadataSet", rmMetadataSet);
     }
-    else{
+    else {
         pdfRecord = new ReadingMapRecord();
         save(pdfMetadata.toString(), pdfRecord);
         rmMetadataSet.push(pdfMetadata.toString());
@@ -85,7 +85,7 @@ function completeLoad(before){
     rmInitializeNote();
     rmInitializeBar();
     rmRenderBar();
-    
+
     window.addEventListener("wheel", rmUpdate);
     window.addEventListener("click", rmUpdate);
     window.addEventListener("keydown", rmUpdate);
@@ -97,50 +97,49 @@ function completeLoad(before){
     load("rmHistorySet");
 }
 
-function rmGetCurrentPage(){
+function rmGetCurrentPage() {
     return window.PDFViewerApplication.pdfViewer._currentPageNumber;
 }
 
-Date.prototype.Format = function(fmt)
-{ //author: meizz
+Date.prototype.Format = function (fmt) { //author: meizz
     var o = {
-        "M+" : this.getMonth()+1,                 //月份
-        "d+" : this.getDate(),                    //日
-        "h+" : this.getHours(),                   //小时
-        "m+" : this.getMinutes(),                 //分
-        "s+" : this.getSeconds(),                 //秒
-        "q+" : Math.floor((this.getMonth()+3)/3), //季度
-        "S"  : this.getMilliseconds()             //毫秒
+        "M+": this.getMonth() + 1,                 //月份
+        "d+": this.getDate(),                    //日
+        "h+": this.getHours(),                   //小时
+        "m+": this.getMinutes(),                 //分
+        "s+": this.getSeconds(),                 //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds()             //毫秒
     };
-    if(/(y+)/.test(fmt))
-        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
-    for(var k in o)
-        if(new RegExp("("+ k +")").test(fmt))
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }
 
 /** Function rmUpdate is called whenever the user may switch to another page. "Switching" may be caused by mouse wheel, click, or keyboard movement, so this callback should listen to any of these events. */
-function rmUpdate(e){
+function rmUpdate(e) {
     let currentpage = rmGetCurrentPage();
-    if (currentpage == rmPreviousPage){
+    if (currentpage == rmPreviousPage) {
         // The page number is not changed.
         return;
     }
-    
+
     // The page number has changed.
     // Reload the data to sync modifications by other tabs.
     pdfRecord = load(pdfMetadata.toString());
 
     // Reload the notes to this page
-    let noteInput=document.querySelector('#noteInput')
+    let noteInput = document.querySelector('#noteInput')
     // let noteText=note.textContent
-    noteInput.value=pdfRecord.notes[currentpage-1]
+    noteInput.value = pdfRecord.notes[currentpage - 1]
 
     let timenow = new Date();
     if (timenow.getTime() - rmStartTime.getTime() > rmUserPrefs.minReadMilliseconds) {
-        pdfRecord.readTimes[rmPreviousPage-1] += 1;
-        if (pdfRecord.readTimes[rmPreviousPage-1] == 1){
+        pdfRecord.readTimes[rmPreviousPage - 1] += 1;
+        if (pdfRecord.readTimes[rmPreviousPage - 1] == 1) {
             // A newly read page
             rmNewPageToday();
         }
@@ -148,7 +147,7 @@ function rmUpdate(e){
     pdfRecord.lastTime[rmPreviousPage - 1] = timenow;
     //rmSetPageColor(rmPreviousPage-1, pdfRecord.readTimes[rmPreviousPage-1]);
     rmRenderBar();
-    
+
     rmPreviousPage = currentpage;
     rmStartTime = timenow;
 
@@ -164,45 +163,44 @@ function rmUpdate(e){
 //     }
 // }
 
-function checkAbstract(pagenum) {
-    let abstract=document.querySelector('abstract'+pagenum);
+function checkAbstract(pagenum,flag) {
+    let abstract = document.querySelector('abstract' + pagenum);
     abstract.innerText = String(pdfRecord.notes[pagenum - 1]);
     switch (flag) {
-        case 0: abstract.style.visibility = 'hidden';
-                break ;
-        case 1: abstract.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : 'visible');
-                break ;
-        case 2: abstract.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : (pdfRecord.markers[pagenum] ? 'visible' : 'hidden'));
-                break ;
+        case 'abstractClosed': abstract.style.visibility = 'hidden';
+            break;
+        case 'abstractAll': abstract.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : 'visible');
+            break;
+        case 'abstractMarked': abstract.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : (pdfRecord.markers[pagenum] ? 'visible' : 'hidden'));
+            break;
     }
 }
 
-function rmInitializeNote()
-{
-    let noteInput=document.querySelector("#noteInput")
-    noteInput.onchange=function(){
+function rmInitializeNote() {
+    let noteInput = document.querySelector("#noteInput")
+    noteInput.onchange = function () {
         let currentpage = rmGetCurrentPage();
-        
+
         pdfRecord = load(pdfMetadata.toString());
 
-        pdfRecord.notes[currentpage-1]=this.value
-        console.log(currentpage+"page's note was changed to "+this.value)
+        pdfRecord.notes[currentpage - 1] = this.value
+        console.log(currentpage + "page's note was changed to " + this.value)
         save(pdfMetadata.toString(), pdfRecord);
         checkAbstract(currentpage);
     }
 }
 
-function rmInitializeBar(){
+function rmInitializeBar() {
     let bar = document.getElementById("readingMapBarDiv");
     // Draw a rectangle for each page.
-    for (let i=0; i<pdfMetadata.pages; i++){
+    for (let i = 0; i < pdfMetadata.pages; i++) {
         let rect = document.createElement("div");
         rect.setAttribute("class", "readingMapBarBlock");
-        rect.addEventListener("click", function(){
+        rect.addEventListener("click", function () {
             // Scroll to the corresponding page.
             let page = document.getElementsByClassName("page")[i];
             page.scrollIntoView();
-            setTimeout(function(){
+            setTimeout(function () {
                 // If we update immediately, the current page number will be wrong because it takes time for the page number to change.
                 rmUpdate();
             }, 50);
@@ -216,78 +214,86 @@ function rmInitializeBar(){
     bar.appendChild(mark);
 
     // Draw all markers added by user.
-    for (let i=0; i<pdfMetadata.pages; i++){
-        bar.appendChild(rmDrawMarker(i,pdfRecord.markers[i]?'visible':'hidden'));
+    for (let i = 0; i < pdfMetadata.pages; i++) {
+        bar.appendChild(rmDrawMarker(i, pdfRecord.markers[i] ? 'visible' : 'hidden'));
     }
 
-    for (let i=0; i<pdfMetadata.pages; i++){
-        bar.appendChild(rmDrawAbstract(i,'hidden'));
+    for (let i = 0; i < pdfMetadata.pages; i++) {
+        bar.appendChild(rmDrawAbstract(i, 'hidden'));
     }
 }
-function rmDrawMarker(pagenum,visibility){
-    let mark = document.createElement("marker"+pagenum);
+function rmDrawMarker(pagenum, visibility) {
+    let mark = document.createElement("marker" + pagenum);
     mark.setAttribute("class", "rmMarker");
 
-    mark.style.top = String(Math.min((pagenum-1)*100/pdfMetadata.pages, 98)) + "%";
-    mark.style.visibility=visibility
+    mark.style.top = String(Math.min((pagenum - 1) * 100 / pdfMetadata.pages, 98)) + "%";
+    mark.style.visibility = visibility
     return mark;
 }
 
-function rmDrawAbstract(pagenum,visibility){
+function rmDrawAbstract(pagenum, visibility) {
     let Abstract = document.createElement("abstract" + pagenum);
     Abstract.setAttribute("class", "rmAbstract");
-    Abstract.innerText = String(pdfRecord.notes[pagenum-1]);
+    Abstract.innerText = String(pdfRecord.notes[pagenum - 1]);
     // console.log(Abstract.innerText);
-    Abstract.style.top = String(Math.min((pagenum-1)*100/pdfMetadata.pages, 98)) + "%";
-    Abstract.style.visibility=visibility;
+    Abstract.style.top = String(Math.min((pagenum - 1) * 100 / pdfMetadata.pages, 98)) + "%";
+    Abstract.style.visibility = visibility;
     return Abstract;
 }
 
-function showSomeAbstracts() {
-    flag = (flag + 1) % 3;
+function showSomeAbstracts(state) {
+    // console.log(state)
+    if (state === 'toggle') {
+        let abstractButton = document.getElementById("abstractToolbar")
+        if (abstractButton.style.visibility == 'hidden')
+            abstractButton.style.visibility = 'visible'
+        else abstractButton.style.visibility = 'hidden'
+        return
+    }
+    // flag = (flag + 1) % 3;
     for (let i = 0; i < pdfMetadata.pages; i++) {
-        checkAbstract(i);
+        checkAbstract(i,state);
     }
 }
 
 // Set the color of the rectangle for page pagenum according to the times it has been read.
-function rmSetPageColor(pagenum, times){
+function rmSetPageColor(pagenum, times) {
     let rect = document.getElementById("readingMapBarDiv").childNodes[pagenum];
     let color = rmUserPrefs.getBarColor(times);
     rect.style.backgroundColor = color;
 }
 
 
-function rmRenderBar(){
+function rmRenderBar() {
     let mark = document.getElementsByClassName("rmProgressMark")[0];
     let curpage = rmGetCurrentPage();
-    mark.style.top = String(Math.min((curpage-1)*100/pdfMetadata.pages, 99)) + "%";
+    mark.style.top = String(Math.min((curpage - 1) * 100 / pdfMetadata.pages, 99)) + "%";
 
-    for (let i=0; i<pdfMetadata.pages; i++){
+    for (let i = 0; i < pdfMetadata.pages; i++) {
         rmSetPageColor(i, pdfRecord.readTimes[i]);
     }
 }
 
-function markCurrentPage(){
+function markCurrentPage() {
     let pagenum = rmGetCurrentPage();
     console.log("mark page");
     // Reload the data to sync modifications by other tabs.
     pdfRecord = load(pdfMetadata.toString());
-    let mark=document.querySelector('marker'+pagenum)
-    pdfRecord.markers[pagenum]=!pdfRecord.markers[pagenum];
+    let mark = document.querySelector('marker' + pagenum)
+    pdfRecord.markers[pagenum] = !pdfRecord.markers[pagenum];
 
-    if (mark.style.visibility=='hidden')
-        mark.style.visibility='visible'
-    else mark.style.visibility='hidden'
+    if (mark.style.visibility == 'hidden')
+        mark.style.visibility = 'visible'
+    else mark.style.visibility = 'hidden'
     checkAbstract(pagenum);
     // Save the changes.
     save(pdfMetadata.toString(), pdfRecord);
-    
+
 }
 
 
 
-function rmNewPageToday(){
+function rmNewPageToday() {
     let today = load("rmBooksToday");
     let found = 0;
     console.log(today);
@@ -302,15 +308,15 @@ function rmNewPageToday(){
         // console.log(rmHistorySet);
         today = new ReadingMapDayHistory();
     }
-    for (let i in today.history){
+    for (let i in today.history) {
         let book = today.history[i];
-        if (book.title == pdfMetadata.title){
+        if (book.title == pdfMetadata.title) {
             book.pages += 1;
             found = 1;
             break;
         }
     }
-    if (found == 0){
+    if (found == 0) {
         let book = new ReadingMapSimpleHistory();
         book.title = pdfMetadata.title;
         book.pages = 1;
