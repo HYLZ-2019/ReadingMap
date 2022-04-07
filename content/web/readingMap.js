@@ -212,6 +212,16 @@ function rmInitializeNote() {
     }
 }
 
+function changePages(pagenum) {
+    // Scroll to the corresponding page.
+    let page = document.getElementsByClassName("page")[pagenum];
+    page.scrollIntoView();
+    setTimeout(function () {
+        // If we update immediately, the current page number will be wrong because it takes time for the page number to change.
+        rmUpdate();
+    }, 50);
+}
+
 function rmInitializeBar() {
     let bar = document.getElementById("readingMapBarDiv");
     // Draw a rectangle for each page.
@@ -219,13 +229,7 @@ function rmInitializeBar() {
         let rect = document.createElement("div");
         rect.setAttribute("class", "readingMapBarBlock");
         rect.addEventListener("click", function () {
-            // Scroll to the corresponding page.
-            let page = document.getElementsByClassName("page")[i];
-            page.scrollIntoView();
-            setTimeout(function () {
-                // If we update immediately, the current page number will be wrong because it takes time for the page number to change.
-                rmUpdate();
-            }, 50);
+            changePages(i);
         });
         bar.appendChild(rect);
     }
@@ -251,6 +255,9 @@ function rmDrawMarker(pagenum, visibility) {
 
     mark.style.top = String(Math.min((pagenum - 1) * 100 / pdfMetadata.pages, 98)) + "%";
     mark.style.visibility = visibility
+    mark.addEventListener("click", function () {
+        changePages(pagenum-1);
+    });
     return mark;
 }
 
@@ -265,8 +272,13 @@ function rmDrawAbstract(pagenum, visibility) {
 
     Abstract.style.visibility = visibility;
 
+    Abstract.addEventListener("click", function () {
+        changePages(pagenum-1);
+    });
+
     return Abstract;
 }
+
 function rmDrawAbstractPoint(pagenum, visibility) {
     let AbstractPoint = document.createElement("img" );
     AbstractPoint.setAttribute("src", "../../rmImages/point.png");
@@ -275,8 +287,12 @@ function rmDrawAbstractPoint(pagenum, visibility) {
     AbstractPoint.style.top = String(Math.min((pagenum - 0.5) * 100 / pdfMetadata.pages, 98)) + "%";
 
     AbstractPoint.style.visibility = visibility;
+    AbstractPoint.addEventListener("click", function () {
+        changePages(pagenum);
+    });
     return AbstractPoint;
 }
+
 function showSomeAbstracts(state) {
     // console.log(state)
     if (state === 'toggle') {
