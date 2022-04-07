@@ -2,6 +2,7 @@
     <head>
         <meta charset="utf-8"/>
         <title>ReadingMap Data Manager</title>
+        <script src="../content/web/translate.js" ></script>
         <script src="../content/web/readingMapClasses.js" ></script>
         <script src="../content/web/memoryManagement.js" ></script>
         <script src="dataManager.js"></script>
@@ -10,7 +11,9 @@
     <body>
         <h1>ReadingMap Data Manager</h1>
         <div id="operationButtons">
-            <button id="showBrowserData">查看当前数据概览</button>
+            <button id="showBrowserData" data-l10n-id="showBrowserData" title="Show Browser Data">
+                <span data-l10n-id="showBrowserData_label">Show Browser Data</span>
+            </button>
             <button id="openLocalData">查看本地数据概览</button>
             <button id="exportChosen">导出选中数据并下载</button>
             <button id="importChosen">导入选中数据并与浏览器数据合并</button>
