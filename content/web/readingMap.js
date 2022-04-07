@@ -188,6 +188,12 @@ function checkAbstract(pagenum, status = '') {
             break;
         case 'abstractMarked': abstract.style.visibility = (pdfRecord.notes[pagenum - 1] == "" ? 'hidden' : (pdfRecord.markers[pagenum] ? 'visible' : 'hidden'));
             break;
+        case 'abstractFind': {
+            let FindInput = document.getElementById("abstractFindInput").value;
+            if (FindInput == "") break ;
+            abstract.style.visibility = (String(pdfRecord.notes[pagenum - 1]).indexOf(FindInput) == -1 ? 'hidden' : 'visible');
+            break;
+        }
     }
     abstractPoint.style.visibility = abstract.style.visibility;
 }
