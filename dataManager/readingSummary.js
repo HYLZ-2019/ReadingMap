@@ -67,8 +67,13 @@ function readingSummary(legendData) {
             containLabel: true
         },
         toolbox: {
+            show: true,
             feature: {
-                saveAsImage: {}
+              mark: { show: true },
+              dataView: { show: true, readOnly: false },
+              magicType: { show: true, type: ['stack','line', 'bar'] },
+              restore: { show: true },
+              saveAsImage: { show: true }
             }
         },
         xAxis: {
@@ -103,8 +108,13 @@ function readingSummary(legendData) {
             containLabel: true
         },
         toolbox: {
+            show: true,
             feature: {
-                saveAsImage: {}
+              mark: { show: true },
+              dataView: { show: true, readOnly: false },
+              magicType: { show: true, type: ['stack','line', 'bar'] },
+              restore: { show: true },
+              saveAsImage: { show: true }
             }
         },
         xAxis: {
