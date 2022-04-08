@@ -1,44 +1,84 @@
 <html>
-    <head>
-        <meta charset="utf-8"/>
-        <title>ReadingMap Data Manager</title>
-        <script src="../content/web/translate.js" ></script>
-        <script src="../content/web/readingMapClasses.js" ></script>
-        <script src="../content/web/memoryManagement.js" ></script>
-        <script src="dataManager.js"></script>
-        <script src="browserData.js"></script>
-        <link rel="stylesheet" href="dataManager.css">
-    </head>
-    <body>
-        <h1><span data-l10n-id="showBrowserData_label">Show Browser Data</span></h1>
-        <div id="operationButtons">
-           
-            <button id="exportChosen"> 
-                <span data-l10n-id="exportChosen_label">English:导出选中数据并下载</span> 
-                <!-- 导出选中数据并下载 -->
-            </button>
-            <!-- TODO(HYLZ) -->
 
-            <button id="deleteChosen">
-                <span data-l10n-id="deleteChosen_label">English:从浏览器删除选中的数据</span>
-            </button>
-            <button id="summaryChosen">
-                <span data-l10n-id="summaryChosen_label">Create Reading Summary</span>
-            </button>
-            <button id="backHomepage">
-                <span data-l10n-id="backHomepage_label">Back to Homepage</span>
-            </button>
-            
+<head>
+    <meta charset="utf-8" />
+    <title>ReadingMap Data Manager</title>
+    <script src="../content/web/translate.js"></script>
+    <script src="../content/web/readingMapClasses.js"></script>
+    <script src="../content/web/memoryManagement.js"></script>
+    <script src="dataManager.js"></script>
+    <script src="browserData.js"></script>
+    <script src="echarts.min.js"></script>
+    <script src="readingSummary.js"></script>
+    <link rel="stylesheet" href="dataManager.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="mainmenu-wrapper">
+        <div class="container">
+   
+            <nav id="mainmenu" class="mainmenu">
+                <ul>
+                    <li class="logo-wrapper"><a href="index.html"><img src="../icon128.png" alt="Multipurpose Twitter Bootstrap Template"></a></li>
+                    <li></li>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="features.html">Features</a>
+                    </li>
+                    
+                    <li>
+                        <a href="credits.html">Credits</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        
-        <div id="storageList">
-            <div id="totalSize"></div>
-            <div id="tableToolbar">
-                <!--TODO: 做一个酷炫的条件选择功能-->
+    </div>
+
+    <!-- Page Title -->
+    <div class="section section-breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1><span data-l10n-id="showBrowserData_label">Show Browser Data</span></h1>
+                </div>
             </div>
-            <table id="storageListTable"></table>
         </div>
-        
+    </div>
 
-    </body>
+    <div id="operationButtons">
+
+        <button id="exportChosen">
+            <span data-l10n-id="exportChosen_label">English:导出选中数据并下载</span>
+            <!-- 导出选中数据并下载 -->
+        </button>
+        <!-- TODO(HYLZ) -->
+
+        <button id="deleteChosen">
+            <span data-l10n-id="deleteChosen_label">English:从浏览器删除选中的数据</span>
+        </button>
+        <button id="summaryChosen">
+            <span data-l10n-id="summaryChosen_label">Create Reading Summary</span>
+        </button>
+        <button id="backHomepage">
+            <span data-l10n-id="backHomepage_label">Back to Homepage</span>
+        </button>
+
+    </div>
+
+    <div id="storageList">
+        <div id="totalSize"></div>
+        <div id="tableToolbar">
+            <!--TODO: 做一个酷炫的条件选择功能-->
+        </div>
+        <table id="storageListTable"></table>
+    </div>
+    <div id="summaryChart1" style="left:10%; width:80% ; height:400px"></div>
+    <div id="summaryChart2" style="left:10%; width:80% ; height:400px"></div>
+
+</body>
+
 </html>

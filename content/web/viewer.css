@@ -1342,6 +1342,18 @@ html[dir="rtl"] #viewOutline.toolbarButton::before {
   content: url(images/toolbarButton-search.png);
 }
 
+#note.toolbarButton::before {
+  content: url(images/toolbarButton-note.png);
+}
+
+#abstract.toolbarButton::before {
+  content: url(images/toolbarButton-abstract.png);
+}
+
+#mark.toolbarButton::before {
+  content: url(images/toolbarButton-mark.png);
+}
+
 .toolbarButton.pdfSidebarNotification::after {
   position: absolute;
   display: inline-block;
@@ -2199,13 +2211,13 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
     content: url(images/toolbarButton-search@2x.png);
   }
   #note.toolbarButton::before {
-    content: url(images/toolbarButton-note.png);
+    content: url(images/toolbarButton-note@2x.png);
   }
   #abstract.toolbarButton::before {
-    content: url(images/toolbarButton-abstract.png);
+    content: url(images/toolbarButton-abstract@2x.png);
   }
   #mark.toolbarButton::before {
-    content: url(images/toolbarButton-mark.png);
+    content: url(images/toolbarButton-mark@2x.png);
   }
   .secondaryToolbarButton.firstPage::before {
     content: url(images/secondaryToolbarButton-firstPage@2x.png);

@@ -12,7 +12,7 @@ function openLocalData(){
 }
 function mergeFiles(){
     window.location.href="chrome-extension://"+chrome.runtime.id+"/dataManager/mergeFiles.html"
-    document.getElementById("showConflictArea").style.display="none";
+document.getElementById("showConflictArea").style.display="none";
 }
 var uploadedStorage;
 
