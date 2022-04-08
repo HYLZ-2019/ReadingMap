@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>ReadingMap Data Manager</title>
+        <script src="../content/web/translate.js" ></script>
+        <script src="../content/web/readingMapClasses.js" ></script>
+        <script src="../content/web/memoryManagement.js" ></script>
+        <script src="dataManager.js"></script>
+        <script src="mergeFiles.js"></script>
+        <link rel="stylesheet" href="dataManager.css">
+    </head>
+    <body>
+        <h1><span data-l10n-id="mergeFiles_label">Merge Two Local .rmrf Files</span></h1>
+        <div id="operationButtons">
+            <button id="backHomepage">
+                <span data-l10n-id="backHomepage_label">Back to Homepage</span>
+            </button>
+        </div>
+      
+        <div id="mergeInputArea">
+            <input id="mergeInput1" type="file"/>
+            <input id="mergeInput2" type="file"/>
+        </div>
+        <div id="showConflictArea">
+            <div id="conflictNumber"></div>
+            <table id="conflictTable"></table>
+            <button id="confirmMerge">
+                <span data-l10n-id="comfirmMerge_label">Confirm to Merge</span>
+            </button>
+        </div>
+
+    </body>
+</html>

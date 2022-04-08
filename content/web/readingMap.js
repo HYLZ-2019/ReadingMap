@@ -326,7 +326,7 @@ function rmSetPageColor(pagenum, times) {
 function rmRenderBar() {
     let mark = document.getElementsByClassName("rmProgressMark")[0];
     let curpage = rmGetCurrentPage();
-    mark.style.top = String(Math.min((curpage - 1) * 100 / pdfMetadata.pages, 99)) + "%";
+    mark.style.top = String(Math.min((curpage - 1) * 100 / pdfMetadata.pages, 98)) + "%";
 
     for (let i = 0; i < pdfMetadata.pages; i++) {
         rmSetPageColor(i, pdfRecord.readTimes[i]);

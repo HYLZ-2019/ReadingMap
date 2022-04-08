@@ -1,74 +1,20 @@
 
-
-window.addEventListener("load", dataManagerOnLoad);
-
-function dataManagerOnLoad(){
-    document.getElementById("showBrowserData").addEventListener("click", showBrowserData);
-    document.getElementById("openLocalData").addEventListener("click", openLocalData);
-    document.getElementById("exportChosen").addEventListener("click", exportChosen);
-    document.getElementById("importChosen").addEventListener("click", importChosen);
-    document.getElementById("deleteChosen").addEventListener("click", deleteChosen);
-    document.getElementById("mergeFiles").addEventListener("click", mergeFiles);
-    
-    document.getElementById("showBrowserData").style.display="flex";
-    document.getElementById("openLocalData").style.display="flex";
-    document.getElementById("exportChosen").style.display="none";
-    document.getElementById("importChosen").style.display="none";
-    document.getElementById("deleteChosen").style.display="none";
-    document.getElementById("mergeFiles").style.display="flex";
-    document.getElementById("showConflictArea").style.display="none";
-    document.getElementById("mergeInputArea").style.display="none";
-    document.getElementById("uploadArea").style.display = "none";
-
-    document.getElementById("uploadButton").addEventListener("change", loadFileAndDisplay);
-    
-    document.getElementById("mergeInput1").addEventListener("change", checkBothInputsForRead);
-    document.getElementById("mergeInput2").addEventListener("change", checkBothInputsForRead);
+function backHomepage()
+{
+    window.location.href="chrome-extension://"+chrome.runtime.id+"/dataManager/homepage.html"
+    // chrome.tabs.create({url: "chrome-extension://"+chrome.runtime.id+"/dataManager/homepage.html"})
 }
-
 function showBrowserData(){
-    let curstorage = JSON.parse(JSON.stringify(localStorage));
-
-    let table = document.getElementById("storageListTable");
-    table.innerHTML = "";
-    showStorageTable(curstorage, table, "browser");
-
-    document.getElementById("showBrowserData").style.display="flex";
-    document.getElementById("openLocalData").style.display="flex";
-    document.getElementById("exportChosen").style.display="flex";
-    document.getElementById("importChosen").style.display="none";
-    document.getElementById("deleteChosen").style.display="flex";
-    document.getElementById("mergeFiles").style.display="flex";
-    document.getElementById("showConflictArea").style.display="none";
-    document.getElementById("mergeInputArea").style.display="none";
-    document.getElementById("uploadArea").style.display = "none";
-    document.getElementById("storageList").style.display = "flex";
+    window.location.href="chrome-extension://"+chrome.runtime.id+"/dataManager/browserData.html"
 }
-
-var uploadedStorage;
-
 function openLocalData(){
-    document.getElementById("uploadArea").style.display = "flex";
-    let table = document.getElementById("storageListTable");
-    if (uploadedStorage == undefined){
-        table.innerHTML = "";
-        document.getElementById("totalSize").innerText = "";
-    }
-    else{
-        table.innerHTML = "";
-        showStorageTable(uploadedStorage, table, "local");
-    }
-
-    document.getElementById("showBrowserData").style.display="flex";
-    document.getElementById("openLocalData").style.display="flex";
-    document.getElementById("exportChosen").style.display="none";
-    document.getElementById("importChosen").style.display="none";
-    document.getElementById("deleteChosen").style.display="none";
-    document.getElementById("mergeFiles").style.display="flex";
-    document.getElementById("showConflictArea").style.display="none";
-    document.getElementById("mergeInputArea").style.display="none";
-    document.getElementById("storageList").style.display = "flex";
+    window.location.href="chrome-extension://"+chrome.runtime.id+"/dataManager/localData.html"
 }
+function mergeFiles(){
+    window.location.href="chrome-extension://"+chrome.runtime.id+"/dataManager/mergeFiles.html"
+    document.getElementById("showConflictArea").style.display="none";
+}
+var uploadedStorage;
 
 function loadFileAndDisplay(){
     var file = document.getElementById('uploadButton').files[0];
@@ -139,19 +85,7 @@ function deleteChosen(){
     }
 }
 
-function mergeFiles(){
-    document.getElementById("uploadArea").style.display = "none";
-    document.getElementById("showBrowserData").style.display="flex";
-    document.getElementById("openLocalData").style.display="flex";
-    document.getElementById("exportChosen").style.display="none";
-    document.getElementById("importChosen").style.display="none";
-    document.getElementById("deleteChosen").style.display="none";
-    document.getElementById("mergeFiles").style.display="flex";
-    document.getElementById("showConflictArea").style.display="none";
-    document.getElementById("mergeInputArea").style.display="flex";
-    document.getElementById("storageList").style.display = "none";
-    document.getElementById("totalSize").innerText = "";
-}
+
 
 var storageToMerge1;
 var storageToMerge2;

@@ -1341,9 +1341,7 @@ html[dir="rtl"] #viewOutline.toolbarButton::before {
 #viewFind.toolbarButton::before {
   content: url(images/toolbarButton-search.png);
 }
-#note.toolbarButton::before {
-  content: url(images/toolbarButton-zoomIn.png);
-}
+
 .toolbarButton.pdfSidebarNotification::after {
   position: absolute;
   display: inline-block;
