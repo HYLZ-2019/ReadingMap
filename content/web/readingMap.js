@@ -266,7 +266,7 @@ function rmDrawAbstractPoint(pagenum, visibility) {
     AbstractPoint.setAttribute("src", "../../rmImages/point.png");
     AbstractPoint.setAttribute('id','rmAbstractPoint'+pagenum)
     AbstractPoint.setAttribute('class','rmAbstractPoint')
-    AbstractPoint.style.top = String(Math.min((pagenum - 0.5) * 100 / pdfMetadata.pages, 98)) + "%";
+    AbstractPoint.style.top = String(Math.min((pagenum - 1) * 100 / pdfMetadata.pages, 99)) + "%";
 
     AbstractPoint.style.visibility = visibility;
     return AbstractPoint;
