@@ -50,7 +50,7 @@ function readingSummary(legendData) {
     var summaryChart = echarts.init(document.getElementById('summaryChart1'));
     summaryChart.setOption( {
         title: {
-            text: '每日阅读量',
+            text: navigator.language=="zh-CN" ? '每日阅读量': 'Pages read per day',
             left: 'center',
         },
         tooltip: {
@@ -91,7 +91,7 @@ function readingSummary(legendData) {
     summaryChart = echarts.init(document.getElementById('summaryChart2'));
     summaryChart.setOption( {
         title: {
-            text: '累计阅读量',
+            text: navigator.language=="zh-CN" ? '累计阅读量': 'Total pages read',
             left: 'center',
         },
         tooltip: {
