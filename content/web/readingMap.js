@@ -240,11 +240,11 @@ function rmInitializeBar() {
     bar.appendChild(mark);
 
     // Draw all markers added by user.
-    for (let i = 0; i < pdfMetadata.pages; i++) {
+    for (let i = 0; i <= pdfMetadata.pages; i++) {
         bar.appendChild(rmDrawMarker(i, pdfRecord.markers[i] ? 'visible' : 'hidden'));
     }
 
-    for (let i = 0; i < pdfMetadata.pages; i++) {
+    for (let i = 0; i <= pdfMetadata.pages; i++) {
         bar.appendChild(rmDrawAbstract(i, 'hidden'));
         bar.appendChild(rmDrawAbstractPoint(i, 'hidden'));
     }
@@ -284,7 +284,7 @@ function rmDrawAbstractPoint(pagenum, visibility) {
     AbstractPoint.setAttribute("src", "../../rmImages/point.png");
     AbstractPoint.setAttribute('id','rmAbstractPoint'+pagenum)
     AbstractPoint.setAttribute('class','rmAbstractPoint')
-    AbstractPoint.style.top = String(Math.min((pagenum - 0.5) * 100 / pdfMetadata.pages, 98)) + "%";
+    AbstractPoint.style.top = String(Math.min((pagenum - 1) * 100 / pdfMetadata.pages, 98)) + "%";
 
     AbstractPoint.style.visibility = visibility;
     AbstractPoint.addEventListener("click", function () {
@@ -310,7 +310,7 @@ function showSomeAbstracts(state) {
         return
     }
     // flag = (flag + 1) % 3;
-    for (let i = 0; i < pdfMetadata.pages; i++) {
+    for (let i = 0; i <= pdfMetadata.pages; i++) {
         checkAbstract(i, state);
     }
 }
