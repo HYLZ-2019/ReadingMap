@@ -1,5 +1,5 @@
 function readingSummary(legendData,rmHistorySet) {
-    // console.log(rmHistorySet)
+    console.log(legendData)
     document.getElementById('summaryChart1').style.display='flex'
     document.getElementById('summaryChart2').style.display='flex'
 
@@ -139,7 +139,7 @@ function sumSeriesData(seriesData)
     }
     return seriesData
 }
-function summaryChosen()
+function summaryChosenFromLocal()
 {
     if (uploadedStorage == undefined) return
     let table = document.getElementById("storageListTable");
@@ -158,6 +158,25 @@ function summaryChosen()
     readingSummary(legendData,JSON.parse(uploadedStorage.rmHistorySet))
 
 }
+function summaryChosenFromBrowser()
+{
+    let table = document.getElementById("storageListTable");
+    // table.style.display='none'
+    let rows = table.getElementsByTagName("tr");
+    let legendData = []
+    for (i=0; i<rows.length; i++){
+        let row = rows[i];
+        let cb = row.getElementsByClassName("checkboxCol")[0].getElementsByClassName("chooseCheckbox")[0];
+        if (cb != undefined && cb.checked){
+            let title = row.getElementsByClassName("titleCol")[0].innerText;
+            legendData.push(title);
+        }
+    }
+    let rmHistorySet = localStorage.getItem('rmHistorySet')
+    rmHistorySet = JSON.parse(rmHistorySet)
+    readingSummary(legendData,rmHistorySet)
+
+}
 function summaryAll()
 {
     // let table = document.getElementById("storageListTable");
@@ -167,12 +186,14 @@ function summaryAll()
     rmHistorySet = JSON.parse(rmHistorySet)
 
     let legendData = []
+    let temporaryDict={}
     for (let i in rmHistorySet) {
         let dateHistory = rmHistorySet[i].history
         for (let j in dateHistory) {
             let passage = dateHistory[j]
-            if ((passage.title in legendData)==false) {
+            if ((passage.title in temporaryDict)==false) {
                 legendData.push(passage.title)
+                temporaryDict[passage.title]=true
             }
         }
     }

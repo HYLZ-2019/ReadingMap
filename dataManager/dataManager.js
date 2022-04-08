@@ -46,6 +46,7 @@ function downloadData(storage){
 
 
 function importChosen(){
+    if (uploadedStorage==undefined) return
     let s1 = JSON.parse(JSON.stringify(localStorage));
     
     let table = document.getElementById("storageListTable");
