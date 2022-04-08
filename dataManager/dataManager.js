@@ -128,10 +128,20 @@ function showStorageTable(storage, table, origin){
     let spacemessage = "";
     let curspace = JSON.stringify(storage).length;
     if (origin == "browser"){
-        spacemessage = "当前占用空间：" + curspace + "B = " + curspace/(1000*1000) + "MB，总可用空间：5MB，剩余：" + (1-curspace/(1000*1000*5))*100 + "%。";
+        if (navigator.language == "zh-CN"){
+            spacemessage = "当前占用空间：" + curspace + "B = " + curspace/(1000*1000) + "MB，总可用空间：5MB，剩余：" + (1-curspace/(1000*1000*5))*100 + "%。";
+        }
+        else{
+            spacemessage = "Currently used space: " + curspace + "B = " + curspace/(1000*1000) + "MB, Total available space: 5MB, Remaining: " + (1-curspace/(1000*1000*5))*100 + "%.";
+        }
     }
     else if (origin == "local"){
-        spacemessage = "文件总大小：" + curspace + "B = " + curspace/(1000*1000) + "MB";
+        if (navigator.language == "zh-CN"){
+            spacemessage = "文件总大小：" + curspace + "B = " + curspace/(1000*1000) + "MB";
+        }
+        else {
+            spacemessage = "Total size of file: " + curspace + "B = " + curspace/(1000*1000) + "MB";
+        }
     }
     document.getElementById("totalSize").innerText = spacemessage;
 
