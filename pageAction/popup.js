@@ -41,7 +41,7 @@ function turnToOptions(){
   chrome.tabs.create({url: "chrome://extensions/?options="+chrome.runtime.id});
 }
 function turnToDataManager(){
-  chrome.tabs.create({url: "chrome-extension://"+chrome.runtime.id+"/dataManager/dataManager.html"})
+  chrome.tabs.create({url: "chrome-extension://"+chrome.runtime.id+"/dataManager/homepage.html"})
 }
 
 function showTodayReport() {
