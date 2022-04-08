@@ -77,9 +77,16 @@ h1 {
 
 td {
     overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
     word-break: break-all;
+}
+
+td:hover{
+    z-index: 1;
+    width: auto;
+    height: auto;
+    overflow: auto;
+    text-overflow: visible;
 }
 
 th {
