@@ -290,6 +290,12 @@ function rmDrawAbstractPoint(pagenum, visibility) {
     AbstractPoint.addEventListener("click", function () {
         changePages(pagenum);
     });
+    AbstractPoint.addEventListener("mouseenter", function () {
+        document.getElementsByTagName("abstract" + pagenum)[0].style.zIndex = 99999;
+    });
+    AbstractPoint.addEventListener("mouseleave", function () {
+        document.getElementsByTagName("abstract" + pagenum)[0].style.zIndex = 3000;
+    })
     return AbstractPoint;
 }
 

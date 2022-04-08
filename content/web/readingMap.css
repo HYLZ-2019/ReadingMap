@@ -63,8 +63,11 @@
     padding: 5em;
     opacity:0.7;
     z-index: 3000;
-
 }
+.rmAbstract:hover {
+    z-index: 99999;
+}
+
 .rmAbstractPoint{
     width: 50%;
     height: 1%;
