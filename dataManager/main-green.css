@@ -2,7 +2,7 @@
 	General Style
 --------------------------------------------------------------------------*/
 body {
-  background: url(../img/page-background.png);
+  background: url(../../page-background.png);
 }
 .section {
   padding: 30px 0;
@@ -41,14 +41,14 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {
-  border-color: rgba(231, 76, 60, 0.8);
+  border-color: rgba(22, 160, 133, 0.8);
   outline: 0;
   outline: thin dotted \9;
   /* IE6-9 */
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(231, 76, 60, 0.6);
-  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(231, 76, 60, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(231, 76, 60, 0.6);
-  color: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(231, 76, 60, 0.6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(22, 160, 133, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(22, 160, 133, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(22, 160, 133, 0.6);
+  color: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(22, 160, 133, 0.6);
 }
 ul.no-list-style {
   list-style-type: none;
@@ -98,10 +98,10 @@ h4 {
   margin-bottom: 10px;
 }
 a {
-  color: #e74c3c;
+  color: #16a085;
 }
 a:hover {
-  color: #a82315;
+  color: #0a463a;
 }
 /*--------------------------------------------------------------------------
 +	Services Style
@@ -1114,7 +1114,7 @@ span.color-red {
   text-align: right;
 }
 .events-list tr:hover .event-date {
-  border-left: 5px solid #e74c3c;
+  border-left: 5px solid #16a085;
 }
 .events-list .event-date {
   margin: 3px 0;
@@ -1368,7 +1368,7 @@ span.color-red {
   transition: color .25s linear;
 }
 .in-press a:hover {
-  color: #e74c3c;
+  color: #16a085;
   text-decoration: none;
 }
 .in-press a:after {
@@ -1448,7 +1448,7 @@ span.color-red {
   transition: all .25s ease;
 }
 .portfolio-item:hover {
-  border: 8px solid #e74c3c;
+  border: 8px solid #16a085;
 }
 .portfolio-item:hover .portfolio-image img {
   position: relative;
@@ -1499,7 +1499,7 @@ span.color-red {
   margin-top: 10%;
 }
 .portfolio-item .portfolio-info-fade .btn:hover {
-  background: #e74c3c;
+  background: #16a085;
 }
 .portfolio-item .portfolio-info-fade ul {
   margin: 10% 20px 0 20px;
@@ -1706,7 +1706,7 @@ span.color-red {
   background: #222;
   color: #A0A0A0;
   padding: 0 20px 10px 20px;
-  border-top: 4px solid #e74c3c;
+  border-top: 4px solid #16a085;
   margin-top: 20px;
   -webkit-box-shadow: 0 -1px 12px rgba(0,0,0,0.4);
   -moz-box-shadow: 0 -1px 12px rgba(0,0,0,0.4);
@@ -1796,7 +1796,7 @@ span.color-red {
 .pagination > .active > a,
 .pagination > .active > span {
   color: #666666;
-  border-bottom: 3px solid #e74c3c;
+  border-bottom: 3px solid #16a085;
 }
 .pagination > .disabled > a {
   border-color: #fff;
@@ -1835,7 +1835,7 @@ span.color-red {
   font-weight: 600;
   background-color: #ffffff;
   border: 1px solid #ddd;
-  border-top: 3px solid #e74c3c;
+  border-top: 3px solid #16a085;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -2008,7 +2008,7 @@ span.color-red {
   height: 14px;
   margin: 0 4px;
   text-indent: -999em;
-  border: 4px solid #e74c3c;
+  border: 4px solid #16a085;
   cursor: pointer;
   -webkit-border-radius: 30px;
   -webkit-background-clip: padding-box;
@@ -2026,7 +2026,7 @@ span.color-red {
   transition: background .5s, opacity .5s;
 }
 .sequence-pagination li.current {
-  background: #e74c3c;
+  background: #16a085;
   -webkit-opacity: 1;
   -moz-opacity: 1;
   opacity: 1;
@@ -2364,15 +2364,16 @@ span.color-red {
 /*--------------------------------------------------------------------------
 +	Main Menu Style
 --------------------------------------------------------------------------*/
-.mainmenu li.logo-wrapper a {
+.mainmenu li.logo-wrapper  {
   border-right: 1px solid #E8E8E8;
   padding-left: 0;
   padding-top: 0;
   padding-bottom: 0;
+  left:10%
 }
 .mainmenu-wrapper {
   background-color: #FFF;
-  border-bottom: 4px solid #e74c3c;
+  border-bottom: 4px solid #16a085;
   z-index: 4;
 }
 .mainmenu {
@@ -2394,23 +2395,24 @@ span.color-red {
 .mainmenu .mainmenu-submenu-inner > li {
   display: inline-block;
   *display: inline;
+  font-size: 50px
 }
 .mainmenu > ul > li > a,
 .mainmenu .mainmenu-submenu-inner > li > a {
-  font-size: 1.2em;
+  font-size: 20px;
   padding: 1.2em 1.5em;
-  color: #999;
+  color: rgb(15, 15, 15);
   display: inline-block;
   text-decoration: none;
 }
 .mainmenu > ul > li > a:hover,
 .mainmenu .mainmenu-submenu-inner > li > a:hover {
-  color: #e74c3c;
+  color: #16a085;
   text-decoration: none;
 }
 .mainmenu > ul > li.active > a,
 .mainmenu .mainmenu-submenu-inner > li.active > a {
-  color: #e74c3c;
+  color: #16a085;
   font-weight: 600 !important;
 }
 .mainmenu > ul > li.mainmenu-open a,
@@ -2418,12 +2420,12 @@ span.color-red {
 .mainmenu > ul li.mainmenu-open > a:hover,
 .mainmenu .mainmenu-submenu-inner li.mainmenu-open > a:hover {
   color: #fff;
-  background: #e74c3c;
+  background: #16a085;
 }
 .mainmenu .mainmenu-submenu {
   display: none;
   position: absolute;
-  background: #e74c3c;
+  background: #16a085;
   width: 100%;
   left: 0;
   z-index: 999;
@@ -2457,7 +2459,7 @@ span.color-red {
   padding-bottom: 3em;
 }
 .mainmenu-submenu h4 {
-  color: #f8c9c4;
+  color: #65ead0;
   padding: 1em 0 0.6em;
   margin-left: 20px;
   font-size: 160%;
@@ -2494,7 +2496,7 @@ span.color-red {
   }
   .mainmenu > ul > li {
     display: block;
-    border-bottom: 4px solid #e74c3c;
+    border-bottom: 4px solid #16a085;
   }
   .mainmenu > ul > li > a {
     display: block;
@@ -2566,7 +2568,7 @@ span.color-red {
 +	Buttons Style
 --------------------------------------------------------------------------*/
 .btn {
-  border: 1px solid #e74c3c;
+  border: 1px solid #16a085;
   -webkit-border-radius: 2px;
   -webkit-background-clip: padding-box;
   -moz-border-radius: 2px;
@@ -2583,7 +2585,7 @@ span.color-red {
   -ms-transition: all .25s ease;
   transition: all .25s ease;
   text-align: center;
-  background: none repeat scroll 0 0 #e74c3c;
+  background: none repeat scroll 0 0 #16a085;
   text-shadow: none;
   box-shadow: none;
   color: #FFF;

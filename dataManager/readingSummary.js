@@ -134,6 +134,7 @@ function sumSeriesData(seriesData)
 function summaryChosen()
 {
     let table = document.getElementById("storageListTable");
+    // table.style.display='none'
     let rows = table.getElementsByTagName("tr");
     let legendData = []
     for (i=0; i<rows.length; i++){
@@ -149,6 +150,8 @@ function summaryChosen()
 }
 function summaryAll()
 {
+    // let table = document.getElementById("storageListTable");
+    // table.style.display='none'
     let rmHistorySet = localStorage.getItem('rmHistorySet')
    
     rmHistorySet = JSON.parse(rmHistorySet)
