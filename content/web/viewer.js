@@ -162,6 +162,7 @@ function getViewerConfiguration() {
       abstractAll: document.getElementById('abstractAll'),
       abstractMarked: document.getElementById('abstractMarked'),
       abstractClosed: document.getElementById('abstractClosed'),
+      abstractFind: document.getElementById('abstractFind'),
       next: document.getElementById('next'),
       zoomIn: document.getElementById('zoomIn'),
       zoomOut: document.getElementById('zoomOut'),
@@ -1735,6 +1736,7 @@ var PDFViewerApplication = {
     eventBus.on('abstractAll', webViewerAbstractAll);
     eventBus.on('abstractMarked', webViewerAbstractMarked);
     eventBus.on('abstractClosed', webViewerAbstractClosed);
+    eventBus.on('abstractFind', webViewerAbstractFind);
     eventBus.on('zoomin', webViewerZoomIn);
     eventBus.on('zoomout', webViewerZoomOut);
     eventBus.on('zoomreset', webViewerZoomReset);
@@ -1823,6 +1825,7 @@ var PDFViewerApplication = {
     eventBus.off('abstractAll', webViewerAbstractAll);
     eventBus.off('abstractMarked', webViewerAbstractMarked);
     eventBus.off('abstractClosed', webViewerAbstractClosed);
+    eventBus.off('abstractFind', webViewerAbstractFind);
     eventBus.off('zoomin', webViewerZoomIn);
     eventBus.off('zoomout', webViewerZoomOut);
     eventBus.off('zoomreset', webViewerZoomReset);
@@ -2142,6 +2145,9 @@ function webViewerAbstractMarked() {
 }
 function webViewerAbstractClosed() {
   PDFViewerApplication.abstract('closed');
+}
+function webViewerAbstractFind() {
+  PDFViewerApplication.abstract('Find');
 }
 function webViewerZoomIn() {
   PDFViewerApplication.zoomIn();
@@ -13295,6 +13301,12 @@ function () {
         eventBus.dispatch('abstract', {
           source: self,
           state:'abstractClosed'
+        });
+      });
+      items.abstractFind.addEventListener('click', function () {
+        eventBus.dispatch('abstract', {
+          source: self,
+          state:'abstractFind'
         });
       });
       items.mark.addEventListener('click', function () {

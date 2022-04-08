@@ -126,17 +126,22 @@ See https://github.com/adobe-type-tools/cmap-resources
             <div id="secondaryToolbarButtonContainer">
 
 
-              <button id="abstractAll" class="secondaryToolbarButton " title="display all notes" tabindex="56">
-                显示所有摘要
+              <button id="abstractAll" class="secondaryToolbarButton " tabindex="56">
+                <span data-l10n-id="abstractAll_label">display all notes</span>
               </button>
-              <button id="abstractMarked" class="secondaryToolbarButton " title="display notes of marked pages"
-                tabindex="57">
-                显示带标记摘要
+              <button id="abstractMarked" class="secondaryToolbarButton "tabindex="57">
+                <span data-l10n-id="abstractMarked_label">display notes of marked pages</span>
               </button>
-              <button id="abstractClosed" class="secondaryToolbarButton " title="hide all notes"
-                tabindex="57">
-                隐藏所有摘要
+              <button id="abstractClosed" class="secondaryToolbarButton "tabindex="57">
+                <span data-l10n-id="abstractClosed_label">hide all notes</span>
               </button>
+              <input id="abstractFindInput" class="secondaryToolbarInput " title="Find" placeholder="Input to Find in notes…" tabindex="91"
+              data-l10n-id="abstractFind_input">
+              <button id="abstractFind" class="secondaryToolbarButton abstractFind" title="Find in notes"
+                tabindex="57" data-l10n-id="abstractFind">
+                <span data-l10n-id="abstractFind_label">search</span>
+              </button>
+
 
 
             </div>

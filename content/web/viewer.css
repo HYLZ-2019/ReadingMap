@@ -948,6 +948,7 @@ html[dir='rtl'] .splitToolbarButton > .toolbarButton {
 
 .toolbarButton,
 .secondaryToolbarButton,
+.secondaryToolbarInput,
 .overlayButton {
   border: 0 none;
   background: none;
@@ -964,6 +965,7 @@ html[dir='rtl'] .splitToolbarButton > .toolbarButton {
 
 .toolbarButton[disabled],
 .secondaryToolbarButton[disabled],
+.secondaryToolbarInput[disabled],
 .overlayButton[disabled] {
   opacity: .5;
 }
@@ -1051,6 +1053,7 @@ html[dir='rtl'] .splitToolbarButtonSeparator {
 .toolbarButton,
 .dropdownToolbarButton,
 .secondaryToolbarButton,
+.secondaryToolbarInput,
 .overlayButton {
   min-width: 16px;
   padding: 2px 6px 0;
@@ -1083,6 +1086,7 @@ html[dir='rtl'] .dropdownToolbarButton {
 .toolbarButton:focus,
 .dropdownToolbarButton,
 .overlayButton,
+.secondaryToolbarInput,
 .secondaryToolbarButton:hover,
 .secondaryToolbarButton:focus {
   background-color: hsla(0,0%,0%,.12);
@@ -1204,6 +1208,7 @@ html[dir='rtl'] #findNext {
 }
 
 .toolbarButton::before,
+.secondaryToolbarInput::before,
 .secondaryToolbarButton::before {
   /* All matching images have a size of 16x16
    * All relevant containers have a size of 32x25 */
@@ -1217,6 +1222,13 @@ html[dir="ltr"] .secondaryToolbarButton::before {
   left: 4px;
 }
 html[dir="rtl"] .secondaryToolbarButton::before {
+  right: 4px;
+}
+
+html[dir="ltr"] .secondaryToolbarInput::before {
+  left: 4px;
+}
+html[dir="rtl"] .secondaryToolbarInput::before {
   right: 4px;
 }
 
@@ -1360,6 +1372,31 @@ html[dir='rtl'] .toolbarButton.pdfSidebarNotification::after {
   min-width: 100%;
   white-space: normal;
 }
+
+.secondaryToolbarButton.abstractFind {
+  position: absolute;
+  left:75%;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  height: 30px;
+  /* min-height: 25px; */
+  width: 15px;
+  overflow: 'hidden';
+  min-width: 23%;
+  /* white-space: normal; */
+}
+
+.secondaryToolbarInput {
+  position: relative;
+  margin: 0 0 4px 0;
+  padding: 3px 0 1px 0;
+  height: 25px;
+  min-height: 25px;
+  /* width: auto; */
+  width: 60%;
+  white-space: normal;
+}
+
 html[dir="ltr"] .secondaryToolbarButton {
   padding-left: 24px;
   text-align: left;
@@ -1368,6 +1405,24 @@ html[dir="rtl"] .secondaryToolbarButton {
   padding-right: 24px;
   text-align: right;
 }
+html[dir="ltr"] .secondaryToolbarButton.abstractFind {
+  padding-left: 10px;
+  text-align: left;
+}
+html[dir="rtl"] .secondaryToolbarButton.abstractFind {
+  padding-right: 0px;
+  text-align: right;
+}
+
+html[dir="ltr"] .secondaryToolbarInput {
+  padding-left: 24px;
+  text-align: left;
+}
+html[dir="rtl"] .secondaryToolbarInput {
+  padding-right: 24px;
+  text-align: right;
+}
+
 html[dir="ltr"] .secondaryToolbarButton.bookmark {
   padding-left: 27px;
 }
@@ -2034,6 +2089,13 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
     left: 186px;
   }
 
+  html[dir='ltr'] .secondaryToolbarInput::before {
+    left: -2px;
+  }
+  html[dir='rtl'] .secondaryToolbarInput::before {
+    left: 186px;
+  }
+  
   .toolbarField.pageNumber.visiblePageIsLoading,
   #findInput[data-status="pending"] {
     background-image: url(images/loading-small@2x.png);

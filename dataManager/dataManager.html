@@ -2,6 +2,7 @@
     <head>
         <meta charset="utf-8"/>
         <title>ReadingMap Data Manager</title>
+        <script src="../content/web/translate.js" ></script>
         <script src="../content/web/readingMapClasses.js" ></script>
         <script src="../content/web/memoryManagement.js" ></script>
         <script src="dataManager.js"></script>
@@ -10,12 +11,27 @@
     <body>
         <h1>ReadingMap Data Manager</h1>
         <div id="operationButtons">
-            <button id="showBrowserData">查看当前数据概览</button>
-            <button id="openLocalData">查看本地数据概览</button>
-            <button id="exportChosen">导出选中数据并下载</button>
-            <button id="importChosen">导入选中数据并与浏览器数据合并</button>
-            <button id="deleteChosen">从浏览器删除选中的数据</button>
-            <button id="mergeFiles">合并两个本地.rmrf文件</button>
+            <button id="showBrowserData" >
+                <span data-l10n-id="showBrowserData_label">Show Browser Data</span>
+            </button>
+            <button id="openLocalData" >
+                <span data-l10n-id="openLocalData_label">Show Local Data</span>
+            </button>
+            <!-- TODO(HYLZ) -->
+            <button id="exportChosen"> 
+                <span data-l10n-id="exportChosen_label">English:导出选中数据并下载</span> 
+                <!-- 导出选中数据并下载 -->
+            </button>
+            <!-- TODO(HYLZ) -->
+            <button id="importChosen">
+                <span data-l10n-id="importChosen_label">English:导入选中数据并与浏览器数据合并</span>
+            </button>
+            <button id="deleteChosen">
+                <span data-l10n-id="deleteChosen_label">English:从浏览器删除选中的数据</span>
+            </button>
+            <button id="mergeFiles">
+                <span data-l10n-id="mergeFiles_label">Merge Two Local .rmrf Files</span>
+            </button>
             
         </div>
         <div id="uploadArea">
@@ -36,7 +52,9 @@
         <div id="showConflictArea">
             <div id="conflictNumber"></div>
             <table id="conflictTable"></table>
-            <button id="confirmMerge">确认合并</button>
+            <button id="confirmMerge">
+                <span data-l10n-id="comfirmMerge_label">Confirm to Merge</span>
+            </button>
         </div>
 
     </body>
