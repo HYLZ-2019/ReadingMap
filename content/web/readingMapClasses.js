@@ -178,7 +178,6 @@ class ReadingMapMetadata {
             title = url;
           }
         }
-        console.log("title!!!!!!!!!!!!!!!");
         console.log(title);
         return title;
     }

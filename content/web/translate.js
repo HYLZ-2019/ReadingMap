@@ -8,6 +8,7 @@ document.webL10n = function (window, document, undefined) {
     var gAsyncResourceLoading = true;
   
     function getL10nResourceLinks() {
+      let x = document.querySelectorAll('link[type="application/l10n"]');
       return document.querySelectorAll('link[type="application/l10n"]');
     }
   
@@ -202,6 +203,7 @@ document.webL10n = function (window, document, undefined) {
         var dict = getL10nDictionary();
   
         if (dict && dict.locales && dict.default_locale) {
+          console.log(dict.default_locale);
           console.log('using the embedded JSON directory, early way out');
           gL10nData = dict.locales[lang];
   
@@ -822,3 +824,8 @@ document.webL10n = function (window, document, undefined) {
       }
     };
   }(window, document);
+
+window.addEventListener("load", function(){
+  document.webL10n.setLanguage(navigator.language);
+  document.webL10n.ready(document.webL10n.translate);
+});

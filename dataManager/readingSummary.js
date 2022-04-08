@@ -1,10 +1,8 @@
-function readingSummary(legendData) {
+function readingSummary(legendData,rmHistorySet) {
+    // console.log(rmHistorySet)
     document.getElementById('summaryChart1').style.display='flex'
     document.getElementById('summaryChart2').style.display='flex'
-    // let rmHistorySet=load('rmHistorySet')
-    let rmHistorySet = localStorage.getItem('rmHistorySet')
-    // console.log(rmHistorySet)
-    rmHistorySet = JSON.parse(rmHistorySet)
+
     let xAxisData = []
     let seriesData = []
 
@@ -143,6 +141,7 @@ function sumSeriesData(seriesData)
 }
 function summaryChosen()
 {
+    if (uploadedStorage == undefined) return
     let table = document.getElementById("storageListTable");
     // table.style.display='none'
     let rows = table.getElementsByTagName("tr");
@@ -155,7 +154,8 @@ function summaryChosen()
             legendData.push(title);
         }
     }
-    readingSummary(legendData)
+    // console.log(uploadedStorage)
+    readingSummary(legendData,JSON.parse(uploadedStorage.rmHistorySet))
 
 }
 function summaryAll()
@@ -176,7 +176,8 @@ function summaryAll()
             }
         }
     }
-    readingSummary(legendData)
+   
+    readingSummary(legendData,rmHistorySet)
     
 }
 // readingSummary()
