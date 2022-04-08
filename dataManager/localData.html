@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="dataManager.css">
         <link rel="stylesheet" href="bootstrap.css">
 		<link rel="stylesheet" href="main-green.css">
+        <link type="application/l10n" href="../content/web/locale/locale.properties">
     </head>
     <body>
         <div class="section section-breadcrumbs">
@@ -43,7 +44,8 @@
         <div id="uploadArea">
             <input id="uploadButton" type="file"/>
         </div>
-        
+        <div id="summaryChart1" style="left:10%; width:80% ; height:400px"></div>
+        <div id="summaryChart2" style="left:10%; width:80% ; height:400px"></div>
         <div id="storageList">
             <div id="totalSize"></div>
             <div id="tableToolbar">
@@ -51,8 +53,7 @@
             </div>
             <table id="storageListTable"></table>
         </div>
-        <div id="summaryChart1" style="left:10%; width:80% ; height:400px"></div>
-        <div id="summaryChart2" style="left:10%; width:80% ; height:400px"></div>
+        
         <div id="showConflictArea">
             <div id="conflictNumber"></div>
             <table id="conflictTable"></table>
