@@ -203,6 +203,7 @@ document.webL10n = function (window, document, undefined) {
         var dict = getL10nDictionary();
   
         if (dict && dict.locales && dict.default_locale) {
+          console.log(dict.default_locale);
           console.log('using the embedded JSON directory, early way out');
           gL10nData = dict.locales[lang];
   
