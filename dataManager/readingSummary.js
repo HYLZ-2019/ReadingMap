@@ -52,7 +52,7 @@ function readingSummary(legendData,rmHistorySet) {
             left: 'center',
         },
         tooltip: {
-            trigger: 'axis'
+            // trigger: 'axis'
         },
         // legend: {
         //     data: legendData,
@@ -80,6 +80,7 @@ function readingSummary(legendData,rmHistorySet) {
             data:xAxisData
         },
         yAxis: {
+            name:'页数',
             type: 'value'
         },
         series: seriesData
@@ -93,7 +94,7 @@ function readingSummary(legendData,rmHistorySet) {
             left: 'center',
         },
         tooltip: {
-            trigger: 'axis'
+            // trigger: 'axis'
         },
         // legend: {
         //     data: legendData,
@@ -121,6 +122,7 @@ function readingSummary(legendData,rmHistorySet) {
             data:xAxisData
         },
         yAxis: {
+            name:'页数',
             type: 'value'
         },
         series: sumSeriesData(seriesData)
