@@ -57,5 +57,10 @@ function showTodayReport() {
     total += book.pages;
   }
   let totalbox = document.getElementById("todayReportTotal");
-  totalbox.innerText = "Total : " + total + "p";
+  if (navigator.language == "zh-CN"){
+    totalbox.innerText = "共：" + total + " 页";
+  }
+  else{
+    totalbox.innerText = "Total : " + total + "p";
+  }
 }

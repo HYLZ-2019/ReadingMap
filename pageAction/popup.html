@@ -24,17 +24,19 @@ limitations under the License.
     <script src="../content/web/memoryManagement.js"></script>
     <script src="../content/web/readingMapClasses.js"></script>
     <script src="popup.js"></script>
+    <link type="application/l10n" href="../content/web/locale/locale.properties">
+    <script src="../content/web/translate.js"></script>
 </head>
 
 <body contentEditable="plaintext-only" spellcheck="false">
     <div id="todayReport">
-        <div id="booksReadTodayStr">Books read today:</div>
+        <div id="booksReadTodayStr" data-l10n-id="booksReadToday_label">Books read today:</div>
         <div id="todayBookList"></div>
         <div id="todayReportTotal"></div>
     </div>
     <div id="popup_buttons">
-        <button id="optionsButton" type="button"> Options </button>
-        <button id="manageDataButton" type="button"> Manage Data</button>
+        <button id="optionsButton" data-l10n-id="options_label" type="button"> Options </button>
+        <button id="manageDataButton" data-l10n-id="manageData_label" type="button"> Manage Data</button>
     </div>
 </body>
 
