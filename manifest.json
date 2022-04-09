@@ -10,7 +10,7 @@
        "run_at": "document_start"
     } ],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-    "description": "A chrome side-bar extension to visualize reading progress. Based on 'PDF-Viewer'. Under construction.",
+    "description": "A chrome side-bar extension to visualize reading progress. Based on 'PDF-Viewer'.",
     "file_browser_handlers": [ {
        "default_title": "Open with PDF Viewer",
        "file_filters": [ "filesystem:*.pdf" ],
@@ -23,7 +23,7 @@
     },
     "incognito": "split",
     "manifest_version": 2,
-    "name": "ReadingMap (PDF Viewer Modified)",
+    "name": "ReadingMap",
     "options_page": "options/options.html",
     "options_ui": {
        "chrome_style": true,
