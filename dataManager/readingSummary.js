@@ -1,3 +1,4 @@
+
 function readingSummary(legendData,rmHistorySet) {
     console.log(legendData)
     document.getElementById('summaryChart1').style.display='flex'
@@ -43,7 +44,7 @@ function readingSummary(legendData,rmHistorySet) {
         }
 
     }
-    // console.log(seriesData)
+    console.log(seriesData)
 
     var summaryChart = echarts.init(document.getElementById('summaryChart1'));
     summaryChart.setOption( {
@@ -84,7 +85,7 @@ function readingSummary(legendData,rmHistorySet) {
             type: 'value'
         },
         series: seriesData
-    });
+    },notMerge=true);
 
     
     summaryChart = echarts.init(document.getElementById('summaryChart2'));
@@ -126,7 +127,7 @@ function readingSummary(legendData,rmHistorySet) {
             type: 'value'
         },
         series: sumSeriesData(seriesData)
-    });
+    },notMerge=true);
 
     
 }
