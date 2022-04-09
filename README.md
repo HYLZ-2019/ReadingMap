@@ -32,8 +32,10 @@ ReadingMap是一个拥有**多功能进度条**的pdf浏览插件。如下图所
    ReadingMap收集了这么多数据，自然也可以完成一些统计工作。例如说，你可以在统计页面查看自己每天读了多少页pdf：
    
    <div align="center">
-       <img src="./pics/statistics.png" width="80%">
-   </div>你可以从这些数据中回顾你这一周都干了些什么，~~并且用截图发朋友圈~~。
+       <img src="./pics/barchart.png" width="80%">
+   </div>
+   
+   你可以从这些数据中回顾你这一周都干了些什么，~~并且用截图发朋友圈~~。
    
 2. ##### 数据的导入、导出、合并
    
