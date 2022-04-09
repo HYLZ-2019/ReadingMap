@@ -162,27 +162,32 @@ function showStorageTable(storage, table, origin){
     
     let fingerprint = document.createElement("th");
     fingerprint.setAttribute("class", "fingerprintCol");
+    fingerprint.setAttribute("data-l10n-id", "fileFingerprint_label");
     fingerprint.innerText = "File fingerprint";
     row.appendChild(fingerprint);
 
     let title = document.createElement("th");
     title.setAttribute("class", "titleCol");
+    title.setAttribute("data-l10n-id", "title_label");
     title.innerText = "File title";
     row.appendChild(title);
 
     let path = document.createElement("th");
     path.setAttribute("class", "pathCol");
+    path.setAttribute("data-l10n-id", "path_label");
     path.innerText = "File path";
     row.appendChild(path);
 
     let firstpagenote = document.createElement("th");
     firstpagenote.setAttribute("class", "firstpagenoteCol");
     firstpagenote.innerText = "Notes on first page";
+    firstpagenote.setAttribute("data-l10n-id", "firstpagenote_label");
     row.appendChild(firstpagenote);
 
     let readpages = document.createElement("th");
     readpages.setAttribute("class", "readpagesCol");
     readpages.innerText = "Read pages";
+    readpages.setAttribute("data-l10n-id", "readpages_label");
     row.appendChild(readpages);
 
     // The "/" of "5/10"
@@ -194,22 +199,26 @@ function showStorageTable(storage, table, origin){
     let pages = document.createElement("th");
     pages.setAttribute("class", "pagesCol");
     pages.innerText = "Total pages";
+    pages.setAttribute("data-l10n-id", "totalpages_label");
     row.appendChild(pages);
 
     // Latest timestamp
     let latestTS = document.createElement("th");
     latestTS.setAttribute("class", "latestTSCol");
+    latestTS.setAttribute("data-l10n-id", "latestTS_label");
     latestTS.innerText = "Latest read time";
     row.appendChild(latestTS);
 
     let bookmarks = document.createElement("th");
     bookmarks.setAttribute("class", "bookmarksCol");
+    bookmarks.setAttribute("data-l10n-id", "bookmarkcnt_label");
     bookmarks.innerText = "Bookmark count";
     row.appendChild(bookmarks);
 
     // How much space tracing it takes up.
     let space = document.createElement("th");
     space.setAttribute("class", "spaceCol");
+    space.setAttribute("data-l10n-id", "space_label");
     space.innerText = "Space used";
     row.appendChild(space);
 
@@ -464,10 +473,10 @@ function showConflicts(s1, s2, table){
 
     let conflictNumber = document.getElementById("conflictNumber");
     if (conflictList.length == 0){
-        conflictNumber.innerText = "要合并的数据没有冲突~";
+        conflictNumber.innerText = navigator.language=="zh-CN"?"要合并的数据没有冲突~":"No conflict detected from merge.";
     }
     else{
-        conflictNumber.innerText = "数据合并中共产生 "+conflictList.length + " 个冲突，请选择合并模式后在清单下方确认。";
+        conflictNumber.innerText = navigator.language=="zh-CN"?"数据合并中共产生 "+conflictList.length + " 个冲突，请选择合并模式后在清单下方确认。":"Please choose merge mode for the " + conflictList.length + " conflicts detected before confirming merge.";
     }
     conflictNumber.scrollIntoView();
     table.innerHTML = "";
@@ -476,33 +485,39 @@ function showConflicts(s1, s2, table){
     let row = document.createElement("tr");
 
     let mergeModeButtonCol = document.createElement("th");
+    mergeModeButtonCol.setAttribute("data-l10n-id", "mergeMode_label");
     mergeModeButtonCol.innerText = "Merge Mode";
     row.append(mergeModeButtonCol);
     
     let fingerprint = document.createElement("th");
     fingerprint.setAttribute("class", "fingerprintCol");
+    fingerprint.setAttribute("data-l10n-id", "fileFingerprint_label");
     fingerprint.innerText = "File fingerprint";
     row.appendChild(fingerprint);
 
     let title = document.createElement("th");
     title.setAttribute("class", "titleCol");
+    title.setAttribute("data-l10n-id", "title_label");
     title.innerText = "File title";
     row.appendChild(title);
 
     let pages = document.createElement("th");
     pages.setAttribute("class", "pagesCol");
+    pages.setAttribute("data-l10n-id", "totalpages_label");
     pages.innerText = "Total pages";
     row.appendChild(pages);
 
     // How much space tracing it takes up.
     let space1 = document.createElement("th");
     space1.setAttribute("class", "spaceCol");
+    space1.setAttribute("data-l10n-id", "space1_label");
     space1.innerText = "Space of 1";
     space1.style.backgroundColor = leftcolor;
     row.appendChild(space1);
 
     let createTime1 = document.createElement("th");
     createTime1.setAttribute("class", "createTimeCol");
+    createTime1.setAttribute("data-l10n-id", "createTime1_label");
     createTime1.innerText = "Creation time of 1";
     createTime1.style.backgroundColor = leftcolor;
     row.appendChild(createTime1);
@@ -510,12 +525,14 @@ function showConflicts(s1, s2, table){
     // How much space tracing it takes up.
     let space2 = document.createElement("th");
     space2.setAttribute("class", "spaceCol");
+    space2.setAttribute("data-l10n-id", "space2_label");
     space2.innerText = "Space of 2";
     space2.style.backgroundColor = rightcolor;
     row.appendChild(space2);
 
     let createTime2 = document.createElement("th");
     createTime2.setAttribute("class", "createTimeCol");
+    createTime2.setAttribute("data-l10n-id", "createTime2_label");
     createTime2.innerText = "Creation time of 2";
     createTime2.style.backgroundColor = rightcolor;
     row.appendChild(createTime2);
@@ -590,6 +607,7 @@ function showConflicts(s1, s2, table){
     }
 
     document.getElementById("showConflictArea").style.display="flex";
+    document.webL10n.translate();
 }
 
 function createMergeModeButton(){
