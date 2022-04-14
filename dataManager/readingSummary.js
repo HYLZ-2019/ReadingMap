@@ -87,7 +87,11 @@ function readingSummary(legendData,rmHistorySet) {
         series: seriesData
     },notMerge=true);
 
-    
+    // for (let i in seriesData){
+    //     let item = seriesData[i]
+    //     item.type='bar'
+    //     item.stack= 'x'
+    //     }
     summaryChart = echarts.init(document.getElementById('summaryChart2'));
     summaryChart.setOption( {
         title: {
@@ -129,12 +133,54 @@ function readingSummary(legendData,rmHistorySet) {
         series: sumSeriesData(seriesData)
     },notMerge=true);
 
-    
+    /*summaryChart = echarts.init(document.getElementById('summaryChart3'));
+    summaryChart.setOption( {
+        title: {
+            text: navigator.language=="zh-CN" ? '阅读进度': 'Reading Percentage',
+            left: 'center',
+        },
+        tooltip: {
+            // trigger: 'axis'
+        },
+        // legend: {
+        //     data: legendData,
+        //     // show:hidden
+        // },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            show: true,
+            feature: {
+              mark: { show: true },
+              dataView: { show: true, readOnly: false },
+            //   magicType: { show: true, type: ['stack','line', 'bar'] },
+              restore: { show: true },
+              saveAsImage: { show: true }
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data:xAxisData
+        },
+        yAxis: {
+            name:'100%',
+            type: 'value'
+        },
+        series: percentSeriesData(seriesData)
+    },notMerge=true);*/
 }
+
 function sumSeriesData(seriesData)
 {
     for (let i in seriesData){
         let item = seriesData[i]
+        // item.type='bar'
+        // item.stack= xAxisData[i]
         for (let j in item.data){
             if (j==0) continue
             item.data[j]+=item.data[j-1]
@@ -180,6 +226,45 @@ function summaryChosenFromBrowser()
     readingSummary(legendData,rmHistorySet)
 
 }
+function readingToday()
+{
+    let rmBooksToday=JSON.parse(localStorage.getItem("rmBooksToday"));
+    let history=rmBooksToday.history
+    let seriesData=[]
+    for (let i in history){
+        seriesData.push({value:history[i].pages,name:history[i].title})
+    }
+    let pieChart = echarts.init(document.getElementById('pieChart'));
+    pieChart.setOption( {
+        title: {
+          text: '今日阅读',
+          subtext:new Date(),
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left'
+        },
+        series: [
+          {
+            name: 'Access From',
+            type: 'pie',
+            radius: '50%',
+            data: seriesData,
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
+      });
+}
 function summaryAll()
 {
     // let table = document.getElementById("storageListTable");
@@ -200,7 +285,7 @@ function summaryAll()
             }
         }
     }
-   
+    readingToday()
     readingSummary(legendData,rmHistorySet)
     
 }
