@@ -1,0 +1,18 @@
+.section{
+    background-color: rgba(34, 34, 34, 0.8);
+    padding: 20px 0;
+    margin-bottom: 10px;
+}
+.section h1{
+    color: #FAFAFA;
+    display: inline;
+    font-size: 35px;
+}
+.section img{
+    display: inline;
+    margin-left: 40%;
+    height: 30px;
+}
+body{
+    background: url(../../page-background.png);
+}

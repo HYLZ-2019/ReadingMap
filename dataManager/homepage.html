@@ -1,49 +1,47 @@
 <html>
-    <head>
-        <meta charset="utf-8"/>
-        <title>ReadingMap Data Manager</title>
-        <script src="../content/web/translate.js" ></script>
-        <script src="../content/web/readingMapClasses.js" ></script>
-        <script src="../content/web/memoryManagement.js" ></script>
-        <script src="dataManager.js"></script>
-        
-        <script src="echarts.min.js"></script>
-        <script src="readingSummary.js"></script>
-        <script src="homepage.js"></script>
-        <link rel="stylesheet" href="dataManager.css">
-        <link rel="stylesheet" href="bootstrap.css">
-		<link rel="stylesheet" href="main-green.css">
-        <link type="application/l10n" href="../content/web/locale/locale.properties">
-    </head>
-    <body>
-        <div class="section section-breadcrumbs">
-            <!-- <img src="../icon38.png" alt=""> -->
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1><span data-l10n-id="dataManager_label">ReadingMap Data Manager</span></h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div id="operationButtons">
-            <button id="showBrowserData" >
-                <span data-l10n-id="showBrowserData_label">Show Browser Data</span>
-            </button>
-            <button id="openLocalData" >
-                <span data-l10n-id="openLocalData_label">Show Local Data</span>
-            </button>
 
-            <button id="mergeFiles">
-                <span data-l10n-id="mergeFiles_label">Merge Two Local .rmrf Files</span>
-            </button>
-            
-        </div>
-<br>
-        <div id ='pieChart' style="left:20%;  width:60% ;height:400px"></div>
-        <div id="summaryChart1" style="left:10%; width:80% ; height:400px ; margin-top:1em;"></div>
-        <div id="summaryChart2" style="left:10%; width:80% ; height:400px"></div>
-        <!-- <div id="summaryChart3" style="left:10%; width:80% ; height:400px"></div> -->
-    </body>
+<head>
+    <meta charset="utf-8" />
+    <title>ReadingMap Data Manager</title>
+    <script src="../content/web/translate.js"></script>
+    <script src="../content/web/readingMapClasses.js"></script>
+    <script src="../content/web/memoryManagement.js"></script>
+    <script src="dataManager.js"></script>
+
+    <script src="echarts.min.js"></script>
+    <script src="readingSummary.js"></script>
+    <script src="homepage.js"></script>
+    <link rel="stylesheet" href="dataManager.css">
+    <!-- <link rel="stylesheet" href="bootstrap.css"> -->
+    <link rel="stylesheet" href="section.css">
+    <link type="application/l10n" href="../content/web/locale/locale.properties">
+</head>
+
+<body>
+    <div class="section ">
+        <img src="../icon48.png" alt="">
+        <h1><span data-l10n-id="dataManager_label">ReadingMap Data Manager</span></h1>
+
+    </div>
+
+    <div id="operationButtons">
+        <button id="showBrowserData">
+            <span data-l10n-id="showBrowserData_label">Show Browser Data</span>
+        </button>
+        <button id="openLocalData">
+            <span data-l10n-id="openLocalData_label">Show Local Data</span>
+        </button>
+
+        <button id="mergeFiles">
+            <span data-l10n-id="mergeFiles_label">Merge Two Local .rmrf Files</span>
+        </button>
+
+    </div>
+    <br>
+    <div id='pieChart' style="left:20%;  width:60% ;height:400px"></div>
+    <div id="summaryChart1" style="left:10%; width:80% ; height:400px ; margin-top:1em;"></div>
+    <div id="summaryChart2" style="left:10%; width:80% ; height:400px"></div>
+    <!-- <div id="summaryChart3" style="left:10%; width:80% ; height:400px"></div> -->
+</body>
+
 </html>
