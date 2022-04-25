@@ -250,7 +250,7 @@ function readingToday()
         },
         series: [
           {
-            name: 'Access From',
+            name: '今日页数',
             type: 'pie',
             radius: '50%',
             data: seriesData,
