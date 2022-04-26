@@ -5,7 +5,7 @@
 │  manifest.json
 │  page-background.png
 │  pdfHandler-vcros.js
-│  pdfHandler.html          #pdf打开主页
+│  pdfHandler.html          #
 │  pdfHandler.js
 │  preferences_schema.json
 │  preserve-referer.js
@@ -37,20 +37,20 @@
 │      └─locale
 │ 
 │
-├─dataManager
-│      browserData.html
-│      browserData.js
-│      dataManager.css
-│      dataManager.js
-│      echarts.min.js
-│      homepage.html
-│      homepage.js
-│      localData.html
-│      localData.js
-│      mergeFiles.html
-│      mergeFiles.js
-│      readingSummary.js
-│      section.css
+├─dataManager               #数据管理
+│      browserData.html     #浏览器数据管理界面
+│      browserData.js       #浏览器数据管理js
+│      dataManager.css      #数据管理组件css
+│      dataManager.js       #数据管理组件js
+│      echarts.min.js       #第三方开源库echarts
+│      homepage.html        #主页界面
+│      homepage.js          #主页js
+│      localData.html       #本地数据管理界面
+│      localData.js         #本地数据管理js
+│      mergeFiles.html      #数据合并界面
+│      mergeFiles.js        #数据合并js
+│      readingSummary.js    #阅读报告js
+│      section.css          #导航栏css
 │
 ├─doc
 │      backlog.xlsx
