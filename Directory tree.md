@@ -3,16 +3,16 @@
 │  contentstyle.css
 │  extension-router.js
 │  manifest.json            #配置文件
-│  page-background.png
+│  page-background.png  # 磨砂质感的背景
 │  pdfHandler-vcros.js
 │  pdfHandler.html          #应用进程的后台运行环境
 │  pdfHandler.js
-│  preferences_schema.json
-│  preserve-referer.js
-│  restoretab.html
-│  restoretab.js
-│  suppress-update.js
-│  upgradeOldData.js
+│  preferences_schema.json  # PDF Viewer的设置选项信息
+│  preserve-referer.js  # 记录用户的请求头，让PDF Viewer可以访问到用户打开的网络pdf资源
+│  restoretab.html  
+│  restoretab.js    # PDF Viewer关于恢复页面过程的补丁
+│  suppress-update.js   # 让PDF Viewer等到所有已打开的pdf均已关闭之后再进行版本更新
+│  upgradeOldData.js    # 用于迁移旧版本ReadingMap产生的格式不同的数据
 │
 ├─content
 │  ├─build                  #第三方库pdf.js
@@ -52,30 +52,30 @@
 │      section.css          #导航栏css
 │      echarts.min.js       #第三方开源库echarts
 │
-├─doc
+├─doc   # 开发文档
 │      backlog.xlsx
 │
-├─options
+├─options   # PDF Viewer的设置页面
 │      migration.js
 │      options.css
 │      options.html
 │      options.js
 │      rmOptions.js
 │
-├─pageAction
+├─pageAction    # ReadingMap的控制坞
 │      background.js
 │      popup.css
 │      popup.html
 │      popup.js
 │
-├─pics
+├─pics  # 文档中的图片
 │
-├─readingSummary
+├─readingSummary    # ReadingMap统计图表功能
 │      echarts.min.js
 │      readingSummary.html
 │      readingSummary.js
 │
-└─rmImages
+└─rmImages  # 界面中的图片素材
     │  add.png
     │  cycle_eye.png
     │  overwrite.png
