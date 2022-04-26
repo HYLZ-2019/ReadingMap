@@ -3,16 +3,16 @@
 │  contentstyle.css
 │  extension-router.js
 │  manifest.json            #配置文件
-│  page-background.png  # 磨砂质感的背景
+│  page-background.png      #磨砂质感的背景
 │  pdfHandler-vcros.js
 │  pdfHandler.html          #应用进程的后台运行环境
 │  pdfHandler.js
-│  preferences_schema.json  # PDF Viewer的设置选项信息
-│  preserve-referer.js  # 记录用户的请求头，让PDF Viewer可以访问到用户打开的网络pdf资源
+│  preferences_schema.json  #PDF Viewer的设置选项信息
+│  preserve-referer.js      #记录用户的请求头，让PDF Viewer可以访问到用户打开的网络pdf资源
 │  restoretab.html  
-│  restoretab.js    # PDF Viewer关于恢复页面过程的补丁
-│  suppress-update.js   # 让PDF Viewer等到所有已打开的pdf均已关闭之后再进行版本更新
-│  upgradeOldData.js    # 用于迁移旧版本ReadingMap产生的格式不同的数据
+│  restoretab.js            #PDF Viewer关于恢复页面过程的补丁
+│  suppress-update.js       #让PDF Viewer等到所有已打开的pdf均已关闭之后再进行版本更新
+│  upgradeOldData.js        #用于迁移旧版本ReadingMap产生的格式不同的数据
 │
 ├─content
 │  ├─build                  #第三方库pdf.js
