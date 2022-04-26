@@ -310,7 +310,7 @@ function showSomeAbstracts(state) {
         return
     }
     // flag = (flag + 1) % 3;
-    for (let i = 0; i <= pdfMetadata.pages; i++) {
+    for (let i = 1; i <= pdfMetadata.pages; i++) {
         checkAbstract(i, state);
     }
 }

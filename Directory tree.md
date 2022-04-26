@@ -2,10 +2,10 @@
 │  contentscript.js
 │  contentstyle.css
 │  extension-router.js
-│  manifest.json
+│  manifest.json            #配置文件
 │  page-background.png
 │  pdfHandler-vcros.js
-│  pdfHandler.html          #
+│  pdfHandler.html          #应用进程的后台运行环境
 │  pdfHandler.js
 │  preferences_schema.json
 │  preserve-referer.js
@@ -15,18 +15,18 @@
 │  upgradeOldData.js
 │
 ├─content
-│  ├─build
+│  ├─build                  #第三方库pdf.js
 │  │      pdf.js
 │  │      pdf.worker.js
 │  │
 │  └─web
 │      │  debugger.js
-│      │  memoryManagement.js
-│      │  readingMap.css
+│      │  memoryManagement.js   #内存管理
+│      │  readingMap.css        #ReadingMap核心功能
 │      │  readingMap.js
 │      │  readingMapClasses.js
 │      │  translate.js
-│      │  viewer.css
+│      │  viewer.css            #PDF浏览视图
 │      │  viewer.html
 │      │  viewer.js
 │      │
@@ -34,7 +34,7 @@
 │      │
 │      ├─images
 │      │
-│      └─locale
+│      └─locale             #语言库
 │ 
 │
 ├─dataManager               #数据管理
@@ -42,7 +42,6 @@
 │      browserData.js       #浏览器数据管理js
 │      dataManager.css      #数据管理组件css
 │      dataManager.js       #数据管理组件js
-│      echarts.min.js       #第三方开源库echarts
 │      homepage.html        #主页界面
 │      homepage.js          #主页js
 │      localData.html       #本地数据管理界面
@@ -51,6 +50,7 @@
 │      mergeFiles.js        #数据合并js
 │      readingSummary.js    #阅读报告js
 │      section.css          #导航栏css
+│      echarts.min.js       #第三方开源库echarts
 │
 ├─doc
 │      backlog.xlsx
