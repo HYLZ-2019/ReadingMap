@@ -240,11 +240,11 @@ function rmInitializeBar() {
     bar.appendChild(mark);
 
     // Draw all markers added by user.
-    for (let i = 0; i <= pdfMetadata.pages; i++) {
+    for (let i = 1; i <= pdfMetadata.pages; i++) {
         bar.appendChild(rmDrawMarker(i, pdfRecord.markers[i] ? 'visible' : 'hidden'));
     }
 
-    for (let i = 0; i <= pdfMetadata.pages; i++) {
+    for (let i = 1; i <= pdfMetadata.pages; i++) {
         bar.appendChild(rmDrawAbstract(i, 'hidden'));
         bar.appendChild(rmDrawAbstractPoint(i, 'hidden'));
     }
