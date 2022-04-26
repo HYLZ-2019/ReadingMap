@@ -1,11 +1,11 @@
-
+```
 │  contentscript.js
 │  contentstyle.css
 │  extension-router.js
 │  manifest.json
 │  page-background.png
 │  pdfHandler-vcros.js
-│  pdfHandler.html
+│  pdfHandler.html          #pdf打开主页
 │  pdfHandler.js
 │  preferences_schema.json
 │  preserve-referer.js
@@ -87,3 +87,4 @@
     └─markers
             defaultMarker.png
             Marker.png
+```
