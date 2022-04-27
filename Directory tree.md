@@ -22,7 +22,7 @@ ReadingMap流程概览如下图所示。
    <!-- <div align="center">
        <img src="./pics/intro.jpg" width="100%">
    </div> -->
-![](./pics/intro.jpg)
+![](./pics/1.png)
 
 ### 文件结构与说明
 
