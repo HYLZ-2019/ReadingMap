@@ -11,7 +11,7 @@
 
 ### 第三方开源组件
 
-该产品使用的第三方开源组件有[PDF.js](https://github.com/mozilla/pdf.js)和[Echarts.js](https://echarts.apache.org/zh/index.html)。该产品的部分功能以PDF Viewer为基础，PDF Viewer是一款基于pdf.js的Chrome浏览器插件，它会在用户浏览pdf文件时用pdf.js渲染出的结果替代浏览器原生解析器生成的结果。第三方开源组件均遵循Apache-2.0协议。
+    该产品使用的第三方开源组件有[PDF.js](https://github.com/mozilla/pdf.js)和[Echarts.js](https://echarts.apache.org/zh/index.html)。该产品的部分功能以PDF Viewer为基础，PDF Viewer是一款基于pdf.js的Chrome浏览器插件，它会在用户浏览pdf文件时用pdf.js渲染出的结果替代浏览器原生解析器生成的结果。第三方开源组件均遵循Apache-2.0协议。
 
 ### 流程说明
 ReadingMap在浏览器打开时被启用，并在后台监听“打开PDF文件”请求。当PDF在浏览器中打开时，ReadingMap在解析PDF文件的同时，在本地存储资源中查找该文件相关信息，通过整合计算数据将渲染后的PDF文件载入浏览器页面。ReadingMap特色组件会实时监听用户操作，并做出响应，将用户行为数据存储到LoacalStorage中。
@@ -19,7 +19,7 @@ ReadingMap在浏览器打开时被启用，并在后台监听“打开PDF文件�
 ReadingMap流程概览如下图所示。
 
    <div align="center">
-       <img src="./pics/流程图1.jpg" width="100%">
+       <img src="./pics/intro.jpg" width="100%">
    </div>
 
 ### 文件结构与说明
