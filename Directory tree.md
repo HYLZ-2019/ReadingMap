@@ -1,32 +1,29 @@
- # 开发说明
+ # 开发说明书
 
-&nbsp; ReadingMap是一款在浏览器环境下运行的纯前端插件，目前支持Chrome浏览器和Edge浏览器，可离线使用。
+&emsp; ReadingMap是一款在浏览器环境下运行的纯前端插件，目前支持Chrome浏览器和Edge浏览器，使用浏览器原生存储器LocalStorage，支持实时载入和导出数据。
 
 ###  编程语言
-    JavaScript 88%
-    Css 9%
-    Html 3%
-
-### 资源存储
-    使用浏览器原生存储器LocalStorage，支持实时载入和导出数据。
+&emsp; JavaScript 88%
+ &emsp;   Css 9%
+  &emsp;  Html 3%
 
 ### 第三方开源组件
 
-该产品使用的第三方开源组件有[PDF.js](https://github.com/mozilla/pdf.js)和[Echarts.js](https://echarts.apache.org/zh/index.html)。该产品的部分功能以PDF Viewer为基础，PDF Viewer是一款基于pdf.js的Chrome浏览器插件，它会在用户浏览pdf文件时用pdf.js渲染出的结果替代浏览器原生解析器生成的结果。第三方开源组件均遵循Apache-2.0协议。
+&emsp; 该产品使用的第三方开源组件有[PDF.js](https://github.com/mozilla/pdf.js)和[Echarts.js](https://echarts.apache.org/zh/index.html)。该产品的部分功能以PDF Viewer为基础，PDF Viewer是一款基于PDF.js的Chrome浏览器插件，它会在用户浏览PDF文件时用PDF.js渲染出的结果替代浏览器原生解析器生成的结果。第三方开源组件均遵循Apache-2.0协议。
 
 ### 流程说明
-ReadingMap在浏览器打开时被启用，并在后台监听“打开PDF文件”请求。当PDF在浏览器中打开时，ReadingMap在解析PDF文件的同时，在本地存储资源中查找该文件相关信息，通过整合计算数据将渲染后的PDF文件载入浏览器页面。ReadingMap特色组件会实时监听用户操作，并做出响应，将用户行为数据存储到LoacalStorage中。
-当用户进行数据管理时，ReadingMap会对LoacalStorage进行读写操作，以保证数据同步。
-ReadingMap流程概览如下图所示。
+&emsp; ReadingMap在浏览器打开时启动，并在后台监听“打开PDF文件”请求。当PDF文件在浏览器中打开时，ReadingMap解析PDF文件，并且在本地存储资源中查找该文件相关数据，通过整合计算将渲染后的PDF文件载入浏览器页面。ReadingMap特色组件会实时监听用户操作，并做出响应，将用户行为数据存储到LoacalStorage中。
+&emsp; 当用户进行数据管理时，ReadingMap会对LoacalStorage进行读写操作，以保证数据同步。
+&emsp; ReadingMap流程概览如下图所示。
 
-   <!-- <div align="center">
+   <div align="center">
        <img src="./pics/intro.jpg" width="100%">
-   </div> -->
-![](./pics/intro.jpg)
+   </div>
+<!-- ![](./pics/intro.jpg) -->
 
-### 文件结构与说明
 
 ```
+文件结构说明
 │  contentscript.js
 │  contentstyle.css
 │  extension-router.js
