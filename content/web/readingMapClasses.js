@@ -200,6 +200,7 @@ class ReadingMapRecord {
             this.notes=[];
             // An array which records marks,initial value is false
             this.markers=[]
+            // Intialize readTimes/notes/markers
             for (let i=0; i<pages; i++){
                 this.readTimes.push(0);
                 this.notes.push("")
@@ -224,7 +225,7 @@ class ReadingMapRecord {
             this.readTimes = obj.readTimes;
             this.lastTime = obj.lastTime;
             this.markers = obj.markers;
-            this.notes=obj.notes;
+            this.notes = obj.notes;
             this.createTime = obj.createTime;
         }
     }

@@ -1372,15 +1372,35 @@ html[dir='rtl'] .toolbarButton.pdfSidebarNotification::after {
   right: 17px;
 }
 
+html[dir='ltr'] .secondaryToolbarButtonChosenMark.pdfSidebarNotification::after {
+  left: 17px;
+}
+html[dir='rtl'] .secondaryToolbarButtonChosenMark.pdfSidebarNotification::after {
+  right: 17px;
+}
+
 .secondaryToolbarButton {
   position: relative;
   margin: 0 0 4px 0;
   padding: 3px 0 1px 0;
   height: auto;
   min-height: 25px;
-  width: auto;
-  min-width: 100%;
+  width: 80%;
   white-space: normal;
+}
+
+.secondaryToolbarButtonChosenMark{
+  position: absolute;
+  left:75%;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  height: 15px;
+  /* min-height: 25px; */
+  width: 15px;
+  overflow: 'hidden';
+  visibility: hidden;
+  display: inline-block;
+  /* white-space: normal; */
 }
 
 .secondaryToolbarButton.abstractFind {

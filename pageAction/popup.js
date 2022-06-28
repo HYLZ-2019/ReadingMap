@@ -48,19 +48,31 @@ function showTodayReport() {
   let box = document.getElementById("todayBookList");
   let today = load("rmBooksToday");
   let total = 0;
-  for (let i in today.history){
-    let book = today.history[i];
-    let div = document.createElement("div");
-    div.setAttribute("class", "bookToday");
-    div.innerText = book.title + " : " + book.pages + "p";
-    box.appendChild(div);
-    total += book.pages;
+  if (navigator.language == "zh-CN"){
+    for (let i in today.history){
+      let book = today.history[i];
+      let div = document.createElement("div");
+      div.setAttribute("class", "bookToday");
+      div.innerText = book.title + " : " + book.pages + "  页";
+      box.appendChild(div);
+      total += book.pages;
+    }
+  }
+  else{
+    for (let i in today.history){
+      let book = today.history[i];
+      let div = document.createElement("div");
+      div.setAttribute("class", "bookToday");
+      div.innerText = book.title + " : " + book.pages + " pages";
+      box.appendChild(div);
+      total += book.pages;
+    }
   }
   let totalbox = document.getElementById("todayReportTotal");
   if (navigator.language == "zh-CN"){
     totalbox.innerText = "共：" + total + " 页";
   }
   else{
-    totalbox.innerText = "Total : " + total + "p";
+    totalbox.innerText = "Total : " + total + " pages";
   }
 }

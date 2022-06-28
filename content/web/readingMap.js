@@ -176,7 +176,7 @@ function rmUpdate(e) {
 // }
 
 function checkAbstract(pagenum, status = '') {
-    if (status != '') flag = status;
+    // if (status != '') flag = status;
     let abstract = document.querySelector('abstract' + pagenum);
     let abstractPoint = document.querySelector('#rmAbstractPoint' + pagenum);
     abstract.innerText = String(pdfRecord.notes[pagenum - 1]).split('\n')[0];
@@ -301,15 +301,60 @@ function rmDrawAbstractPoint(pagenum, visibility) {
 
 function showSomeAbstracts(state) {
     // console.log(state)
+    let chosenMark = document.querySelectorAll(".secondaryToolbarButtonChosenMark");
     if (state === 'toggle') {
         let abstractButton = document.getElementById("abstractToolbar")
         console.log('abstractButton.style.visibility', abstractButton)
-        if (abstractButton.style.visibility == 'visible')
-            abstractButton.style.visibility = 'hidden'
-        else abstractButton.style.visibility = 'visible'
+        if (abstractButton.style.visibility == 'visible'){
+            abstractButton.style.visibility = 'hidden';
+            chosenMark[0].style.visibility = 'hidden';
+            chosenMark[1].style.visibility = 'hidden';
+            chosenMark[2].style.visibility = 'hidden';
+        }
+        else{
+            abstractButton.style.visibility = 'visible';
+            console.log("flag: "+flag);
+            switch(flag){
+                case 'abstractAll':chosenMark[0].style.visibility = 'visible';break;
+                case 'abstractMarked': chosenMark[1].style.visibility = 'visible';break;
+                default: chosenMark[2].style.visibility = 'visible';break;
+            }
+        } 
+
         return
     }
-    // flag = (flag + 1) % 3;
+
+    switch(state){
+        case 'abstractAll': {
+            flag = 'abstractAll';
+            console.log('abstractAll and show lod');
+            chosenMark[0].style.visibility = 'visible';
+            chosenMark[1].style.visibility = 'hidden';
+            chosenMark[2].style.visibility = 'hidden';
+            break
+        }
+        case 'abstractMarked':{
+            flag = 'abstractMarked';
+            chosenMark[1].style.visibility = 'visible';
+            chosenMark[0].style.visibility = 'hidden';
+            chosenMark[2].style.visibility = 'hidden';
+            break
+        }
+        case 'abstractClosed':{
+            flag = 'abstractClosed';
+            chosenMark[2].style.visibility = 'visible';
+            chosenMark[0].style.visibility = 'hidden';
+            chosenMark[1].style.visibility = 'hidden';
+            break
+        }
+        default:{
+            flag = 'abstractClosed';
+            chosenMark[0].style.visibility = 'hidden';
+            chosenMark[1].style.visibility = 'hidden';
+            chosenMark[2].style.visibility = 'hidden';
+            break
+        }
+    }
     for (let i = 1; i <= pdfMetadata.pages; i++) {
         checkAbstract(i, state);
     }
@@ -348,6 +393,19 @@ function markCurrentPage() {
     // Save the changes.
     save(pdfMetadata.toString(), pdfRecord);
 
+}
+
+
+function removeAllMarkers(){
+    pdfRecord = load(pdfMetadata.toString());
+    for (let i = 0; i < pdfMetadata.pages; i++){
+        let mark = document.querySelector('marker'+i);
+        let abstract = document.querySelector('abstract'+i);
+        pdfRecord.markers[i] = false;
+        mark.stype.visibility = 'hidden'
+        pdfRecord.notes[i] = false;
+    }
+    save(pdfMetadata.toString(), pdfRecord);
 }
 
 
