@@ -1354,6 +1354,10 @@ html[dir="rtl"] #viewOutline.toolbarButton::before {
   content: url(images/toolbarButton-mark.png);
 }
 
+#abstractDownload.toolbarButton::before {
+  content: url(images/toolbarButton-abstractDownload.png);
+}
+
 .toolbarButton.pdfSidebarNotification::after {
   position: absolute;
   display: inline-block;
@@ -2239,6 +2243,10 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
   #mark.toolbarButton::before {
     content: url(images/toolbarButton-mark@2x.png);
   }
+  #abstractDownload.toolbarButton::before {
+    content: url(images/toolbarButton-abstractDownload@2x.png);
+  }
+
   .secondaryToolbarButton.firstPage::before {
     content: url(images/secondaryToolbarButton-firstPage@2x.png);
   }

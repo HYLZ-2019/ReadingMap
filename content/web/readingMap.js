@@ -453,3 +453,19 @@ function checkMemoryUsage() {
         alert('ReadingMap当前已经占用了 ' + MBs + 'MB / 5MB = ' + MBs / 5 + '% 的可用空间，请您尽快前往"数据管理器"中导出数据并清理空间~');
     }
 }
+
+// 下载该文档中的所有摘要
+function downloadAbstracts() {
+    console.log("Abstracts: start to be downloaded");
+    let abstracts = "";
+    for(let i = 0; i < pdfMetadata.pages; i++){
+        if(pdfRecord.notes[i]!=="") abstracts += pdfRecord.notes[i] + "\r\n";
+    }
+    console.log(abstracts);
+    let export_blob = new Blob([abstracts]);
+
+    let temp = document.createElement('a');
+    temp.download = pdfMetadata.title + new Date().toJSON() + "_Abstract.txt";
+    temp.href = window.URL.createObjectURL(export_blob);
+    temp.dispatchEvent(new MouseEvent('click'));
+}

@@ -163,6 +163,7 @@ function getViewerConfiguration() {
       abstractMarked: document.getElementById('abstractMarked'),
       abstractClosed: document.getElementById('abstractClosed'),
       abstractFind: document.getElementById('abstractFind'),
+      abstractDownload: document.getElementById('abstractDownload'),
       next: document.getElementById('next'),
       zoomIn: document.getElementById('zoomIn'),
       zoomOut: document.getElementById('zoomOut'),
@@ -803,10 +804,26 @@ var PDFViewerApplication = {
     let noteBar=document.querySelector(".notebar")
     if (noteBar.style.visibility=='visible')
     noteBar.style.visibility='hidden'
-    else
-      noteBar.style.visibility='visible'
+    else{
+      // 自动收回其他bar
+      noteBar.style.visibility='visible';
+
+      // let findBar = document.querySelector('.findbar doorHanger');
+      // findBar.classList.add('hidden');
+      let abstractBar = document.querySelector(".abstractToolbar");
+      abstractBar.style.visibility = 'hidden';
+      let chosenMark = document.querySelectorAll(".secondaryToolbarButtonChosenMark");
+      chosenMark[0].style.visibility = 'hidden';
+      chosenMark[1].style.visibility = 'hidden';
+      chosenMark[2].style.visibility = 'hidden';
+    }
   },
   abstract: function abstract(state) {
+    // let findBar = document.querySelector('.findbar doorHanger');
+    // findBar.classList.add('hidden');
+
+    let noteBar = document.querySelector(".notebar");
+    noteBar.style.visibility = 'hidden';
     showSomeAbstracts(state);
   },
   // abstractAll: function abstract() {
@@ -821,6 +838,10 @@ var PDFViewerApplication = {
   mark: function mark() {
     console.log("enterviewbookmark");
     markCurrentPage();
+  },
+  abstractDownload: function abstractDownload() {
+    console.log("Download abstracts");
+    downloadAbstracts();
   },
   zoomIn: function zoomIn(ticks) {
     if (this.pdfViewer.isInPresentationMode) {
@@ -1737,6 +1758,7 @@ var PDFViewerApplication = {
     eventBus.on('abstractMarked', webViewerAbstractMarked);
     eventBus.on('abstractClosed', webViewerAbstractClosed);
     eventBus.on('abstractFind', webViewerAbstractFind);
+    eventBus.on('abstractDownload', webViewerAbstractDownload);
     eventBus.on('zoomin', webViewerZoomIn);
     eventBus.on('zoomout', webViewerZoomOut);
     eventBus.on('zoomreset', webViewerZoomReset);
@@ -1826,6 +1848,7 @@ var PDFViewerApplication = {
     eventBus.off('abstractMarked', webViewerAbstractMarked);
     eventBus.off('abstractClosed', webViewerAbstractClosed);
     eventBus.off('abstractFind', webViewerAbstractFind);
+    enevtBus.off('abstractDownload', webViewerAbstractDownload);
     eventBus.off('zoomin', webViewerZoomIn);
     eventBus.off('zoomout', webViewerZoomOut);
     eventBus.off('zoomreset', webViewerZoomReset);
@@ -2148,6 +2171,9 @@ function webViewerAbstractClosed() {
 }
 function webViewerAbstractFind() {
   PDFViewerApplication.abstract('Find');
+}
+function webViewerAbstractDownload() {
+  PDFViewerApplication.abstractDownload();
 }
 function webViewerZoomIn() {
   PDFViewerApplication.zoomIn();
@@ -13311,6 +13337,11 @@ function () {
       });
       items.mark.addEventListener('click', function () {
         eventBus.dispatch('mark', {
+          source: self
+        });
+      });
+      items.abstractDownload.addEventListener('click', function () {
+        eventBus.dispatch('abstractDownload', {
           source: self
         });
       });
