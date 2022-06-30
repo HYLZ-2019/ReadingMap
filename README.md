@@ -182,6 +182,35 @@ ReadingMap是一个拥有**多功能进度条**的pdf浏览插件。如下图所
 
 <div id="changeMarker"></div>
 
+> 新增：
+
+* 用✔显示处于何种模式下，使用友好
+* 控制摘要框和模式选择框不同时出现
+
+<div align="center">
+    <img src="./pics/Usages6newmodes.png" width="50%">
+</div>
+
+
+
+##### 下载所有摘要内容（新增功能）
+
+* 一键下载该文档的所有摘要至txt文件，可在本地编辑使用，满足长文档的摘要记录整理功能
+
+  <div align="center">
+      <img src="./pics/Usages7AbstractDownload.png" width="50%">
+  </div>
+
+* 应用场景：长文阅读Summary、读书笔记等
+
+* 下载示例：
+
+  <div align="center">
+      <img src="./pics/Usages7txtDownload.png" width="50%">
+  </div>
+
+
+
 ##### 跳转
 
 你可以点击多功能进度条的任意位置（例如一个书签，或者一块深绿色的重点区域），直接跳转到对应的页面，实现精准空降。
@@ -245,6 +274,10 @@ ReadingMap对于“读了一页一次”的判定方法是这样的：如果你�
   <div align="center">
       <img src="./pics/ChangeMarker.png" width="50%">
   </div>
+
+> 新增：
+
+* 文件夹\ReadingMap\rmImages\markers新增多种标记可供选择，您也可自行下载好看的图片作为您的书签
 
 
 
